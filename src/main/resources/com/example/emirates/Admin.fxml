@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@admin.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.emirates.AdminController">
+
+    <!-- Title Section -->
+    <VBox alignment="CENTER" layoutX="-181.0" layoutY="50.0" prefWidth="1920.0">
+        <children>
+            <Label fx:id="titleLabel" style="-fx-font-size: 24px; -fx-font-weight: bold;" text="Admin Dashboard" />
+        </children>
+    </VBox>
+
+    <!-- Table Section -->
+    <VBox fx:id="rootPane" alignment="CENTER" layoutX="-170.0" layoutY="150.0" prefWidth="1920.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+        <children>
+            <TableView fx:id="actionTable" maxHeight="600.0" onMouseClicked="#handleActionSelected" prefWidth="800.0">
+                <columns>
+                    <TableColumn fx:id="actionColumn" prefWidth="127.99999237060547" text="Action" />
+                </columns>
+            </TableView>
+        </children>
+    </VBox>
+</AnchorPane>

@@ -1,0 +1,65 @@
+#loginContainer {
+    -fx-background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent white */
+    -fx-padding: 20px;
+    -fx-spacing: 15px;
+    -fx-border-radius: 15px;
+    -fx-background-radius: 15px;
+    -fx-border-color: rgba(201, 33, 39, 0.7); /* Emirates Red border */
+    -fx-border-width: 3px;
+    -fx-font-family: 'Arial', sans-serif;
+    -fx-font-size: 16px;
+    -fx-font-weight: normal;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0, 5, 5); /* Subtle shadow */
+    -fx-alignment: center;
+}
+
+#usernameLabel, #passwordLabel {
+    -fx-font-family: "Arial";
+    -fx-font-size: 16px;
+    -fx-text-fill: #333333; /* Dark gray for readability */
+}
+
+#usernameTextField, #passwordField {
+    -fx-pref-width: 300px;
+    -fx-font-size: 14px;
+    -fx-background-color: rgba(255, 255, 255, 0.8); /* Light transparent white */
+    -fx-border-color: rgba(201, 33, 39, 0.5); /* Emirates Red border */
+    -fx-border-width: 1.5;
+    -fx-padding: 5px;
+    -fx-font-family: "Arial";
+}
+
+#loginBtn2 {
+    -fx-background-color: rgba(201, 33, 39, 0.9); /* Emirates Red */
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-family: "Arial";
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 5px;
+    -fx-font-weight: bold;
+}
+
+#loginBtn2:hover {
+    -fx-background-color: rgba(139, 0, 0, 1); /* Darker Emirates Red on hover */
+}
+
+#registerBtn {
+    -fx-background-color: rgba(201, 33, 39, 0.7); /* Emirates Red (lighter) */
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-family: "Arial";
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 5px;
+    -fx-font-weight: bold;
+}
+
+#registerBtn:hover {
+    -fx-background-color: rgba(139, 0, 0, 0.9); /* Darker Emirates Red */
+}
+
+#loginPane {
+    -fx-background-image: url("/pexels-gyorgy-toth-21175056-9298364.jpg"); /* Use the provided image */
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}

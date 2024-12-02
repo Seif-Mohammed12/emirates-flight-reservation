@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.emirates.MainController">
+  <children>
+    <HBox fx:id="bookingPanel" alignment="CENTER" layoutX="264.8" layoutY="460.0" prefHeight="200.0" prefWidth="1050.0" AnchorPane.leftAnchor="264.8">
+      <children>
+        <GridPane fx:id="bookingGrid" alignment="CENTER" hgap="35.0" prefHeight="188.0" prefWidth="960.0" vgap="10.0">
+          <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="577.4000244140625" minWidth="10.0" prefWidth="350.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="998.2000427246094" minWidth="0.0" prefWidth="350.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="998.2000427246094" minWidth="0.0" prefWidth="350.0" />
+          </columnConstraints>
+          <rowConstraints>
+            <RowConstraints maxHeight="190.60001220703126" minHeight="10.0" prefHeight="49.60003662109375" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="262.599951171875" minHeight="10.0" prefHeight="51.199963378906254" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="308.0000061035156" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+          </rowConstraints>
+          <children>
+            <ComboBox fx:id="depBox" editable="true" prefHeight="60.0" prefWidth="320.0" promptText="Departure Airport" />
+            <ComboBox fx:id="arrBox" editable="true" onAction="#onDestinationSelected" onKeyReleased="#handleKeyRelease" onMouseClicked="#handleMouseClick" prefHeight="60.0" prefWidth="320.0" promptText="Arrival Airport" GridPane.columnIndex="1" />
+            <ComboBox fx:id="classMenu" editable="true" prefHeight="60.0" prefWidth="320.0" promptText="Class" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <MenuButton fx:id="passMenu" alignment="CENTER" mnemonicParsing="false" prefHeight="60.0" prefWidth="320.0" text="Passengers" GridPane.rowIndex="1">
+              <items>
+                <MenuItem mnemonicParsing="false">
+                  <graphic>
+                    <HBox alignment="CENTER" spacing="10.0">
+                      <Label style="-fx-font-size: 18px;" text="Adults" />
+                      <Spinner prefWidth="100.0" style="-fx-font-size: 18px;" />
+                    </HBox>
+                  </graphic>
+                </MenuItem>
+                <MenuItem mnemonicParsing="false">
+                  <graphic>
+                    <HBox alignment="CENTER" spacing="10.0">
+                      <Label style="-fx-font-size: 18px;" text="Children" />
+                      <Spinner prefWidth="100.0" style="-fx-font-size: 18px;" />
+                    </HBox>
+                  </graphic></MenuItem>
+              </items>
+              <font>
+                <Font name="Cambria Bold" size="20.0" />
+              </font>
+            </MenuButton>
+            <MenuButton fx:id="dateMenu" alignment="CENTER" mnemonicParsing="false" prefHeight="60.0" prefWidth="320.0" text="Date (From - To)" GridPane.columnIndex="2">
+              <items>
+                <MenuItem mnemonicParsing="false">
+                  <graphic>
+                    <DatePicker fx:id="dateFrom" onHiding="#refreshDates" promptText="From" />
+                  </graphic>
+                </MenuItem>
+                <MenuItem mnemonicParsing="false">
+                  <graphic>
+                    <DatePicker fx:id="dateBack" onHiding="#refreshDates" promptText="To" />
+                  </graphic>
+                </MenuItem>
+              </items>
+              <font>
+                <Font name="Cambria Bold" size="20.0" />
+              </font>
+            </MenuButton>
+            <Button fx:id="goBtn" mnemonicParsing="false" onAction="#handleGoButton" prefHeight="70.0" prefWidth="70.0" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+          </children>
+          <padding>
+            <Insets top="20.0" />
+          </padding>
+        </GridPane>
+      </children>
+      <padding>
+        <Insets left="15.0" right="15.0" />
+      </padding>
+    </HBox>
+      <VBox alignment="CENTER" layoutX="-564.0" layoutY="181.0" prefHeight="282.0" prefWidth="2686.0">
+         <children>
+          <Label fx:id="titleLabel" text="Book a flight">
+    </Label>
+            <Label fx:id="welcomeLabel" alignment="CENTER" text="Search for Emirates flights and book online. See our routes&#10;and schedules, and discover more about the experience you&#10;can look forward to on board.">
+            </Label>
+         </children>
+      </VBox>
+      <Pane fx:id="toolBarPane" layoutX="-86.0" prefHeight="120.0" prefWidth="2080.0">
+         <children>
+            <MenuBar fx:id="menuBarMain" layoutX="83.0" layoutY="0.0" prefHeight="60.0" prefWidth="1926.0" AnchorPane.topAnchor="0.0">
+              <menus>
+                <Menu fx:id="manageMenu" mnemonicParsing="false" text="MANAGE">
+                     <items>
+                        <Menu fx:id="manageDrop" mnemonicParsing="false"  text="Manage your booking">
+                          <items>
+                            <MenuItem fx:id="viewMenu" mnemonicParsing="false" text="View your booking" />
+                            <MenuItem fx:id="changeMenu" mnemonicParsing="false" text="Change booking" />
+                            <MenuItem fx:id="cancelMenu" mnemonicParsing="false" text="Cancel booking" />
+                          </items>
+                        </Menu>
+                     </items>
+                </Menu>
+                <Menu fx:id="aboutMenu" mnemonicParsing="false" text="ABOUT" />
+              </menus>
+               <padding>
+                  <Insets left="300.0" />
+               </padding>
+            </MenuBar>
+            <Button fx:id="iconBtn" layoutX="179.0" layoutY="-2.0" mnemonicParsing="false" prefHeight="141.0" prefWidth="114.0" />
+            <Button fx:id="loginBtnMain" layoutX="1431.0" layoutY="-2.0" mnemonicParsing="false" onAction="#handleLoginButton" text="LOG IN" />
+            <Button fx:id="searchBtn" layoutX="1440.0" layoutY="70.0" mnemonicParsing="false" text="Search Flights" />
+         </children>
+      </Pane>
+  </children>
+</AnchorPane>

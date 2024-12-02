@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<AnchorPane styleClass="root-pane" stylesheets="@registration.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="com.example.emirates.RegistrationController">
+    <GridPane hgap="15" layoutX="511.0" layoutY="122.0" styleClass="form-grid" vgap="15">
+        <!-- First Name -->
+        <Label styleClass="form-label" text="First Name:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+        <TextField fx:id="firstNameField" promptText="Enter your first name" styleClass="form-field" GridPane.columnIndex="1" GridPane.rowIndex="0">
+            <tooltip>
+                <Tooltip text="Enter your first name. It should contain only letters." />
+            </tooltip>
+        </TextField>
+
+        <!-- Last Name -->
+        <Label styleClass="form-label" text="Last Name:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+        <TextField fx:id="lastNameField" promptText="Enter your last name" styleClass="form-field" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <tooltip>
+                <Tooltip text="Enter your last name. It should contain only letters." />
+            </tooltip>
+        </TextField>
+
+        <!-- Email -->
+        <Label styleClass="form-label" text="Email:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <TextField fx:id="emailField" promptText="Enter your email address" styleClass="form-field" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <tooltip>
+                <Tooltip text="Enter a valid email address (e.g., name@example.com)." />
+            </tooltip>
+        </TextField>
+
+        <!-- Phone Number -->
+        <Label styleClass="form-label" text="Phone Number:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+        <TextField fx:id="phoneField" promptText="Enter your phone number" styleClass="form-field" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <tooltip>
+                <Tooltip text="Enter your phone number with the +20 prefix. E.g., +201234567890." />
+            </tooltip>
+        </TextField>
+
+        <!-- Zip Code -->
+        <Label styleClass="form-label" text="Zip Code:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+        <TextField fx:id="zipCodeField" promptText="Enter your zip code" styleClass="form-field" GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <tooltip>
+                <Tooltip text="Enter your zip code. It should be a 5-digit number." />
+            </tooltip>
+        </TextField>
+
+        <!-- Address -->
+        <Label styleClass="form-label" text="Address:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+        <TextField fx:id="addressField" promptText="Enter your address" styleClass="form-field" GridPane.columnIndex="1" GridPane.rowIndex="5">
+            <tooltip>
+                <Tooltip text="Enter your full address." />
+            </tooltip>
+        </TextField>
+
+        <!-- Username -->
+        <Label styleClass="form-label" text="Username:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+        <TextField fx:id="usernameField" promptText="Enter a username" styleClass="form-field" GridPane.columnIndex="1" GridPane.rowIndex="6">
+            <tooltip>
+                <Tooltip text="minimum of 6 characters, you can only use alphanumeric and underscores." />
+            </tooltip>
+        </TextField>
+
+        <!-- Password -->
+        <Label styleClass="form-label" text="Password:" GridPane.columnIndex="0" GridPane.rowIndex="7" />
+        <PasswordField fx:id="passwordField" promptText="Enter a password" styleClass="form-field" GridPane.columnIndex="1" GridPane.rowIndex="7">
+            <tooltip>
+                <Tooltip text="Preferably minimum 8 characters, containing at least one uppercase, one lowercase, one number, and one special character." />
+            </tooltip>
+        </PasswordField>
+
+        <!-- Buttons -->
+        <Button onAction="#handleRegister" styleClass="primary-button" text="Register" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+        <Button onAction="#goBackToLogin" styleClass="secondary-button" text="Back to Login" GridPane.columnIndex="0" GridPane.rowIndex="8" />
+        <columnConstraints>
+            <ColumnConstraints />
+            <ColumnConstraints />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+        </rowConstraints>
+    </GridPane>
+</AnchorPane>
+

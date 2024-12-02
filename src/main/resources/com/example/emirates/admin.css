@@ -1,0 +1,89 @@
+/* General root styles */
+.root {
+    -fx-font-family: "Arial", sans-serif;
+    -fx-base: #2c3e50;
+    -fx-background-image: url("/pexels-ahmedmuntasir-912050.jpg");
+    -fx-background-size: cover; /* Ensures the image covers the entire area */
+    -fx-background-position: center; /* Centers the image */
+    -fx-padding: 20px;
+    -fx-alignment: center;
+}
+
+/* Title styling for the Admin Dashboard */
+#titleLabel {
+    -fx-font-size: 32px; /* Slightly larger title text */
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-padding: 20px 30px;
+    -fx-background-color: rgba(52, 73, 94, 0.85); /* Semi-transparent to show background */
+    -fx-border-radius: 8px;
+    -fx-border-color: #4a4e5d;
+    -fx-border-width: 2px;
+}
+
+/* TableView for available actions */
+#actionTable {
+    -fx-background-color: rgba(59, 63, 74, 0.8); /* Semi-transparent background */
+    -fx-border-color: #5c6678; /* Metallic border */
+    -fx-border-radius: 5px;
+    -fx-padding: 10px;
+    -fx-selection-bar: #1abc9c;
+    -fx-alignment: center;
+}
+
+#actionColumn {
+    -fx-text-fill: #e1e1e1; /* Light text for clarity */
+    -fx-font-size: 18px; /* Larger text for better readability */
+    -fx-alignment: CENTER;
+    -fx-padding: 12px;
+    -fx-background-color: rgba(74, 78, 93, 0.9); /* Slightly darker semi-transparent shade */
+    -fx-border-color: #5c6678; /* Matching border */
+}
+
+#actionTable .table-row-cell {
+    -fx-alignment: center-left;
+    -fx-padding: 14px;
+    -fx-background-color: rgba(59, 63, 74, 0.8); /* Consistent semi-transparent background */
+    -fx-border-color: #4a4e5d;
+    -fx-cursor: hand;
+    -fx-font-size: 16px; /* Increased text size */
+    -fx-text-fill: #e1e1e1;
+}
+
+#actionTable .table-row-cell:hover {
+    -fx-background-color: rgba(97, 107, 118, 0.9); /* Brighter hover effect */
+}
+
+#actionTable .table-row-cell:pressed {
+    -fx-background-color: rgba(91, 103, 114, 0.9); /* Subtle pressed state */
+}
+
+#actionTable .table-row-cell:focused {
+    -fx-background-color: rgba(26, 188, 156, 0.9); /* Accent for focus */
+    -fx-text-fill: #ffffff;
+}
+
+#actionTable .table-row-cell:selected {
+    -fx-background-color: rgba(22, 160, 133, 0.9); /* Deeper accent */
+    -fx-text-fill: #ffffff;
+}
+
+/* Set colors for different alert levels (if used) */
+.alert {
+    -fx-background-color: rgba(59, 63, 74, 0.8); /* Matches semi-transparent theme */
+    -fx-border-radius: 5px;
+    -fx-padding: 20px;
+    -fx-border-color: #5c6678; /* Metallic border */
+}
+
+.alert .content {
+    -fx-text-fill: #e1e1e1; /* Light gray for visibility */
+    -fx-font-size: 16px; /* Increased font size */
+}
+
+.alert .button {
+    -fx-background-color: #1abc9c; /* Consistent turquoise accent */
+    -fx-text-fill: #ffffff;
+    -fx-border-radius: 5px;
+    -fx-font-size: 16px; /* Larger button text */
+}

@@ -1,0 +1,290 @@
+/* General Styles */
+.root {
+    -fx-font-family: 'Arial', sans-serif;
+    -fx-font-size: 14px;
+    -fx-base: #ffffff;
+}
+
+.flight-card {
+    -fx-background-color: #ffffff;
+    -fx-border-radius: 20px;
+    -fx-padding: 15px;
+    -fx-spacing: 15px;
+    -fx-effect: dropshadow(gaussian, #888, 5, 0, 0, 0);
+    -fx-background-insets: 0;
+    -fx-cursor: hand;
+    -fx-border-color:#D71920;
+    -fx-border-width: 2px;
+    -fx-font-weight: bold;
+    -fx-shadow-highlight-color: #c5c5c5;
+}
+
+.flight-card:hover {
+    -fx-background-color: #f8f8f8;
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+    -fx-border-color:#388e3c;
+    -fx-border-width: 2px;
+    -fx-effect: dropshadow(gaussian, #d2d2d2, 10, 0, 0, 0);
+}
+
+.flight-card .header {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #4e4e4e;
+    -fx-padding-bottom: 10px;
+}
+
+.flight-card .details {
+    -fx-text-fill: #888888;
+}
+
+.flight-card .duration,
+.flight-card .stops {
+    -fx-text-fill: #999999;
+}
+
+.flight-card .pricing-section {
+    -fx-alignment: center-right;
+}
+
+.flight-card .pricing-section .price {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #e4002b; /* Emirates red */
+}
+
+.flight-card .select-button {
+    -fx-background-color: #e4002b; /* Emirates red */
+    -fx-text-fill: white;
+    -fx-border-radius: 5px;
+    -fx-padding: 10px;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-cursor: pointer;
+}
+
+.flight-card .select-button:hover {
+    -fx-background-color: #c80024; /* Darker shade of Emirates red */
+}
+
+/* Pricing Details */
+.flight-card .pricing-section .class-type {
+    -fx-text-fill: #e4002b; /* Emirates red */
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+}
+
+.flight-card .pricing-section .lowest-price {
+    -fx-font-size: 12px;
+    -fx-text-fill: #777;
+}
+
+.flight-card .details-container {
+    -fx-hbox-alignment: center;
+    -fx-spacing: 30px;
+    -fx-padding: 10px 0;
+}
+
+.flight-card .details-container .left, .flight-card .details-container .right {
+    -fx-spacing: 5px;
+}
+
+.flight-card .plane-info {
+    -fx-text-fill: #333;
+    -fx-font-size: 12px;
+}
+
+.flight-card .plane-info .plane-type {
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+}
+
+.flight-card .plane-info .flight-no {
+    -fx-font-style: italic;
+    -fx-text-fill: #777;
+}
+
+/* General Layout for the Card */
+.flight-card .content-container {
+    -fx-alignment: center;
+}
+
+.flight-card .details-container label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333;
+}
+
+.button {
+    -fx-font-family: 'Arial', sans-serif;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-background-radius: 5px;
+    -fx-padding: 10px 20px;
+    -fx-cursor: hand;
+    -fx-alignment: center;
+    -fx-border-width: 2px;
+    -fx-border-color: transparent;
+    -fx-effect: dropshadow(gaussian, #888, 5, 0, 0, 0);
+    -fx-min-width: 120px;
+}
+
+/* Sort Button Styling */
+#sortChoiceBox{
+    -fx-background-color: white; /* Gold color */
+    -fx-text-fill: #333; /* White text */
+    -fx-font-size: 16px; /* Font size */
+    -fx-font-weight: bold; /* Bold font */
+    -fx-padding: 10px 20px; /* Padding around the text */
+    -fx-background-radius: 20px; /* Rounded corners */
+    -fx-border-radius: 20px; /* Rounded corners on border */
+    -fx-border-color: #a77a00; /* Darker gold border */
+    -fx-border-width: 2px; /* Border width */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0, 0, 2); /* Subtle shadow effect */
+    -fx-cursor: hand; /* Pointer cursor on hover */
+    -fx-transition: all 0.3s ease-in-out; /* Smooth transition on hover */
+}
+
+
+/* Hover effect */
+#sortChoiceBox:hover {
+    -fx-background-color: rgba(255, 0, 0, 0.2); /* Darker gold when hovered */
+    -fx-border-color: #c5a100; /* Lighter border color on hover */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 8, 0, 0, 4); /* Stronger shadow effect */
+}
+
+/* Focus effect */
+#sortChoiceBox:focused {
+    -fx-background-color: rgba(0, 255, 0, 0.2); /* Keep the original gold when focused */
+    -fx-border-color: #a77a00; /* Border stays the same */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 5, 0, 0, 5); /* Keep shadow */
+}
+
+/* Class Button Styling (Economy, Business, First) */
+.toggle-button {
+    -fx-min-width: 200px;  /* Increased width for a larger button */
+    -fx-min-height: 50px;  /* Increased height for a larger button */
+    -fx-pref-width: 200px;  /* Set preferred width */
+    -fx-pref-height: 50px;  /* Set preferred height */
+    -fx-background-color: linear-gradient(to bottom, #f1f1f1, #ddd); /* Soft gradient background */
+    -fx-border-radius: 30px;  /* Rounded corners for a modern look */
+    -fx-border-color: #d1d1d1;
+    -fx-border-width: 1px;  /* Thin border */
+    -fx-text-fill: #333;  /* Dark grey text */
+    -fx-font-size: 16px;  /* Larger font size for better readability */
+    -fx-font-weight: bold;  /* Make the text bold */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0, 0, 5);  /* Drop shadow for a modern effect */
+    -fx-alignment: center;  /* Center-align text inside the button */
+    -fx-padding: 10px;  /* Padding around the text to make the button larger */
+}
+.toggle-button:selected {
+    -fx-background-color: #e4002b;  /* Red background when selected */
+    -fx-text-fill: white;
+}
+
+.toggle-button:hover {
+    -fx-background-color: #e1e1e1;  /* Light Grey hover background for better contrast */
+    -fx-border-color: #d1d1d1;
+}
+
+.toggle-button:pressed {
+    -fx-background-color: #e10026;  /* Slightly darker red for pressed */
+}
+
+/* Specific styles for each class button */
+#economyButton {
+    -fx-border-radius: 30px;
+    -fx-background-radius: 30px;
+    -fx-background-color: #333; /* Light Grey */
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+#businessButton {
+    -fx-border-radius: 30px;
+    -fx-background-radius: 30px;
+    -fx-background-color: #388e3c; /* Gold for Business */
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+#firstClassButton {
+    -fx-border-radius: 30px;
+    -fx-background-radius: 30px;
+    -fx-background-color: #D71920;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+#economyButton:selected {
+    -fx-background-color: #222;
+
+}
+
+#businessButton:selected {
+    -fx-background-color: #4caf50;
+
+}
+
+#firstClassButton:selected {
+    -fx-background-color: #f02428;
+
+}
+
+#firstClassButton:hover {
+    -fx-background-color: #b8151b;
+    -fx-cursor: hand;
+}
+#businessButton:hover {
+    -fx-background-color: #2e7430;
+    -fx-cursor: hand;
+}
+
+#economyButton:hover {
+    -fx-background-color: #444;
+    -fx-cursor: hand;
+}
+
+/* Toggle Button Group */
+.button-group {
+    -fx-spacing: 10px;
+    -fx-alignment: center;
+}
+
+.scroll-pane {
+    -fx-border-width: 0;
+    -fx-background-color: transparent; /* Optional: to ensure transparent background */
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent; /* Optional: ensure the viewport is transparent */
+}
+
+.scroll-pane .corner {
+    -fx-background-color: transparent; /* Optional: to hide the corner part */
+}
+.scroll-bar:vertical .thumb, .scroll-bar:horizontal .thumb {
+    -fx-background-color: #D71920; /* Emirates Red for the scroll thumb */
+    -fx-background-radius: 10; /* Rounded corners for the thumb */
+    -fx-padding: 5; /* Space around the thumb for better aesthetics */
+    -fx-pref-width: 10; /* Set width of the vertical scroll bar */
+    -fx-pref-height: 10; /* Set height of the horizontal scroll bar */
+}
+
+.scroll-bar:vertical .track, .scroll-bar:horizontal .track {
+    -fx-background-color: #F5F5F5; /* Light gray track for contrast */
+    -fx-background-radius: 10; /* Rounded corners for the track */
+}
+
+.scroll-bar:vertical:hover .thumb, .scroll-bar:horizontal:hover .thumb {
+    -fx-background-color:#388e3c; /* Emirates Gold on hover */
+}
+
+.scroll-bar:vertical:pressed .thumb, .scroll-bar:horizontal:pressed .thumb {
+    -fx-background-color: #333; /* Dark gray when pressed */
+}
+

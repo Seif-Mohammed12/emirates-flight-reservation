@@ -1,0 +1,51 @@
+FlightNo,DepartureCity,ArrivalCity,DepartureTime,ArrivalTime,Duration,Stops,AircraftDetails,Price
+EK201,Dubai (DXB),New York (JFK),08:00,13:00,14 hrs 0 mins,Non-stop,A380,EGP 45000.00
+EK405,London (LHR),Dubai (DXB),06:15,16:55,7 hrs 40 mins,Non-stop,B777,EGP 35200.00
+EK129,Paris (CDG),Dubai (DXB),11:30,19:50,6 hrs 20 mins,Non-stop,A380,EGP 40800.00
+EK203,Dubai (DXB),Sydney (SYD),15:30,07:20,14 hrs 50 mins,Non-stop,B777,EGP 46500.00
+EK318,New York (JFK),Dubai (DXB),15:40,22:30,12 hrs 50 mins,Non-stop,A380,EGP 50300.00
+EK305,London (LHR),Dubai (DXB),22:00,08:15,7 hrs 15 mins,Non-stop,B777,EGP 39500.00
+EK254,Beirut (BEY),Dubai (DXB),12:45,16:15,3 hrs 30 mins,Non-stop,B777,EGP 28500.00
+EK412,Chicago (ORD),Dubai (DXB),14:30,21:30,12 hrs 0 mins,Non-stop,A380,EGP 42700.00
+EK134,Tokyo (NRT),Dubai (DXB),18:00,23:10,9 hrs 10 mins,Non-stop,A380,EGP 45100.00
+EK125,Zurich (ZRH),Dubai (DXB),10:00,18:00,6 hrs 0 mins,Non-stop,A380,EGP 34000.00
+EK225,Seoul (ICN),Dubai (DXB),16:45,22:00,8 hrs 15 mins,Non-stop,A380,EGP 48000.00
+EK520,San Francisco (SFO),Dubai (DXB),18:40,21:50,15 hrs 10 mins,Non-stop,B777,EGP 53200.00
+EK151,Frankfurt (FRA),Dubai (DXB),07:00,14:15,6 hrs 15 mins,Non-stop,A380,EGP 38000.00
+EK127,Brussels (BRU),Dubai (DXB),13:30,20:30,6 hrs 0 mins,Non-stop,B777,EGP 36500.00
+EK413,Los Angeles (LAX),Dubai (DXB),15:30,20:00,16 hrs 30 mins,Non-stop,B777,EGP 55000.00
+EK511,Miami (MIA),Dubai (DXB),17:20,19:30,15 hrs 10 mins,Non-stop,A380,EGP 51500.00
+EK504,Houston (IAH),Dubai (DXB),20:00,21:30,14 hrs 30 mins,Non-stop,B777,EGP 48000.00
+EK512,Dallas (DFW),Dubai (DXB),18:30,22:00,15 hrs 30 mins,Non-stop,A380,EGP 52500.00
+EK232,Doha (DOH),Dubai (DXB),16:00,17:00,1 hr 0 mins,Non-stop,B777,EGP 22000.00
+EK301,Los Angeles (LAX),Dubai (DXB),23:30,19:30,16 hrs 0 mins,Non-stop,A380,EGP 54000.00
+EK500,Kuwait (KWI),Dubai (DXB),15:45,16:50,1 hr 5 mins,Non-stop,B777,EGP 17000.00
+EK325,Bangkok (BKK),Dubai (DXB),22:30,02:40,7 hrs 10 mins,Non-stop,A380,EGP 37500.00
+EK120,Shanghai (PVG),Dubai (DXB),10:00,14:00,8 hrs 0 mins,Non-stop,B777,EGP 43000.00
+EK717,Ahmedabad (AMD),Dubai (DXB),13:00,15:00,3 hrs 0 mins,Non-stop,B777,EGP 22500.00
+EK416,Chicago (ORD),Dubai (DXB),16:30,21:45,12 hrs 15 mins,Non-stop,A380,EGP 43800.00
+EK657,Delhi (DEL),Dubai (DXB),00:00,02:30,3 hrs 0 mins,Non-stop,B777,EGP 24000.00
+EK519,San Francisco (SFO),Dubai (DXB),18:00,21:20,15 hrs 20 mins,Non-stop,B777,EGP 52500.00
+EK924,Cairo (CAI),Dubai (DXB),09:15,14:30,3 hrs 15 mins,Non-stop,B777,EGP 30000.00
+EK808,Abu Dhabi (AUH),Dubai (DXB),14:30,15:00,0 hrs 30 mins,Non-stop,B777,EGP 16500.00
+EK137,New York (JFK),Dubai (DXB),10:00,19:00,12 hrs 0 mins,Non-stop,A380,EGP 47500.00
+EK180,Sydney (SYD),Dubai (DXB),16:30,21:30,13 hrs 0 mins,Non-stop,A380,EGP 48900.00
+EK527,Miami (MIA),Dubai (DXB),10:00,18:30,16 hrs 30 mins,Non-stop,B777,EGP 54500.00
+EK671,Chennai (MAA),Dubai (DXB),12:00,15:00,3 hrs 0 mins,Non-stop,B777,EGP 26000.00
+EK250,Bangalore (BLR),Dubai (DXB),20:30,23:30,3 hrs 0 mins,Non-stop,A380,EGP 28000.00
+EK335,Delhi (DEL),Dubai (DXB),04:00,06:00,3 hrs 0 mins,Non-stop,B777,EGP 22500.00
+EK507,Los Angeles (LAX),Dubai (DXB),09:00,18:30,15 hrs 30 mins,Non-stop,A380,EGP 51500.00
+EK230,Bahrain (BAH),Dubai (DXB),12:00,12:30,1 hr 0 mins,Non-stop,B777,EGP 18000.00
+EK154,Frankfurt (FRA),Dubai (DXB),06:00,13:00,6 hrs 0 mins,Non-stop,A380,EGP 38700.00
+EK715,Lahore (LHE),Dubai (DXB),15:15,16:45,3 hrs 30 mins,Non-stop,B777,EGP 25000.00
+EK825,Amman (AMM),Dubai (DXB),10:00,14:00,3 hrs 0 mins,Non-stop,B777,EGP 29500.00
+EK335,Sydney (SYD),Dubai (DXB),07:30,13:50,13 hrs 20 mins,Non-stop,A380,EGP 49000.00
+EK520,Doha (DOH),Dubai (DXB),23:45,00:30,1 hr 0 mins,Non-stop,B777,EGP 21000.00
+EK318,Johannesburg (JNB),Dubai (DXB),14:00,23:00,8 hrs 0 mins,Non-stop,A380,EGP 42000.00
+EK671,Muscat (MCT),Dubai (DXB),13:00,13:40,1 hr 0 mins,Non-stop,B777,EGP 23000.00
+EK181,Seoul (ICN),Dubai (DXB),10:00,15:30,8 hrs 30 mins,Non-stop,A380,EGP 39000.00
+EK201,Dubai (DXB),Los Angeles (LAX),22:00,20:00,16 hrs 0 mins,Non-stop,A380,EGP 55000.00
+EK517,Houston (IAH),Dubai (DXB),18:45,22:15,15 hrs 30 mins,Non-stop,B777,EGP 51200.00
+EK724,Abu Dhabi (AUH),Dubai (DXB),14:30,15:00,0 hrs 30 mins,Non-stop,B777,EGP 17500.00
+EK232,Johannesburg (JNB),Dubai (DXB),21:00,06:00,8 hrs 30 mins,Non-stop,A380,EGP 42500.00
+

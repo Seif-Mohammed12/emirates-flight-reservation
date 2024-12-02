@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@flights.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.emirates.FlightsController">
+    <children>
+        <VBox fx:id="mainContainer" layoutX="72.0" layoutY="246.0" prefHeight="978.0" prefWidth="1410.0" spacing="20">
+            <!-- Filters Section -->
+            <HBox fx:id="buttonGroup" alignment="CENTER_LEFT" spacing="20">
+                <ToggleButton fx:id="economyButton" selected="true" styleClass="toggle-button" text="Economy" />
+                <ToggleButton fx:id="businessButton" styleClass="toggle-button" text="Business" />
+                <ToggleButton fx:id="firstClassButton" styleClass="toggle-button" text="First" />
+                <Region HBox.hgrow="ALWAYS" />
+                <HBox alignment="CENTER" spacing="10">
+                    <Label styleClass="label" text="Sort:" />
+                    <ChoiceBox fx:id="sortChoiceBox" styleClass="choice-box">
+                        <items>
+                            <FXCollections fx:factory="observableArrayList">
+                                <String fx:value="Lowest price" />
+                                <String fx:value="Shortest duration" />
+                            </FXCollections>
+                        </items>
+                    </ChoiceBox>
+                </HBox>
+            </HBox>
+
+            <!-- Dynamic Flight List (Wrapped in a ScrollPane) -->
+            <ScrollPane fx:id="flightListScrollPane" fitToHeight="true" fitToWidth="true" prefHeight="502.0" prefWidth="1410.0">
+                <VBox fx:id="flightsContainer" spacing="20" />
+            </ScrollPane>
+
+        </VBox>
+        <Label fx:id="titleLabel" layoutX="191.0" layoutY="95.0" text="Choose your outbound flight" />
+    </children>
+</AnchorPane>
