@@ -1,6 +1,7 @@
 package com.example.emirates;
 
 import javafx.animation.FadeTransition;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -35,14 +36,24 @@ public class MainController {
     @FXML
     private MenuButton dateMenu;
     @FXML
+    private MenuButton passMenu;
+    @FXML
     private ComboBox<String> arrBox;
+    @FXML
+    private ComboBox<String> depBox;
     @FXML
     private ComboBox<String> classMenu;
     @FXML
     private Button goBtn;
     @FXML
     private Button loginBtnMain;
+    @FXML
+    private Spinner<Integer> adultSpinner;
+    @FXML
+    private Spinner<Integer> childrenSpinner;
+
     private String selectedDestination;
+    private String selectedDeparture;
     private String loggedInUsername;
 
 
@@ -55,10 +66,37 @@ public class MainController {
         welcomeLabel.setFont(customFontSmall);
         titleLabel.setStyle("-fx-font-weight: bold;");
         welcomeLabel.setStyle("-fx-font-weight: bold; ");
-
+        Platform.runLater(() ->titleLabel.requestFocus());
         LocalDate today = LocalDate.now();
         configureDatePicker(dateFrom, today);
         configureDatePicker(dateBack, today);
+
+        SpinnerValueFactory<Integer> adultsValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 9, 1);
+        adultSpinner.setValueFactory(adultsValueFactory);
+
+        // Set up children spinner
+        SpinnerValueFactory<Integer> childrenValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 2, 0);
+        childrenSpinner.setValueFactory(childrenValueFactory);
+
+        // Listener for adults spinner
+        adultSpinner.valueProperty().addListener((obs, oldValue, newValue) -> {
+            // Update children spinner max based on the number of adults
+            int maxChildren = newValue * 2;
+            ((SpinnerValueFactory.IntegerSpinnerValueFactory) childrenSpinner.getValueFactory()).setMax(maxChildren);
+
+            // Adjust children count if it exceeds the new max
+            if (childrenSpinner.getValue() > maxChildren) {
+                childrenSpinner.getValueFactory().setValue(maxChildren);
+            }
+            updatePassMenu();
+        });
+
+        // Listener for children spinner
+        childrenSpinner.valueProperty().addListener((obs, oldValue, newValue) -> {
+            updatePassMenu();
+        });
+        updatePassMenu();
+
 
         updateLoginButton();
         loginBtnMain.setOnMouseEntered(event -> {
@@ -76,10 +114,12 @@ public class MainController {
 
         classMenu.getItems().addAll("Economy", "Business", "First");
 
+    }
 
-
-
-
+    private void updatePassMenu() {
+        int adults = adultSpinner.getValue();
+        int children = childrenSpinner.getValue();
+        passMenu.setText(adults + " Adults, " + children + " Children");
     }
     private void configureDatePicker(DatePicker datePicker, LocalDate today) {
         if (datePicker.getValue() != null && datePicker.getValue().isBefore(today)) {
@@ -116,12 +156,67 @@ public class MainController {
         dateMenu.setText(fromDate + " to " + backDate);
     }
 
+    // Refresh method for departure ComboBox
+    public void refreshDep(boolean filter) throws IOException {
+        String filePath = "src/main/resources/flights.csv";
+        List<String> lines = Files.readAllLines(Paths.get(filePath));
+
+        // Preserve the current selection of the arrival box
+        String currentArrival = arrBox.getValue();
+
+        depBox.getItems().clear();
+        Set<String> uniqueDepartures = new HashSet<>();
+
+        for (int i = 1; i < lines.size(); i++) {
+            String line = lines.get(i);
+            String[] fields = line.split(",");
+            if (fields.length == 9) {
+                String departureAirport = fields[1];
+                if (!filter || departureAirport.toLowerCase().startsWith(depBox.getEditor().getText().toLowerCase())) {
+                    if (!departureAirport.equalsIgnoreCase(selectedDestination)) {
+                        uniqueDepartures.add(departureAirport);
+                    }
+                }
+            }
+        }
+
+        depBox.getItems().addAll(uniqueDepartures);
+
+        // Restore the arrival selection if it's still valid
+        if (currentArrival != null && !currentArrival.isEmpty()) {
+            arrBox.setValue(currentArrival);
+        }
+
+        if (!uniqueDepartures.isEmpty() && !depBox.getEditor().getText().isEmpty()) {
+            depBox.show();
+        } else {
+            depBox.hide();
+        }
+    }
+
+
+
+    // Key release handler for departure ComboBox
+    @FXML
+    public void handleDepKeyRelease(KeyEvent event) throws IOException {
+        refreshDep(true);
+    }
+
+    // Mouse click handler for departure ComboBox
+    @FXML
+    public void handleDepMouseClick(MouseEvent event) throws IOException {
+        refreshDep(false);
+    }
+
 
     public void refresh(boolean filter) throws IOException {
         String filePath = "src/main/resources/flights.csv";
         List<String> lines = Files.readAllLines(Paths.get(filePath));
-        arrBox.getItems().clear();
 
+        // Preserve the current selection of the departure box
+        String currentDeparture = depBox.getValue();
+
+        arrBox.getItems().clear();
         Set<String> uniqueDestinations = new HashSet<>();
 
         for (int i = 1; i < lines.size(); i++) {
@@ -137,12 +232,19 @@ public class MainController {
 
         arrBox.getItems().addAll(uniqueDestinations);
 
+        // Restore the departure selection if it's still valid
+        if (currentDeparture != null && !currentDeparture.isEmpty()) {
+            depBox.setValue(currentDeparture);
+        }
+
         if (!uniqueDestinations.isEmpty() && !arrBox.getEditor().getText().isEmpty()) {
             arrBox.show();
         } else {
             arrBox.hide();
         }
     }
+
+
 
     @FXML
     public void handleKeyRelease(KeyEvent event) throws IOException {
@@ -157,13 +259,23 @@ public class MainController {
     public void handleGoButton(ActionEvent event) throws IOException {
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         AppContext.setSelectedDestination(selectedDestination);
+        AppContext.setSelectedDeparture(selectedDeparture);
+
+        System.out.println("Passing Destination: " + selectedDestination); // Debug
+        System.out.println("Passing Departure: " + selectedDeparture); // Debug
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("flights.fxml"));
             Parent newRoot = loader.load();
 
             FlightsController flightListController = loader.getController();
-            flightListController.setSelectedDestination(selectedDestination);
 
+            // Pass values to FlightsController
+            flightListController.setSelectedDestination(selectedDestination);
+            flightListController.setSelectedDeparture(selectedDeparture);
+
+            System.out.println("Set in FlightsController: Destination = " + selectedDestination +
+                    ", Departure = " + selectedDeparture); // Debug
 
             Scene currentScene = currentStage.getScene();
 
@@ -178,24 +290,58 @@ public class MainController {
                 fadeIn.setFromValue(0.0);
                 fadeIn.setToValue(1.0);
                 fadeIn.play();
-
             });
             fadeOut.play();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             System.err.println("Error loading FXML: " + e.getMessage());
             e.printStackTrace();
         }
     }
 
+
     @FXML
-    public void onDestinationSelected(ActionEvent event) {
+    public void onDestinationSelected(ActionEvent event) throws IOException {
         selectedDestination = arrBox.getValue();
         if (selectedDestination != null && !selectedDestination.isEmpty()) {
             System.out.println("Destination selected: " + selectedDestination);
             AppContext.setSelectedDestination(selectedDestination);
+
+            // Preserve the current departure selection
+            String currentDeparture = depBox.getValue();
+
+            // Refresh the departure box while keeping the current selection
+            refreshDep(false);
+
+            // Restore the departure selection if valid
+            if (currentDeparture != null && depBox.getItems().contains(currentDeparture)) {
+                depBox.setValue(currentDeparture);
+            }
         }
     }
+
+
+    @FXML
+    public void onDepartureSelected(ActionEvent event) throws IOException {
+        selectedDeparture = depBox.getValue();
+        if (selectedDeparture != null && !selectedDeparture.isEmpty()) {
+            System.out.println("Departure selected: " + selectedDeparture);
+            AppContext.setSelectedDeparture(selectedDeparture);
+
+            // Preserve the current arrival selection
+            String currentArrival = arrBox.getValue();
+
+            // Refresh the arrival box while keeping the current selection
+            refresh(false);
+
+            // Restore the arrival selection if valid
+            if (currentArrival != null && arrBox.getItems().contains(currentArrival)) {
+                arrBox.setValue(currentArrival);
+            }
+        }
+    }
+
+
+
 
     @FXML
     private void handleLoginButton(ActionEvent event) {

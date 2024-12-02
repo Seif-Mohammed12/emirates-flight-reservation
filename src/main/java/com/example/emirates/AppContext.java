@@ -7,6 +7,7 @@ public class AppContext {
     private static String loggedInFirstName;
 
     private static String selectedDestination;
+    private static String selectedDeparture;
 
     public static String getLoggedInUsername() {
         return loggedInUsername;
@@ -28,9 +29,15 @@ public class AppContext {
     public static String getSelectedDestination() {
         return selectedDestination;
     }
+    public static String getSelectedDeparture() {
+        return selectedDeparture;
+    }
 
     public static void setSelectedDestination(String destination) {
         selectedDestination = destination;
+    }
+    public static void setSelectedDeparture(String departure) {
+        selectedDeparture = departure;
     }
 
     public static String getLoggedInPassword() {

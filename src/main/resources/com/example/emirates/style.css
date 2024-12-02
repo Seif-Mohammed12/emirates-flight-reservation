@@ -319,8 +319,6 @@ body {
     -fx-border-color: #388e3c;
 }
 
-
-
 /* DatePicker Styling */
 .date-picker {
     -fx-font-size: 18px;
@@ -532,7 +530,7 @@ body {
     -fx-background-size: contain;
     -fx-background-position: center bottom;
     -fx-background-color: #D71920;
-
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 8, 0.0, 0, 3);
 }
 #iconBtn:hover {
     -fx-cursor: hand;

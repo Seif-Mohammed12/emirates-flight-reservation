@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.shape.*?>
+
+<StackPane xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.example.emirates.SeatPlanController">
+
+    <!-- Background Plane Shape -->
+    <Rectangle width="600" height="1200" arcWidth="100" arcHeight="100" fill="#e1e1e1" />
+
+    <!-- Main Layout -->
+    <VBox alignment="TOP_CENTER" spacing="10">
+        <!-- First Class Section -->
+        <VBox spacing="5" alignment="CENTER">
+            <Label text="First Class" style="-fx-font-size: 16px; -fx-font-weight: bold;" />
+            <HBox spacing="10" alignment="CENTER">
+                <!-- Row 1 -->
+                <VBox alignment="CENTER" spacing="5">
+                    <Button text="1A" style="-fx-background-color: #D71920;" />
+                    <Button text="1C" style="-fx-background-color: #D71920;" />
+                </VBox>
+                <Region minWidth="50" />
+                <VBox alignment="CENTER" spacing="5">
+                    <Button text="1D" style="-fx-background-color: #D71920;" />
+                    <Button text="1F" style="-fx-background-color: #D71920;" />
+                </VBox>
+            </HBox>
+        </VBox>
+
+        <!-- Business Class Section -->
+        <VBox spacing="5" alignment="CENTER">
+            <Label text="Business Class" style="-fx-font-size: 16px; -fx-font-weight: bold;" />
+            <HBox spacing="10" alignment="CENTER">
+                <!-- Row 2 -->
+                <VBox alignment="CENTER" spacing="5">
+                    <Button text="2A" style="-fx-background-color: #388e3c;" />
+                    <Button text="2C" style="-fx-background-color: #388e3c;" />
+                </VBox>
+                <Region minWidth="50" />
+                <VBox alignment="CENTER" spacing="5">
+                    <Button text="2D" style="-fx-background-color: #388e3c;" />
+                    <Button text="2F" style="-fx-background-color: #388e3c;" />
+                </VBox>
+            </HBox>
+        </VBox>
+
+        <!-- Economy Class Section -->
+        <VBox spacing="5" alignment="CENTER">
+            <Label text="Economy Class" style="-fx-font-size: 16px; -fx-font-weight: bold;" />
+            <HBox spacing="10" alignment="CENTER">
+                <!-- Row 3 -->
+                <VBox alignment="CENTER" spacing="5">
+                    <Button text="3A" style="-fx-background-color: #e1e1e1;" />
+                    <Button text="3B" style="-fx-background-color: #e1e1e1;" />
+                    <Button text="3C" style="-fx-background-color: #e1e1e1;" />
+                </VBox>
+                <Region minWidth="50" />
+                <VBox alignment="CENTER" spacing="5">
+                    <Button text="3D" style="-fx-background-color: #e1e1e1;" />
+                    <Button text="3E" style="-fx-background-color: #e1e1e1;" />
+                    <Button text="3F" style="-fx-background-color: #e1e1e1;" />
+                </VBox>
+            </HBox>
+        </VBox>
+    </VBox>
+</StackPane>

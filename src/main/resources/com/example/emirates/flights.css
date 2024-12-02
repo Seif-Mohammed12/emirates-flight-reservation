@@ -1,16 +1,83 @@
-/* General Styles */
+#flightContainer{
+    -fx-background-image: url("/pexels-nik-oak-173187900-19390288.jpg");
+    -fx-background-repeat: no-repeat ;
+    -fx-background-size: cover;
+}
 .root {
     -fx-font-family: 'Arial', sans-serif;
     -fx-font-size: 14px;
     -fx-base: #ffffff;
 }
 
+#loginBtnFlights{
+    -fx-font-weight: bold;
+    -fx-min-height: 60px;
+    -fx-pref-height: 60px;
+    -fx-pref-width: 120px;
+    -fx-background-color: #333; /* Dark background */
+    -fx-text-fill: white; /* White text */
+    -fx-font-size: 18px;
+    -fx-border-radius: 10; /* Rounded corners */
+    -fx-background-radius: 10;
+    -fx-effect: none;
+
+}
+#loginBtnFlights:hover {
+    -fx-background-color: #555; /* Slightly lighter on hover */
+    -fx-text-fill: #FFD700; /* Highlight text with Emirates gold */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 8, 0.0, 0, 3); /* Subtle shadow */
+    -fx-scale-x: 1.05; /* Slight zoom on hover */
+    -fx-scale-y: 1.05;
+    -fx-cursor: hand;
+}
+#loginBtnFlights:pressed {
+    -fx-background-color: #444; /* Darker background on press */
+    -fx-scale-x: 1.0; /* Restore scale on press */
+    -fx-scale-y: 1.0;
+}
+#loginBtnFlights.logged-in {
+    -fx-font-weight: bold;
+    -fx-background-color: #333; /* Emirates Green for logged-in state */
+    -fx-text-fill: white; /* Keep text white */
+}
+
+/* Hover Effect When Logged In */
+#loginBtnFlights.logged-in:hover {
+    -fx-text-fill: #D71920; /* Emirates Red text on hover */
+    -fx-background-color: #555; /* Darker green background */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 8, 0.0, 0, 3); /* Keep shadow */
+    -fx-scale-x: 1.05; /* Slight zoom */
+    -fx-scale-y: 1.05;
+}
+
+#iconBtnFlights {
+    -fx-background-image: url("/Emirates_logo.jpg");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: contain;
+    -fx-background-position: center bottom;
+    -fx-background-color: #D71920;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 8, 0.0, 0, 3);
+
+}
+#iconBtnFlights:hover {
+    -fx-cursor: hand;
+}
+
+#toolBarFlights{
+    -fx-background-color: #333;
+}
+
+#backToolBar{
+    -fx-background-color: rgba(255, 255, 255, 0.75);
+}
+
 .flight-card {
-    -fx-background-color: #ffffff;
+    -fx-background-color: rgba(255, 255, 255, 0.6);
     -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
     -fx-padding: 15px;
     -fx-spacing: 15px;
-    -fx-effect: dropshadow(gaussian, #888, 5, 0, 0, 0);
+    -fx-effect: none;
     -fx-background-insets: 0;
     -fx-cursor: hand;
     -fx-border-color:#D71920;
@@ -20,7 +87,7 @@
 }
 
 .flight-card:hover {
-    -fx-background-color: #f8f8f8;
+    -fx-background-color: rgba(255, 255, 255, 0.8);;
     -fx-border-radius: 20px;
     -fx-background-radius: 20px;
     -fx-border-color:#388e3c;
@@ -52,20 +119,6 @@
     -fx-font-size: 16px;
     -fx-font-weight: bold;
     -fx-text-fill: #e4002b; /* Emirates red */
-}
-
-.flight-card .select-button {
-    -fx-background-color: #e4002b; /* Emirates red */
-    -fx-text-fill: white;
-    -fx-border-radius: 5px;
-    -fx-padding: 10px;
-    -fx-font-weight: bold;
-    -fx-font-size: 14px;
-    -fx-cursor: pointer;
-}
-
-.flight-card .select-button:hover {
-    -fx-background-color: #c80024; /* Darker shade of Emirates red */
 }
 
 /* Pricing Details */
@@ -132,14 +185,14 @@
 
 /* Sort Button Styling */
 #sortChoiceBox{
-    -fx-background-color: white; /* Gold color */
+    -fx-background-color: rgba(255, 255, 255, 0.75); /* Gold color */
     -fx-text-fill: #333; /* White text */
     -fx-font-size: 16px; /* Font size */
     -fx-font-weight: bold; /* Bold font */
     -fx-padding: 10px 20px; /* Padding around the text */
     -fx-background-radius: 20px; /* Rounded corners */
     -fx-border-radius: 20px; /* Rounded corners on border */
-    -fx-border-color: #a77a00; /* Darker gold border */
+    -fx-border-color: rgba(255, 255, 255, 0.75); /* Darker gold border */
     -fx-border-width: 2px; /* Border width */
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0, 0, 2); /* Subtle shadow effect */
     -fx-cursor: hand; /* Pointer cursor on hover */
@@ -149,16 +202,20 @@
 
 /* Hover effect */
 #sortChoiceBox:hover {
-    -fx-background-color: rgba(255, 0, 0, 0.2); /* Darker gold when hovered */
-    -fx-border-color: #c5a100; /* Lighter border color on hover */
+    -fx-background-color: rgba(255, 255, 255, 0.9); /* Darker gold when hovered */
+    -fx-border-color: rgba(255, 255, 255, 1); /* Lighter border color on hover */
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 8, 0, 0, 4); /* Stronger shadow effect */
 }
 
 /* Focus effect */
 #sortChoiceBox:focused {
-    -fx-background-color: rgba(0, 255, 0, 0.2); /* Keep the original gold when focused */
-    -fx-border-color: #a77a00; /* Border stays the same */
+    -fx-background-color: rgba(255, 255, 255, 0.9); /* Keep the original gold when focused */
+    -fx-border-color: rgba(255, 255, 255, 1); /* Border stays the same */
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 5, 0, 0, 5); /* Keep shadow */
+}
+#sortLabel{
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.8), 6, 0.0, 0, 3);
+    -fx-text-fill: white;
 }
 
 /* Class Button Styling (Economy, Business, First) */
@@ -196,7 +253,7 @@
 #economyButton {
     -fx-border-radius: 30px;
     -fx-background-radius: 30px;
-    -fx-background-color: #333; /* Light Grey */
+    -fx-background-color: rgba(51, 51, 51, 0.5); /* Light Grey */
     -fx-text-fill: #ffffff;
     -fx-font-size: 18px;
     -fx-font-weight: bold;
@@ -205,7 +262,7 @@
 #businessButton {
     -fx-border-radius: 30px;
     -fx-background-radius: 30px;
-    -fx-background-color: #388e3c; /* Gold for Business */
+    -fx-background-color: rgba(56, 142, 60, 0.5); /* Gold for Business */
     -fx-text-fill: #ffffff;
     -fx-font-size: 18px;
     -fx-font-weight: bold;
@@ -214,24 +271,24 @@
 #firstClassButton {
     -fx-border-radius: 30px;
     -fx-background-radius: 30px;
-    -fx-background-color: #D71920;
+    -fx-background-color: rgba(215, 25, 32, 0.5);
     -fx-text-fill: #ffffff;
     -fx-font-size: 18px;
     -fx-font-weight: bold;
 }
 
 #economyButton:selected {
-    -fx-background-color: #222;
+    -fx-background-color: rgba(34, 34, 34, 0.9);
 
 }
 
 #businessButton:selected {
-    -fx-background-color: #4caf50;
+    -fx-background-color: rgba(76, 175, 80, 0.9);
 
 }
 
 #firstClassButton:selected {
-    -fx-background-color: #f02428;
+    -fx-background-color: rgba(240, 36, 40, 0.9);
 
 }
 
@@ -276,7 +333,7 @@
 }
 
 .scroll-bar:vertical .track, .scroll-bar:horizontal .track {
-    -fx-background-color: #F5F5F5; /* Light gray track for contrast */
+    -fx-background-color: rgba(255, 255, 255, 0.3); /* Light gray track for contrast */
     -fx-background-radius: 10; /* Rounded corners for the track */
 }
 
@@ -287,4 +344,9 @@
 .scroll-bar:vertical:pressed .thumb, .scroll-bar:horizontal:pressed .thumb {
     -fx-background-color: #333; /* Dark gray when pressed */
 }
-
+.scroll-bar:vertical{
+    -fx-background-color: rgba(255, 255, 255, 0.3);
+}
+.scroll-bar:vertical .arrow{
+    -fx-opacity: 0;
+}

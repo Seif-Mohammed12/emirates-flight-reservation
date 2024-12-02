@@ -2,16 +2,18 @@
 
 <?import java.lang.String?>
 <?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@flights.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.emirates.FlightsController">
+<AnchorPane fx:id="flightContainer" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@flights.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.emirates.FlightsController">
     <children>
         <VBox fx:id="mainContainer" layoutX="72.0" layoutY="246.0" prefHeight="978.0" prefWidth="1410.0" spacing="20">
             <!-- Filters Section -->
@@ -21,7 +23,7 @@
                 <ToggleButton fx:id="firstClassButton" styleClass="toggle-button" text="First" />
                 <Region HBox.hgrow="ALWAYS" />
                 <HBox alignment="CENTER" spacing="10">
-                    <Label styleClass="label" text="Sort:" />
+                    <Label fx:id="sortLabel" text="Sort:" />
                     <ChoiceBox fx:id="sortChoiceBox" styleClass="choice-box">
                         <items>
                             <FXCollections fx:factory="observableArrayList">
@@ -39,6 +41,16 @@
             </ScrollPane>
 
         </VBox>
-        <Label fx:id="titleLabel" layoutX="191.0" layoutY="95.0" text="Choose your outbound flight" />
+        <Label fx:id="titleLabel" layoutX="80.0" layoutY="140.0" text="Choose your outbound flight" />
+      <Pane fx:id="backToolBar" layoutX="-41.0" prefHeight="120.0" prefWidth="2294.0">
+         <children>
+            <Pane fx:id="toolBarFlights" prefHeight="60.0" prefWidth="1973.0">
+               <children>
+                  <Button fx:id="loginBtnFlights" layoutX="1376.0" layoutY="-2.0" mnemonicParsing="false" prefHeight="60.0" text="LOG IN" />
+                  <Button fx:id="iconBtnFlights" layoutX="179.0" layoutY="-2.0" maxWidth="114.0" minWidth="114.0" mnemonicParsing="false" prefHeight="141.0" prefWidth="114.0" />
+               </children>
+            </Pane>
+         </children>
+      </Pane>
     </children>
 </AnchorPane>

@@ -1,7 +1,11 @@
 package com.example.emirates;
 
+import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -12,6 +16,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -34,12 +40,15 @@ public class FlightsController {
 
     @FXML
     private Label titleLabel;
+    @FXML
+    private Label sortLabel;
 
     @FXML
     private ChoiceBox<String> sortChoiceBox;
 
     private String selectedClass = "Economy";
     private String selectedDestination;
+    private String selectedDeparture;
 
     private List<selectFlights.Flights> flights = new ArrayList<>();
 
@@ -65,7 +74,9 @@ public class FlightsController {
 
         // Optimize Font Loading
         if (titleLabel != null) {
-            Font customFontLarge = Font.loadFont(getClass().getResourceAsStream("/fonts/Emirates_Medium.ttf"), 60);
+            Font customFontLarge = Font.loadFont(getClass().getResourceAsStream("/fonts/Emirates_Medium.ttf"), 50);
+            Font customFontSmall = Font.loadFont(getClass().getResourceAsStream("/fonts/Emirates_Medium.ttf"), 24);
+            sortLabel.setFont(customFontSmall);
             titleLabel.setFont(customFontLarge);
         }
 
@@ -75,8 +86,16 @@ public class FlightsController {
 
     public void setSelectedDestination(String destination) {
         this.selectedDestination = destination;
+        System.out.println("Selected Destination: " + selectedDestination);
         updateFlightCards();
     }
+
+    public void setSelectedDeparture(String departure) {
+        this.selectedDeparture = departure;
+        System.out.println("Selected Departure: " + selectedDeparture);
+        updateFlightCards();
+    }
+
 
     private void onClassSelection(String className) {
         selectedClass = className;
@@ -89,7 +108,7 @@ public class FlightsController {
 
         // Filter and sort flights
         List<selectFlights.Flights> filteredFlights = flights.stream()
-                .filter(this::filterByDestination)
+                .filter(flight -> filterByDestination(flight) && filterByDeparture(flight)) // Combine both filters
                 .sorted(this::sortFlights)
                 .collect(Collectors.toList());
 
@@ -97,9 +116,14 @@ public class FlightsController {
         filteredFlights.forEach(this::addFlightCard);
     }
 
+
     private boolean filterByDestination(selectFlights.Flights flight) {
         return selectedDestination == null || selectedDestination.isEmpty()
                 || flight.arrivalCity.equalsIgnoreCase(selectedDestination);
+    }
+    private boolean filterByDeparture(selectFlights.Flights flight) {
+        return selectedDeparture == null || selectedDeparture.isEmpty()
+                || flight.departureCity.equalsIgnoreCase(selectedDeparture);
     }
 
     private int sortFlights(selectFlights.Flights f1, selectFlights.Flights f2) {
@@ -229,7 +253,7 @@ public class FlightsController {
         line.setStroke(Color.GRAY);
 
         Label arrow = new Label("➔");
-        arrow.setStyle("-fx-font-size: 18px; -fx-text-fill: #777;");
+        arrow.setStyle("-fx-font-size: 18px; -fx-text-fill: #777; -fx-padding: 1 0 0 -2");
 
         lineWithArrow.getChildren().addAll(line, arrow);
         return lineWithArrow;
@@ -274,7 +298,7 @@ public class FlightsController {
 
     private Separator createSeparator() {
         Separator separator = new Separator();
-        separator.setStyle("-fx-background-color: #cccccc;");
+        separator.setStyle("-fx-background-color: rgba(215, 25, 32, 0.6)");
         return separator;
     }
 
@@ -299,7 +323,31 @@ public class FlightsController {
     }
 
     private void showFlightDetails(selectFlights.Flights flight) {
-        System.out.println("Details for Flight No: " + flight.flightNo);
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/emirates/seatPlan.fxml"));
+            Parent root = loader.load();
+
+            // Get the controller and pass the selected class
+            SeatPlanController controller = loader.getController();
+            controller.setSelectedClass(selectedClass);
+
+            // Create a new stage for the seat plan
+            Stage stage = new Stage();
+            stage.setTitle("Seat Plan");
+            stage.setScene(new Scene(root));
+
+            // Apply fade-in animation
+            FadeTransition fadeIn = new FadeTransition(Duration.millis(500), root);
+            fadeIn.setFromValue(0);
+            fadeIn.setToValue(1);
+            fadeIn.play();
+
+            // Show the seat plan stage
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+
 }
 
