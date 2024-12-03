@@ -77,7 +77,7 @@
                 <Font name="Cambria Bold" size="20.0" />
               </font>
             </MenuButton>
-            <Button fx:id="goBtn" mnemonicParsing="false" onAction="#handleGoButton" prefHeight="70.0" prefWidth="70.0" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Button fx:id="goBtn" mnemonicParsing="false" onAction="#handleGoButton" prefHeight="70.0" prefWidth="70.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
           </children>
           <padding>
             <Insets top="20.0" />

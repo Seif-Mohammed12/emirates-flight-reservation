@@ -205,13 +205,20 @@ public class FlightsController {
     }
 
     private HBox createDepartureSection(selectFlights.Flights flight) {
-        VBox departure = createLabeledSection(
-                flight.departureTime,
-                flight.departureCity,
-                Pos.CENTER_LEFT
-        );
+        VBox departure = new VBox(5);
+        departure.setAlignment(Pos.CENTER_LEFT);
+
+        Label departureTimeLabel = new Label(flight.departureTime);
+        departureTimeLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
+
+        Label departureCityLabel = new Label(flight.departureCity);
+        departureCityLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: rgba(215, 25, 32, 0.8);"); // Corrected style
+
+        departure.getChildren().addAll(departureTimeLabel, departureCityLabel);
+
         return new HBox(departure);
     }
+
 
     private VBox createDurationSection(selectFlights.Flights flight) {
         VBox duration = new VBox(5);
@@ -227,12 +234,20 @@ public class FlightsController {
     }
 
     private VBox createArrivalSection(selectFlights.Flights flight) {
-        return createLabeledSection(
-                flight.arrivalTime,
-                flight.arrivalCity,
-                Pos.CENTER_RIGHT
-        );
+        VBox arrival = new VBox(5);
+        arrival.setAlignment(Pos.CENTER_RIGHT);
+
+        Label arrivalTimeLabel = new Label(flight.arrivalTime);
+        arrivalTimeLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
+
+        Label arrivalCityLabel = new Label(flight.arrivalCity);
+        arrivalCityLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: rgba(215, 25, 32, 0.8);"); // Custom color for arrival city
+
+        arrival.getChildren().addAll(arrivalTimeLabel, arrivalCityLabel);
+
+        return arrival;
     }
+
 
     private VBox createLabeledSection(String label1Text, String label2Text, Pos alignment) {
         VBox box = new VBox(5);
