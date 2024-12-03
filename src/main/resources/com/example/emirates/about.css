@@ -1,0 +1,33 @@
+#aboutContainer {
+    -fx-background-image: url("/pexels-wzm-pictures-430160891-19171457.jpg");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.6), 30, 0, 0, 0);
+}
+
+#overlay {
+    -fx-background-color: rgba(0, 0, 0, 0.6); /* Dark overlay */
+    -fx-background-radius: 15; /* Rounded corners */
+    -fx-padding: 15px;
+}
+
+.label {
+    -fx-text-fill: #D71920; /* Emirates red */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.8), 6, 0.0, 0, 3); /* Shadow effect */
+    -fx-padding: 10px;
+    -fx-text-alignment: center;
+}
+#abouttoolPane{
+    -fx-background-color: rgba(34, 34, 34, 0.9);
+}
+#homeBtnAbt{
+    -fx-background-image: url("/Emirates_logo.jpg");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: contain;
+    -fx-background-position: center bottom;
+    -fx-background-color: #D71920;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 8, 0.0, 0, 3);
+}
+#homeBtnAbt:hover{
+    -fx-cursor: hand;
+}

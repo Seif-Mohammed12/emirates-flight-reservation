@@ -53,6 +53,9 @@ public class MainController {
     private Spinner<Integer> adultSpinner;
     @FXML
     private Spinner<Integer> childrenSpinner;
+    @FXML
+    private Button aboutBtn;
+
 
     private String selectedDestination;
     private String selectedDeparture;
@@ -311,6 +314,43 @@ public class MainController {
             e.printStackTrace();
         }
     }
+
+    public void gotoAbout(ActionEvent event) {
+        try {
+            // Load the About.fxml file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("About.fxml"));
+            Parent newRoot = loader.load();
+
+            // Get the current stage
+            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene currentScene = currentStage.getScene();
+
+            // Create a fade-out transition
+            FadeTransition fadeOut = new FadeTransition(Duration.millis(500), currentScene.getRoot());
+            fadeOut.setFromValue(1.0); // Start at full opacity
+            fadeOut.setToValue(0.0);   // Fade to transparent
+
+            // After fade-out, replace the root with the new scene
+            fadeOut.setOnFinished(e -> {
+                currentScene.setRoot(newRoot);
+
+                // Create and play a fade-in transition for the new scene
+                FadeTransition fadeIn = new FadeTransition(Duration.millis(500), newRoot);
+                fadeIn.setFromValue(0.0); // Start from transparent
+                fadeIn.setToValue(1.0);   // Fade to full opacity
+                fadeIn.play();
+            });
+
+            // Play the fade-out animation
+            fadeOut.play();
+        } catch (IOException e) {
+            System.err.println("Error loading About.fxml: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+
+
 
     private void showStyledAlert(String message, Stage owner) {
         Alert alert = new Alert(Alert.AlertType.WARNING, message);

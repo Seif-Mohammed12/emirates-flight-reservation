@@ -52,7 +52,7 @@
                   <graphic>
                     <HBox alignment="CENTER" spacing="10.0">
                       <Label style="-fx-font-size: 18px;" text="Child(ren)" />
-                      <Spinner fx:id="childrenSpinner"  prefWidth="100.0" style="-fx-font-size: 18px;" />
+                      <Spinner fx:id="childrenSpinner" prefWidth="100.0" style="-fx-font-size: 18px;" />
                     </HBox>
                   </graphic></MenuItem>
               </items>
@@ -102,7 +102,7 @@
               <menus>
                 <Menu fx:id="manageMenu" mnemonicParsing="false" text="MANAGE">
                      <items>
-                        <Menu fx:id="manageDrop" mnemonicParsing="false"  text="Manage your booking">
+                        <Menu fx:id="manageDrop" mnemonicParsing="false" text="Manage your booking">
                           <items>
                             <MenuItem fx:id="viewMenu" mnemonicParsing="false" text="View your booking" />
                             <MenuItem fx:id="changeMenu" mnemonicParsing="false" text="Change booking" />
@@ -111,7 +111,6 @@
                         </Menu>
                      </items>
                 </Menu>
-                <Menu fx:id="aboutMenu" mnemonicParsing="false" text="ABOUT" />
               </menus>
                <padding>
                   <Insets left="300.0" />
@@ -120,6 +119,7 @@
             <Button fx:id="iconBtn" layoutX="179.0" layoutY="-2.0" mnemonicParsing="false" prefHeight="141.0" prefWidth="114.0" />
             <Button fx:id="loginBtnMain" layoutX="1431.0" layoutY="-2.0" mnemonicParsing="false" onAction="#handleLoginButton" text="LOG IN" />
             <Button fx:id="searchBtn" layoutX="1440.0" layoutY="70.0" mnemonicParsing="false" text="Search Flights" />
+            <Button layoutX="521.0" fx:id="aboutBtn" onAction="#gotoAbout" layoutY="-2.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="120.0" text="About" />
          </children>
       </Pane>
   </children>
