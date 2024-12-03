@@ -1,6 +1,7 @@
 package com.example.emirates;
 
 import javafx.animation.FadeTransition;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -9,10 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
@@ -37,6 +35,10 @@ public class FlightsController {
 
     @FXML
     private ToggleButton firstClassButton;
+    @FXML
+    private Button iconBtnFlights;
+    @FXML
+    private Button loginBtnFlights;
 
     @FXML
     private Label titleLabel;
@@ -49,6 +51,7 @@ public class FlightsController {
     private String selectedClass = "Economy";
     private String selectedDestination;
     private String selectedDeparture;
+    private String loggedInUsername;
 
     private List<selectFlights.Flights> flights = new ArrayList<>();
 
@@ -61,9 +64,9 @@ public class FlightsController {
             e.printStackTrace();
         }
 
-        economyButton.setOnAction(event -> onClassSelection("Economy"));
-        businessButton.setOnAction(event -> onClassSelection("Business"));
-        firstClassButton.setOnAction(event -> onClassSelection("First"));
+        economyButton.setOnAction(event -> setSelectedClass("Economy"));
+        businessButton.setOnAction(event -> setSelectedClass("Business"));
+        firstClassButton.setOnAction(event -> setSelectedClass("First"));
 
         ToggleGroup classToggleGroup = new ToggleGroup();
         economyButton.setToggleGroup(classToggleGroup);
@@ -80,10 +83,28 @@ public class FlightsController {
             titleLabel.setFont(customFontLarge);
         }
 
-        // Initial load
         updateFlightCards();
+
+        loginBtnFlights.setOnMouseEntered(event -> {
+            if (AppContext.getLoggedInUsername() != null) {
+                loginBtnFlights.setText("Logout");
+            }
+        });
+
+        loginBtnFlights.setOnMouseExited(event -> updateLoginButton());
+
+        updateLoginButton();
     }
 
+    private void updateLoginButton() {
+        String loggedInFirstName = AppContext.getLoggedInFirstName();
+
+        if (loggedInFirstName != null) {
+            loginBtnFlights.setText("Hello, " + loggedInFirstName);
+        } else {
+            loginBtnFlights.setText("Login");
+        }
+    }
     public void setSelectedDestination(String destination) {
         this.selectedDestination = destination;
         System.out.println("Selected Destination: " + selectedDestination);
@@ -96,10 +117,91 @@ public class FlightsController {
         updateFlightCards();
     }
 
+    public void setLoggedInUsername(String username) {
+        this.loggedInUsername = username;
+        System.out.println("Logged-in username in FlightsController: " + loggedInUsername);
+    }
 
-    private void onClassSelection(String className) {
-        selectedClass = className;
+    public void setSelectedClass(String selectedClass) {
+        this.selectedClass = selectedClass;
+        System.out.println("Selected Class: " + selectedClass);
         updateFlightCards();
+    }
+
+
+    @FXML
+    private void goToMain() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Main.fxml"));
+            AnchorPane mainPage = loader.load();
+            MainController mainController = loader.getController();
+
+            String loggedInUsername = AppContext.getLoggedInUsername();
+            mainController.setLoggedInUsername(loggedInUsername);
+
+            Stage stage = (Stage) iconBtnFlights.getScene().getWindow();
+            Scene currentScene = stage.getScene();
+
+            FadeTransition fadeOut = new FadeTransition(Duration.millis(500), currentScene.getRoot());
+            fadeOut.setFromValue(1.0);
+            fadeOut.setToValue(0.0);
+
+            fadeOut.setOnFinished(e -> {
+                currentScene.setRoot(mainPage);
+
+                FadeTransition fadeIn = new FadeTransition(Duration.millis(500), mainPage);
+                fadeIn.setFromValue(0.0);
+                fadeIn.setToValue(1.0);
+                fadeIn.play();
+            });
+
+            fadeOut.play();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            showErrorDialog("Error", "There was an issue loading the main view.");
+        }
+    }
+
+    @FXML
+    private void handleLoginFlightButton(ActionEvent event) {
+        System.out.println("Login button clicked");
+
+        String loggedInUsername = AppContext.getLoggedInUsername();
+
+        if (loggedInUsername != null) {
+            AppContext.setLoggedInUsername(null);
+            AppContext.setLoggedInFirstName(null);
+            updateLoginButton();
+            System.out.println("User logged out.");
+
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("Main.fxml"));
+                Parent mainPage = loader.load();
+
+                Stage stage = (Stage) loginBtnFlights.getScene().getWindow();
+                Scene currentScene = stage.getScene();
+
+                FadeTransition fadeOut = new FadeTransition(Duration.millis(500), currentScene.getRoot());
+                fadeOut.setFromValue(1.0);
+                fadeOut.setToValue(0.0);
+
+                fadeOut.setOnFinished(e -> {
+                    currentScene.setRoot(mainPage);
+
+                    FadeTransition fadeIn = new FadeTransition(Duration.millis(500), mainPage);
+                    fadeIn.setFromValue(0.0);
+                    fadeIn.setToValue(1.0);
+                    fadeIn.play();
+                });
+
+                fadeOut.play();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            updateLoginButton();
+        }
     }
 
     private void updateFlightCards() {
@@ -362,6 +464,17 @@ public class FlightsController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void showErrorDialog(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+        dialogPane.getStyleClass().add("error-dialog");
+        alert.showAndWait();
     }
 
 }

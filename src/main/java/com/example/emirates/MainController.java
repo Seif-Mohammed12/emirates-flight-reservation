@@ -12,7 +12,9 @@ import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Font;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import javafx.util.StringConverter;
 
@@ -55,6 +57,7 @@ public class MainController {
     private String selectedDestination;
     private String selectedDeparture;
     private String loggedInUsername;
+    private String selectedClass;
 
 
     @FXML
@@ -113,7 +116,11 @@ public class MainController {
         }
 
         classMenu.getItems().addAll("Economy", "Business", "First");
-
+        classMenu.setValue("Economy");
+        selectedClass = "Economy";
+        classMenu.getSelectionModel().selectedItemProperty().addListener((obs, oldValue, newValue) -> {
+            selectedClass = newValue;
+        });
     }
 
     private void updatePassMenu() {
@@ -160,11 +167,8 @@ public class MainController {
     public void refreshDep(boolean filter) throws IOException {
         String filePath = "src/main/resources/flights.csv";
         List<String> lines = Files.readAllLines(Paths.get(filePath));
-
-        // Preserve the current selection of the arrival box
-        String currentArrival = arrBox.getValue();
-
         depBox.getItems().clear();
+
         Set<String> uniqueDepartures = new HashSet<>();
 
         for (int i = 1; i < lines.size(); i++) {
@@ -182,15 +186,12 @@ public class MainController {
 
         depBox.getItems().addAll(uniqueDepartures);
 
-        // Restore the arrival selection if it's still valid
-        if (currentArrival != null && !currentArrival.isEmpty()) {
-            arrBox.setValue(currentArrival);
-        }
-
-        if (!uniqueDepartures.isEmpty() && !depBox.getEditor().getText().isEmpty()) {
-            depBox.show();
-        } else {
+        // Clear selection if items are changed
+        if (depBox.getItems().isEmpty()) {
+            depBox.getSelectionModel().clearSelection();
             depBox.hide();
+        } else if (!depBox.getEditor().getText().isEmpty()) {
+            depBox.show();
         }
     }
 
@@ -212,11 +213,8 @@ public class MainController {
     public void refresh(boolean filter) throws IOException {
         String filePath = "src/main/resources/flights.csv";
         List<String> lines = Files.readAllLines(Paths.get(filePath));
-
-        // Preserve the current selection of the departure box
-        String currentDeparture = depBox.getValue();
-
         arrBox.getItems().clear();
+
         Set<String> uniqueDestinations = new HashSet<>();
 
         for (int i = 1; i < lines.size(); i++) {
@@ -232,15 +230,12 @@ public class MainController {
 
         arrBox.getItems().addAll(uniqueDestinations);
 
-        // Restore the departure selection if it's still valid
-        if (currentDeparture != null && !currentDeparture.isEmpty()) {
-            depBox.setValue(currentDeparture);
-        }
-
-        if (!uniqueDestinations.isEmpty() && !arrBox.getEditor().getText().isEmpty()) {
-            arrBox.show();
-        } else {
+        // Clear selection if items are changed
+        if (arrBox.getItems().isEmpty()) {
+            arrBox.getSelectionModel().clearSelection();
             arrBox.hide();
+        } else if (!arrBox.getEditor().getText().isEmpty()) {
+            arrBox.show();
         }
     }
 
@@ -256,13 +251,33 @@ public class MainController {
         refresh(false);
     }
 
-    public void handleGoButton(ActionEvent event) throws IOException {
+    public void handleGoButton(ActionEvent event ) throws IOException {
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         AppContext.setSelectedDestination(selectedDestination);
         AppContext.setSelectedDeparture(selectedDeparture);
+        if (AppContext.getLoggedInUsername() == null) {
+            showStyledAlert("Please log in first to access flights!", currentStage);
+            return;
+        }
 
-        System.out.println("Passing Destination: " + selectedDestination); // Debug
-        System.out.println("Passing Departure: " + selectedDeparture); // Debug
+        if (selectedDestination == null || selectedDestination.isEmpty()) {
+            showStyledAlert("Please select a destination first!", currentStage);
+            return;
+        }
+
+        if (dateFrom.getValue() == null || dateBack.getValue() == null) {
+            showStyledAlert("Please select a departure and return date!", currentStage);
+            return;
+        }
+        if(selectedDeparture == null || selectedDeparture.isEmpty()) {
+            showStyledAlert("Please select a departure first!", currentStage);
+            return;
+        }
+        if(selectedClass == null || selectedClass.isEmpty()) {
+            showStyledAlert("Please select a class first!", currentStage);
+            return;
+        }
+
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("flights.fxml"));
@@ -273,9 +288,8 @@ public class MainController {
             // Pass values to FlightsController
             flightListController.setSelectedDestination(selectedDestination);
             flightListController.setSelectedDeparture(selectedDeparture);
-
-            System.out.println("Set in FlightsController: Destination = " + selectedDestination +
-                    ", Departure = " + selectedDeparture); // Debug
+            flightListController.setLoggedInUsername(AppContext.getLoggedInUsername());
+            flightListController.setSelectedClass(selectedClass);
 
             Scene currentScene = currentStage.getScene();
 
@@ -298,6 +312,24 @@ public class MainController {
         }
     }
 
+    private void showStyledAlert(String message, Stage owner) {
+        Alert alert = new Alert(Alert.AlertType.WARNING, message);
+        alert.initOwner(owner);
+        alert.initModality(Modality.APPLICATION_MODAL);
+
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+        dialogPane.getStyleClass().add("error-dialog");
+        dialogPane.setHeaderText(null);
+        dialogPane.setGraphic(null);
+
+        Stage alertStage = (Stage) alert.getDialogPane().getScene().getWindow();
+        alertStage.initStyle(StageStyle.TRANSPARENT);
+        alertStage.getScene().setFill(null);
+        dialogPane.setStyle("-fx-background-color: #f8d7da; -fx-background-radius: 20; -fx-border-radius: 20;");
+
+        alert.showAndWait();
+    }
 
     @FXML
     public void onDestinationSelected(ActionEvent event) throws IOException {
