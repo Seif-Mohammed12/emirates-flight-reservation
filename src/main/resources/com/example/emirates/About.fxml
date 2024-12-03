@@ -24,7 +24,7 @@
          </VBox>
          <Pane fx:id="abouttoolPane" layoutX="-53.0" prefHeight="80.0" prefWidth="2032.0">
             <children>
-               <Button fx:id="homeBtnAbt" layoutX="214.0" mnemonicParsing="false" prefHeight="120.0" prefWidth="114.0" />
+               <Button fx:id="homeBtnAbt" onAction="#goToMain" layoutX="214.0" mnemonicParsing="false" prefHeight="120.0" prefWidth="114.0" />
             </children>
          </Pane>
       </children></Pane>

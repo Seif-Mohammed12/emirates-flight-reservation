@@ -75,7 +75,6 @@ public class FlightsController {
 
         economyButton.setSelected(true);
 
-        // Optimize Font Loading
         if (titleLabel != null) {
             Font customFontLarge = Font.loadFont(getClass().getResourceAsStream("/fonts/Emirates_Medium.ttf"), 50);
             Font customFontSmall = Font.loadFont(getClass().getResourceAsStream("/fonts/Emirates_Medium.ttf"), 24);
