@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Region;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -470,9 +471,12 @@ public class MainController {
                 loginBtnMain.getStyleClass().add("logged-in");
             }
         } else {
-            loginBtnMain.setText("LOG IN");
+            loginBtnMain.setText("\uD83D\uDC64 LOG IN");
             loginBtnMain.getStyleClass().remove("logged-in");
         }
+        loginBtnMain.setMinWidth(Region.USE_COMPUTED_SIZE);
+        loginBtnMain.setPrefWidth(Region.USE_COMPUTED_SIZE);
+        loginBtnMain.setMaxWidth(Double.MAX_VALUE);
     }
 
 

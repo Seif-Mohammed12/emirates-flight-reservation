@@ -103,6 +103,9 @@ public class FlightsController {
         } else {
             loginBtnFlights.setText("Login");
         }
+        loginBtnFlights.setMinWidth(Region.USE_COMPUTED_SIZE); // Allow resizing to fit content
+        loginBtnFlights.setPrefWidth(Region.USE_COMPUTED_SIZE);
+        loginBtnFlights.setMaxWidth(Double.MAX_VALUE);
     }
     public void setSelectedDestination(String destination) {
         this.selectedDestination = destination;
