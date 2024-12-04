@@ -221,3 +221,31 @@
 .success-dialog .label {
     -fx-text-fill: #27ae60;
 }
+.progress-indicator {
+    -fx-background-color: transparent; /* Main container background */
+    -fx-border-color: transparent; /* Border of the main container */
+    -fx-padding: 0; /* Padding around the spinner */
+}
+
+/* Style for the spinner's container */
+.progress-indicator .spinner-pane {
+    -fx-background-color: transparent; /* Spinner pane background */
+}
+
+/* Style for the arc of the progress indicator */
+.progress-indicator .spinner {
+    -fx-background-color: transparent; /* Spinner arc background */
+    -fx-border-color: transparent;
+    -fx-progress-color: #D71920;
+}
+
+
+/* Remove any potential shadows */
+.progress-indicator .spinner-pane,
+.progress-indicator .spinner {
+    -fx-effect: null;
+}
+
+.progress-indicator .spinner-pane * {
+    -fx-background-color: transparent;
+}

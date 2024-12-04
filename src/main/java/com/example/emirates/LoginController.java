@@ -1,6 +1,7 @@
 package com.example.emirates;
 
 import javafx.animation.FadeTransition;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -87,6 +88,8 @@ public class LoginController {
             } else {
                 MainController mainController = loader.getController();
                 mainController.setLoggedInUsername(AppContext.getLoggedInUsername());
+                mainController.depBox.layout();
+
             }
 
             // Get the current stage and scene
@@ -101,6 +104,12 @@ public class LoginController {
             // When the fade-out is complete, change the scene root to the new page
             fadeOut.setOnFinished(e -> {
                 currentScene.setRoot(mainPage);
+                Platform.runLater(() -> {
+                    // Ensure MainController is properly cast to access titleLabel
+                    MainController mainController = loader.getController();
+                    mainController.titleLabel.requestFocus();
+                    mainController.depBox.layout();
+                });
 
                 // Create a fade-in transition for the new page
                 FadeTransition fadeIn = new FadeTransition(Duration.millis(500), mainPage);
@@ -116,6 +125,8 @@ public class LoginController {
             e.printStackTrace();
         }
     }
+
+
 
 
 

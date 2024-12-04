@@ -35,7 +35,37 @@ body {
 
 }
 
-/* ComboBox Styling */
+/* Main ProgressIndicator style */
+.progress-indicator {
+    -fx-background-color: transparent; /* Main container background */
+    -fx-border-color: transparent; /* Border of the main container */
+    -fx-padding: 0; /* Padding around the spinner */
+}
+
+/* Style for the spinner's container */
+.progress-indicator .spinner-pane {
+    -fx-background-color: transparent; /* Spinner pane background */
+}
+
+/* Style for the arc of the progress indicator */
+.progress-indicator .spinner {
+    -fx-background-color: transparent; /* Spinner arc background */
+    -fx-border-color: transparent;
+    -fx-progress-color: #D71920;
+}
+
+
+/* Remove any potential shadows */
+.progress-indicator .spinner-pane,
+.progress-indicator .spinner {
+    -fx-effect: null;
+}
+
+.progress-indicator .spinner-pane * {
+    -fx-background-color: transparent;
+}
+
+
 #depBox {
     -fx-background-color: rgba(255, 255, 255, 0.9);
     -fx-border-color: rgba(200, 200, 200, 0.5);
@@ -70,19 +100,32 @@ body {
     -fx-background-color: rgba(255, 255, 255, 1); /* Bright background */
 }
 
-#depBox .list-cell {
-    -fx-background-color: rgba(0, 0, 0, 0.1);
-    -fx-text-fill: black;
+#depBox .combo-box-popup {
+    -fx-background-color: rgba(255, 255, 255, 0.95); /* Bright dropdown background */
+    -fx-border-color: #D71920; /* Emirates Red border */
+    -fx-border-radius: 8; /* Rounded corners */
+    -fx-background-radius: 8;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0, 3, 3);
+    -fx-padding: 0 0 10 0;
+    -fx-popup-side: bottom;
+}
+
+/* List Cells */
+#depBox .combo-box-popup .list-cell {
+    -fx-background-color: transparent; /* Default background */
+    -fx-text-fill: #333; /* Dark gray text */
     -fx-font-size: 16px;
+    -fx-padding: 10 20; /* Add padding for better spacing */
 }
 
-#depBox .list-cell:hover {
-    -fx-background-color: rgba(135, 206, 235, 0.6);
+#depBox .combo-box-popup .list-cell:hover {
+    -fx-background-color: #D71920; /* Light blue hover effect */
+    -fx-text-fill: white; /* White text on hover */
 }
 
-#depBox .list-cell:selected {
-    -fx-background-color: rgba(135, 206, 235, 0.8);
-    -fx-text-fill: white;
+#depBox .combo-box-popup .list-cell:selected {
+    -fx-background-color: #D71920; /* Emirates Red for selected item */
+    -fx-text-fill: white; /* White text */
 }
 #depBox .arrow-button {
     /* Remove the arrow button's background */
@@ -137,19 +180,31 @@ body {
     -fx-effect: none;
 }
 
-#arrBox .list-cell {
-    -fx-background-color: rgba(0, 0, 0, 0.1);
-    -fx-text-fill: black;
+#arrBox .combo-box-popup {
+    -fx-background-color: rgba(255, 255, 255, 0.95); /* Bright dropdown background */
+    -fx-border-color: #D71920; /* Emirates Red border */
+    -fx-border-radius: 8; /* Rounded corners */
+    -fx-background-radius: 8;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0, 3, 3);
+    -fx-padding: 0 0 10 0;
+}
+
+/* List Cells */
+#arrBox .combo-box-popup .list-cell {
+    -fx-background-color: transparent; /* Default background */
+    -fx-text-fill: #333; /* Dark gray text */
     -fx-font-size: 16px;
+    -fx-padding: 10 20; /* Add padding for better spacing */
 }
 
-#arrBox .list-cell:hover {
-    -fx-background-color: rgba(135, 206, 235, 0.6);
+#arrBox .combo-box-popup .list-cell:hover {
+    -fx-background-color: #D71920; /* Light blue hover effect */
+    -fx-text-fill: white; /* White text on hover */
 }
 
-#arrBox .list-cell:selected {
-    -fx-background-color: rgba(135, 206, 235, 0.8);
-    -fx-text-fill: white;
+#arrBox .combo-box-popup .list-cell:selected {
+    -fx-background-color: #D71920; /* Emirates Red for selected item */
+    -fx-text-fill: white; /* White text */
 }
 
 #arrBox .arrow-button {
@@ -204,19 +259,30 @@ body {
     -fx-background-color: rgba(255, 255, 255, 1); /* Bright background */
 }
 
-#classMenu .list-cell {
-    -fx-background-color: rgba(0, 0, 0, 0.1);
-    -fx-text-fill: black;
+#classMenu .combo-box-popup {
+    -fx-background-color: rgba(255, 255, 255, 0.95); /* Bright dropdown background */
+    -fx-border-color: #D71920; /* Emirates Red border */
+    -fx-border-radius: 8; /* Rounded corners */
+    -fx-background-radius: 8;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0, 3, 3); /* Soft shadow */
+}
+
+/* List Cells */
+#classMenu .combo-box-popup .list-cell {
+    -fx-background-color: transparent; /* Default background */
+    -fx-text-fill: #333; /* Dark gray text */
     -fx-font-size: 16px;
+    -fx-padding: 10 20; /* Add padding for better spacing */
 }
 
-#classMenu .list-cell:hover {
-    -fx-background-color: rgba(135, 206, 235, 0.6);
+#classMenu .combo-box-popup .list-cell:hover {
+    -fx-background-color: rgba(135, 206, 235, 0.8); /* Light blue hover effect */
+    -fx-text-fill: white; /* White text on hover */
 }
 
-#classMenu .list-cell:selected {
-    -fx-background-color: rgba(135, 206, 235, 0.8);
-    -fx-text-fill: white;
+#classMenu .combo-box-popup .list-cell:selected {
+    -fx-background-color: #D71920; /* Emirates Red for selected item */
+    -fx-text-fill: white; /* White text */
 }
 #classMenu .arrow-button {
     -fx-background-color: rgba(255, 255, 255, 0.9);
@@ -622,6 +688,64 @@ body {
     -fx-scale-x: 0.95;
     -fx-scale-y: 0.95;
 }
+
+/* Scroll Bar Styling */
+.scroll-bar {
+    -fx-background-color: transparent; /* Make the scroll bar track transparent */
+    -fx-padding: 5px; /* Add some padding for spacing */
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #D71920; /* Emirates Red for the scroll button */
+    -fx-background-radius: 5px; /* Rounded edges for the scroll button */
+    -fx-min-height: 20px; /* Minimum height for visibility */
+    -fx-max-width: 8px; /* Slim and modern width */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 4, 0, 2, 2); /* Subtle shadow for a floating effect */
+}
+
+.scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #FF4500; /* Slightly lighter red on hover */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.6), 6, 0, 2, 2); /* Enhanced shadow on hover */
+    -fx-cursor: hand; /* Pointer cursor for interactivity */
+}
+
+.scroll-bar:vertical .track {
+    -fx-background-color: transparent; /* Make the scroll track invisible */
+}
+
+.scroll-bar:horizontal {
+    -fx-background-color: transparent; /* Hide horizontal scroll bar track */
+}
+
+.scroll-bar:horizontal .thumb {
+    -fx-background-color: #D71920; /* Emirates Red for horizontal scroll button */
+    -fx-background-radius: 5px; /* Rounded corners */
+    -fx-min-width: 20px; /* Minimum width for visibility */
+    -fx-max-height: 8px; /* Slim and modern height */
+}
+
+.scroll-bar:horizontal .thumb:hover {
+    -fx-background-color: #FF4500; /* Slightly lighter red on hover */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.6), 6, 0, 2, 2); /* Enhanced shadow on hover */
+}
+
+/* Hide the arrows in the scroll bar */
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-arrow {
+    -fx-opacity: 0; /* Make them invisible */
+    -fx-min-width: 0;
+    -fx-min-height: 0;
+    -fx-max-width: 0;
+    -fx-max-height: 0;
+    -fx-padding: 0;
+}
+
+/* Remove extra padding and margin for a cleaner look */
+.scroll-bar .track {
+    -fx-padding: 0;
+    -fx-margin: 0;
+}
+
 .dialog-pane {
     -fx-border-radius: 20px;
     -fx-background-radius: 20px;

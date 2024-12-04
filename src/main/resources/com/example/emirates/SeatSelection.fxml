@@ -48,7 +48,7 @@
                <children>
                       <!-- Login Button on the Right -->
                       <Button fx:id="loginButton" layoutX="1290.0" layoutY="8.0" styleClass="login-button" text="Login" />
-                  <Button fx:id="iconBtnSeat" layoutX="113.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="140.0" />
+                  <Button fx:id="iconBtnSeat" onAction="#goToMain" layoutX="113.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="140.0" />
                </children>
             </Pane>
             </children>

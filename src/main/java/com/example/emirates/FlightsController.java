@@ -1,6 +1,8 @@
 package com.example.emirates;
 
 import javafx.animation.FadeTransition;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -160,6 +162,9 @@ public class FlightsController {
 
             fadeOut.setOnFinished(e -> {
                 currentScene.setRoot(mainPage);
+                Platform.runLater(() -> {
+                    mainController.titleLabel.requestFocus();
+                });
 
                 FadeTransition fadeIn = new FadeTransition(Duration.millis(500), mainPage);
                 fadeIn.setFromValue(0.0);
@@ -217,34 +222,63 @@ public class FlightsController {
     }
 
     private void showSeatSelection(selectFlights.Flights flight) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("SeatSelection.fxml"));
-            Parent seatSelectionLayout = loader.load();
+        // Get the current stage and scene
+        Stage currentStage = (Stage) flightsContainer.getScene().getWindow();
+        Scene currentScene = currentStage.getScene();
 
-            // Get the SeatSelectionController and pass the necessary details
-            SeatSelectionController seatSelectionController = loader.getController();
-            seatSelectionController.setLoggedInUsername(AppContext.getLoggedInUsername());
-            seatSelectionController.setSelectedClass(selectedClass);
-            seatSelectionController.setSelectedDestination(selectedDestination);
-            seatSelectionController.setSelectedDeparture(selectedDeparture);
-            seatSelectionController.setAdults(adults);
-            seatSelectionController.setChildren(children);
+        // Create a loading overlay
+        Pane overlayPane = new Pane();
+        overlayPane.setStyle("-fx-background-color: rgba(0, 0, 0, 0.3);"); // Semi-transparent background
+        overlayPane.setPrefSize(currentScene.getRoot().getBoundsInLocal().getWidth(),
+                currentScene.getRoot().getBoundsInLocal().getHeight());
 
-            // seatSelectionController.setFlightDetails(flight);
+        // Add a loading spinner to the overlay
+        ProgressIndicator loadingIndicator = new ProgressIndicator();
+        loadingIndicator.setMaxSize(100, 100);
+        loadingIndicator.setStyle("-fx-progress-color: #D71920;" + "-fx-background-color: transparent;");
 
-            // Transition to the seat selection view
-            Stage stage = (Stage) flightsContainer.getScene().getWindow();
-            Scene currentScene = stage.getScene();
+        // Center the spinner
+        loadingIndicator.layoutXProperty().bind(overlayPane.widthProperty().divide(2).subtract(400)); // Adjusted for centering
+        loadingIndicator.layoutYProperty().bind(overlayPane.heightProperty().divide(2).subtract(150));
+        overlayPane.getChildren().add(loadingIndicator);
 
-            // Apply fade-out transition
+        // Add the overlay to the current scene
+        ((Pane) currentScene.getRoot()).getChildren().add(overlayPane);
+
+        // Task for loading the FXML
+        Task<Parent> loadSeatSelectionTask = new Task<>() {
+            @Override
+            protected Parent call() throws IOException {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("SeatSelection.fxml"));
+                Parent seatSelectionLayout = loader.load();
+
+                // Pass the data to the SeatSelectionController
+                SeatSelectionController seatSelectionController = loader.getController();
+                seatSelectionController.setLoggedInUsername(AppContext.getLoggedInUsername());
+                seatSelectionController.setSelectedClass(selectedClass);
+                seatSelectionController.setSelectedDestination(selectedDestination);
+                seatSelectionController.setSelectedDeparture(selectedDeparture);
+                seatSelectionController.setAdults(adults);
+                seatSelectionController.setChildren(children);
+
+                return seatSelectionLayout;
+            }
+        };
+
+        // Handle success: Transition to seat selection
+        loadSeatSelectionTask.setOnSucceeded(workerStateEvent -> {
+            Parent seatSelectionLayout = loadSeatSelectionTask.getValue();
+
+            // Apply fade-out transition to the current scene
             FadeTransition fadeOut = new FadeTransition(Duration.millis(500), currentScene.getRoot());
             fadeOut.setFromValue(1.0);
             fadeOut.setToValue(0.0);
 
             fadeOut.setOnFinished(e -> {
+                // Replace the root with the new layout
                 currentScene.setRoot(seatSelectionLayout);
 
-                // Apply fade-in transition for the new view
+                // Apply fade-in transition to the new layout
                 FadeTransition fadeIn = new FadeTransition(Duration.millis(500), seatSelectionLayout);
                 fadeIn.setFromValue(0.0);
                 fadeIn.setToValue(1.0);
@@ -252,11 +286,29 @@ public class FlightsController {
             });
 
             fadeOut.play();
-        } catch (IOException e) {
-            System.err.println("Error loading SeatSelection.fxml: " + e.getMessage());
-            e.printStackTrace();
-        }
+
+            // Remove the overlay once the transition starts
+            ((Pane) currentScene.getRoot()).getChildren().remove(overlayPane);
+        });
+
+        // Handle failure: Remove the loading overlay and log the error
+        loadSeatSelectionTask.setOnFailed(workerStateEvent -> {
+            Throwable error = loadSeatSelectionTask.getException();
+            error.printStackTrace(); // Log the error for debugging
+
+            // Remove the overlay
+            ((Pane) currentScene.getRoot()).getChildren().remove(overlayPane);
+
+
+        });
+
+        // Run the task in a background thread
+        Thread loadThread = new Thread(loadSeatSelectionTask);
+        loadThread.setDaemon(true); // Ensure the thread exits with the application
+        loadThread.start();
     }
+
+
 
 
     public void updateFlightCards() {

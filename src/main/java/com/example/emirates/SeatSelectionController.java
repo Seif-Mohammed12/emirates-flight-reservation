@@ -1,6 +1,8 @@
 package com.example.emirates;
 
 import javafx.animation.FadeTransition;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,8 +10,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -38,6 +44,8 @@ public class SeatSelectionController {
     private Button loginButton;
     @FXML
     private Label titleLabel;
+    @FXML
+    private Button iconBtnSeat;
 
     private final SeatSelection seatSelection = new SeatSelection();
 
@@ -135,21 +143,53 @@ public class SeatSelectionController {
 
     @FXML
     private void handleBackButton(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("Flights.fxml"));
-            Parent flightsLayout = loader.load();
+        // Create a loading overlay using a Pane
+        Pane overlay = new Pane();
+        overlay.setStyle("-fx-background-color: rgba(0, 0, 0, 0.5);"); // Semi-transparent background
+        overlay.setPrefSize(backButton.getScene().getWidth(), backButton.getScene().getHeight()); // Cover the entire scene
 
-            FlightsController flightsController = loader.getController();
+        ProgressIndicator loadingIndicator = new ProgressIndicator();
+        loadingIndicator.setStyle("-fx-progress-color: #D71920;" + "-fx-background-color: transparent;");
+        loadingIndicator.setLayoutX(backButton.getScene().getWidth() / 2 - 20); // Center horizontally
+        loadingIndicator.setLayoutY(backButton.getScene().getHeight() / 2 - 20); // Center vertically
+        overlay.getChildren().add(loadingIndicator);
+        overlay.setVisible(false); // Initially hidden
 
-            // Pass back the updated data to FlightsController
-            flightsController.setLoggedInUsername(loggedInUsername);
-            flightsController.setSelectedClass(selectedClass);
-            flightsController.setSelectedDestination(selectedDestination);
-            flightsController.setSelectedDeparture(selectedDeparture);
-            flightsController.setAdults(adults);
-            flightsController.setChildren(children);
-            flightsController.updateFlightCards();
+        // Get the root pane of the current scene
+        Parent currentRoot = backButton.getScene().getRoot();
+        if (currentRoot instanceof Pane) {
+            ((Pane) currentRoot).getChildren().add(overlay);
+        } else {
+            throw new IllegalStateException("Root is not a Pane. Cannot add overlay.");
+        }
 
+        // Show the overlay before starting the task
+        overlay.setVisible(true);
+
+        // Create a background task to load the FXML
+        Task<Parent> loadTask = new Task<>() {
+            @Override
+            protected Parent call() throws IOException {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("Flights.fxml"));
+                Parent flightsLayout = loader.load();
+
+                // Update FlightsController with data
+                FlightsController flightsController = loader.getController();
+                flightsController.setLoggedInUsername(loggedInUsername);
+                flightsController.setSelectedClass(selectedClass);
+                flightsController.setSelectedDestination(selectedDestination);
+                flightsController.setSelectedDeparture(selectedDeparture);
+                flightsController.setAdults(adults);
+                flightsController.setChildren(children);
+                flightsController.updateFlightCards();
+
+                return flightsLayout;
+            }
+        };
+
+        // When loading is successful, update the UI
+        loadTask.setOnSucceeded(workerStateEvent -> {
+            Parent flightsLayout = loadTask.getValue();
             Stage stage = (Stage) backButton.getScene().getWindow();
             Scene currentScene = stage.getScene();
 
@@ -167,8 +207,65 @@ public class SeatSelectionController {
             });
 
             fadeOut.play();
+
+            // Hide the loading overlay
+            overlay.setVisible(false);
+            ((Pane) currentRoot).getChildren().remove(overlay); // Clean up the overlay after transition
+        });
+
+        // Handle failure
+        loadTask.setOnFailed(workerStateEvent -> {
+            Throwable error = loadTask.getException();
+            error.printStackTrace();
+
+            // Hide the loading overlay in case of failure
+            overlay.setVisible(false);
+            ((Pane) currentRoot).getChildren().remove(overlay); // Clean up the overlay
+        });
+
+        // Run the task in a background thread
+        Thread loadThread = new Thread(loadTask);
+        loadThread.setDaemon(true); // Mark as a daemon thread to prevent it from blocking application exit
+        loadThread.start();
+    }
+
+
+
+
+    @FXML
+    private void goToMain() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Main.fxml"));
+            AnchorPane mainPage = loader.load();
+            MainController mainController = loader.getController();
+
+            String loggedInUsername = AppContext.getLoggedInUsername();
+            mainController.setLoggedInUsername(loggedInUsername);
+
+            Stage stage = (Stage) iconBtnSeat.getScene().getWindow();
+            Scene currentScene = stage.getScene();
+
+            FadeTransition fadeOut = new FadeTransition(Duration.millis(500), currentScene.getRoot());
+            fadeOut.setFromValue(1.0);
+            fadeOut.setToValue(0.0);
+
+            fadeOut.setOnFinished(e -> {
+                currentScene.setRoot(mainPage);
+                Platform.runLater(() -> {
+                    mainController.titleLabel.requestFocus();
+                });
+
+                FadeTransition fadeIn = new FadeTransition(Duration.millis(500), mainPage);
+                fadeIn.setFromValue(0.0);
+                fadeIn.setToValue(1.0);
+                fadeIn.play();
+            });
+
+            fadeOut.play();
+
         } catch (IOException e) {
             e.printStackTrace();
+
         }
     }
 }
