@@ -282,7 +282,6 @@ public class MainController {
             return;
         }
 
-
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("flights.fxml"));
             Parent newRoot = loader.load();
@@ -294,6 +293,9 @@ public class MainController {
             flightListController.setSelectedDeparture(selectedDeparture);
             flightListController.setLoggedInUsername(AppContext.getLoggedInUsername());
             flightListController.setSelectedClass(selectedClass);
+            flightListController.setAdults(adultSpinner.getValue());
+            flightListController.setChildren(childrenSpinner.getValue());
+            flightListController.updateFlightCards();
 
             Scene currentScene = currentStage.getScene();
 

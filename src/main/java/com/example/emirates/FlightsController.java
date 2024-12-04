@@ -52,6 +52,8 @@ public class FlightsController {
     private String selectedDestination;
     private String selectedDeparture;
     private String loggedInUsername;
+    private int adults;
+    private int children;
 
     private List<selectFlights.Flights> flights = new ArrayList<>();
 
@@ -106,6 +108,14 @@ public class FlightsController {
         loginBtnFlights.setMinWidth(Region.USE_COMPUTED_SIZE); // Allow resizing to fit content
         loginBtnFlights.setPrefWidth(Region.USE_COMPUTED_SIZE);
         loginBtnFlights.setMaxWidth(Double.MAX_VALUE);
+    }
+
+    public void setAdults(int adults) {
+        this.adults = adults;
+    }
+
+    public void setChildren(int children) {
+        this.children = children;
     }
     public void setSelectedDestination(String destination) {
         this.selectedDestination = destination;
@@ -206,19 +216,17 @@ public class FlightsController {
         }
     }
 
-    private void updateFlightCards() {
-        // Clear container
+    public void updateFlightCards() {
         flightsContainer.getChildren().clear();
 
-        // Filter and sort flights
         List<selectFlights.Flights> filteredFlights = flights.stream()
-                .filter(flight -> filterByDestination(flight) && filterByDeparture(flight)) // Combine both filters
+                .filter(flight -> filterByDestination(flight) && filterByDeparture(flight))
                 .sorted(this::sortFlights)
                 .collect(Collectors.toList());
 
-        // Add cards
-        filteredFlights.forEach(this::addFlightCard);
+        filteredFlights.forEach(flight -> addFlightCard(flight));
     }
+
 
 
     private boolean filterByDestination(selectFlights.Flights flight) {
@@ -383,18 +391,34 @@ public class FlightsController {
         pricingSection.setStyle("-fx-alignment: center-right;");
 
         VBox pricing = new VBox(5);
-        pricing.getChildren().addAll(
-                new Label(selectedClass + " Class"),
-                new Label("from " + getUpdatedPrice(flight))
-        );
+
+        // Add class type information
+        Label classLabel = new Label(selectedClass + " Class");
+        classLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
+
+        // Add passengers count information
+        int totalPassengers = adults + children;
+        String passengerText = totalPassengers + " Passenger" + (totalPassengers > 1 ? "s" : "");
+        Label passengersLabel = new Label(passengerText);
+        passengersLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: #555;");
+
+        // Add price information
+        Label priceLabel = new Label("from " + getUpdatedPrice(flight));
+        priceLabel.setStyle("-fx-font-size: 16px; -fx-text-fill: #D71920;");
+
+        // Add all labels to the pricing section
+        pricing.getChildren().addAll(classLabel, passengersLabel, priceLabel);
 
         if ("Economy".equals(selectedClass)) {
-            pricing.getChildren().add(new Label("Lowest price"));
+            Label lowestPriceLabel = new Label("Lowest price");
+            lowestPriceLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: #777;");
+            pricing.getChildren().add(lowestPriceLabel);
         }
 
         pricingSection.getChildren().add(pricing);
         return pricingSection;
     }
+
 
     private HBox createPlaneInfoSection(selectFlights.Flights flight) {
         HBox planeInfo = new HBox(10);
@@ -423,17 +447,29 @@ public class FlightsController {
 
     private String getUpdatedPrice(selectFlights.Flights flight) {
         try {
-            double basePrice = parsePrice(flight.price);
-            double adjustedPrice = switch (selectedClass) {
-                case "Business" -> basePrice * 1.5;
-                case "First" -> basePrice * 2;
-                default -> basePrice;
+            double basePrice = parsePrice(flight.price); // Parse the base price
+            double adjustedPricePerAdult = basePrice;   // Full price for an adult
+            double adjustedPricePerChild = basePrice * 0.5; // 50% price for a child
+
+            int totalPassengers = adults + children; // Calculate total passengers
+
+            // Calculate total price based on the number of adults and children
+            double totalPrice = (adults * adjustedPricePerAdult) + (children * adjustedPricePerChild);
+
+            // Adjust the total price for the selected class
+            double finalPrice = switch (selectedClass) {
+                case "Business" -> totalPrice * 1.5;
+                case "First" -> totalPrice * 2;
+                default -> totalPrice;
             };
-            return "EGP " + String.format("%.2f", adjustedPrice);
+
+            // Format the price to include currency (EGP)
+            return "EGP " + String.format("%.2f", finalPrice);
         } catch (Exception e) {
             return "Price not available";
         }
     }
+
 
     private Region createSpacer() {
         Region spacer = new Region();
