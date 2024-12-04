@@ -216,6 +216,49 @@ public class FlightsController {
         }
     }
 
+    private void showSeatSelection(selectFlights.Flights flight) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("SeatSelection.fxml"));
+            Parent seatSelectionLayout = loader.load();
+
+            // Get the SeatSelectionController and pass the necessary details
+            SeatSelectionController seatSelectionController = loader.getController();
+            seatSelectionController.setLoggedInUsername(AppContext.getLoggedInUsername());
+            seatSelectionController.setSelectedClass(selectedClass);
+            seatSelectionController.setSelectedDestination(selectedDestination);
+            seatSelectionController.setSelectedDeparture(selectedDeparture);
+            seatSelectionController.setAdults(adults);
+            seatSelectionController.setChildren(children);
+
+            // seatSelectionController.setFlightDetails(flight);
+
+            // Transition to the seat selection view
+            Stage stage = (Stage) flightsContainer.getScene().getWindow();
+            Scene currentScene = stage.getScene();
+
+            // Apply fade-out transition
+            FadeTransition fadeOut = new FadeTransition(Duration.millis(500), currentScene.getRoot());
+            fadeOut.setFromValue(1.0);
+            fadeOut.setToValue(0.0);
+
+            fadeOut.setOnFinished(e -> {
+                currentScene.setRoot(seatSelectionLayout);
+
+                // Apply fade-in transition for the new view
+                FadeTransition fadeIn = new FadeTransition(Duration.millis(500), seatSelectionLayout);
+                fadeIn.setFromValue(0.0);
+                fadeIn.setToValue(1.0);
+                fadeIn.play();
+            });
+
+            fadeOut.play();
+        } catch (IOException e) {
+            System.err.println("Error loading SeatSelection.fxml: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+
     public void updateFlightCards() {
         flightsContainer.getChildren().clear();
 
@@ -278,7 +321,7 @@ public class FlightsController {
         VBox flightCard = createStyledVBox("flight-card", 10, 15);
         flightCard.setOnMouseEntered(event -> flightCard.setStyle("-fx-effect: dropshadow(gaussian, #888, 10, 0, 0, 0);"));
         flightCard.setOnMouseExited(event -> flightCard.setStyle("-fx-effect: none;"));
-        flightCard.setOnMouseClicked(event -> showFlightDetails(flight));
+        flightCard.setOnMouseClicked(event -> showSeatSelection(flight));
 
         // Flight Details
         HBox flightDetails = new HBox(20);
@@ -475,33 +518,6 @@ public class FlightsController {
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
         return spacer;
-    }
-
-    private void showFlightDetails(selectFlights.Flights flight) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/emirates/seatPlan.fxml"));
-            Parent root = loader.load();
-
-            // Get the controller and pass the selected class
-            SeatPlanController controller = loader.getController();
-            controller.setSelectedClass(selectedClass);
-
-            // Create a new stage for the seat plan
-            Stage stage = new Stage();
-            stage.setTitle("Seat Plan");
-            stage.setScene(new Scene(root));
-
-            // Apply fade-in animation
-            FadeTransition fadeIn = new FadeTransition(Duration.millis(500), root);
-            fadeIn.setFromValue(0);
-            fadeIn.setToValue(1);
-            fadeIn.play();
-
-            // Show the seat plan stage
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     private void showErrorDialog(String title, String message) {

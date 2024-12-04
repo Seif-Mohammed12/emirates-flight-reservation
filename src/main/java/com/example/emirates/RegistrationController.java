@@ -160,7 +160,8 @@ public class RegistrationController {
         textFlow.getChildren().add(text);
         dialogPane.setContent(textFlow);
 
-        dialogPane.setStyle("-fx-background-radius: 20; -fx-border-radius: 20;");
+        dialogPane.setStyle("-fx-background-color: #d4edda; -fx-background-radius: 20; -fx-border-radius: 20; " +
+                "-fx-border-color: #388e3c; -fx-border-width: 2px;");
 
         alert.setHeaderText(null);
         alert.setGraphic(null);

@@ -349,3 +349,37 @@
 .scroll-bar:vertical .arrow{
     -fx-opacity: 0;
 }
+
+.dialog-pane {
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+    -fx-border-width: 2px;
+    -fx-padding: 20px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0, 5, 5);
+    -fx-font-family: 'Arial', sans-serif;
+    -fx-font-size: 14px;
+}
+
+.error-dialog {
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-background-color: rgba(255, 99, 71, 0.1);
+    -fx-border-color: rgba(255, 99, 71, 0.8);
+    -fx-font-size: 16px;
+}
+
+.error-dialog .label {
+    -fx-text-fill: #e74c3c;
+}
+
+.success-dialog {
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-background-color: rgba(0, 128, 0, 0.1);
+    -fx-border-color: rgba(0, 128, 0, 0.8);
+    -fx-font-size: 16px;
+}
+
+.success-dialog .label {
+    -fx-text-fill: #27ae60;
+}

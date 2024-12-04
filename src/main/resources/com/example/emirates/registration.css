@@ -87,7 +87,6 @@
     -fx-font-weight: normal;
 }
 
-/* Dialog Pane */
 .dialog-pane {
     -fx-border-radius: 20px;
     -fx-background-radius: 20px;
@@ -98,7 +97,6 @@
     -fx-font-size: 14px;
 }
 
-/* Error Dialog */
 .error-dialog {
     -fx-background-radius: 20;
     -fx-border-radius: 20;
@@ -109,7 +107,41 @@
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 10, 0.5, 0, 0);
 }
 
-/* Success Dialog */
+.alert-stage {
+    -fx-background-color: transparent;
+}
+
+.alert-stage .root {
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-background-color: transparent;
+}
+
+.error-dialog .content {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: inherit;
+}
+
+.error-dialog .header-panel {
+    -fx-background-color: transparent;
+    -fx-text-fill: inherit;
+}
+
+.error-dialog .button-bar .button {
+    -fx-background-color: #dc3545;
+    -fx-text-fill: white;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-padding: 5px 10px;
+    -fx-font-weight: bold;
+}
+
+.error-dialog .button-bar .button:hover {
+    -fx-background-color: #c82333;
+    -fx-text-fill: white;
+}
+
 .success-dialog {
     -fx-font-family: "Segoe UI", sans-serif;
     -fx-font-size: 18px;
