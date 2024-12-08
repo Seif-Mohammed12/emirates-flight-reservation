@@ -48,7 +48,15 @@ public class BookingConfirmation {
             this.passenger = passenger;
             this.bookingId = generateBookingId();
             this.status = "Confirmed";
-            this.totalPrice = Double.parseDouble(flight.getPrice());
+            this.totalPrice = parsePrice(flight.getPrice());
+        }
+
+        private double parsePrice(String price) {
+            try {
+                return Double.parseDouble(price.replace("EGP", "").replace(",", "").trim());
+            } catch (NumberFormatException e) {
+                return 0.0;
+            }
         }
 
         private String generateBookingId() {
