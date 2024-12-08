@@ -84,8 +84,7 @@ public class MainController {
     @FXML
     public void initialize() {
         loadCustomFonts();
-        configureDatePicker(dateFrom, LocalDate.now());
-        configureDatePicker(dateBack, LocalDate.now());
+        configureDatePickers(dateFrom, dateBack, LocalDate.now());
         configureSpinners();
         configureClassMenu();
         configureLoginButton();
@@ -110,6 +109,11 @@ public class MainController {
     // ----------------------------------------
 
     private void configureDatePicker(DatePicker datePicker, LocalDate today) {
+        if (datePicker.getValue() != null && datePicker.getValue().isBefore(today)) {
+            datePicker.setValue(today);
+        }
+
+        // Prevent selecting past dates
         datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null && newValue.isBefore(today)) {
                 datePicker.setValue(today);
@@ -125,10 +129,35 @@ public class MainController {
 
             @Override
             public LocalDate fromString(String string) {
-                return (string == null || string.isEmpty()) ? null : LocalDate.parse(string, formatter);
+                if (string == null || string.isEmpty()) {
+                    return null;
+                }
+                return LocalDate.parse(string, formatter);
             }
         });
     }
+
+    private void configureDatePickers(DatePicker dateFrom, DatePicker dateBack, LocalDate today) {
+        // Configure From DatePicker
+        configureDatePicker(dateFrom, today);
+
+        // Configure To DatePicker
+        configureDatePicker(dateBack, today);
+
+        // Ensure dateBack cannot be earlier than dateFrom
+        dateFrom.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null && dateBack.getValue() != null && dateBack.getValue().isBefore(newValue)) {
+                dateBack.setValue(newValue); // Align To date with From date
+            }
+        });
+
+        dateBack.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null && dateFrom.getValue() != null && newValue.isBefore(dateFrom.getValue())) {
+                dateBack.setValue(dateFrom.getValue()); // Align To date with From date
+            }
+        });
+    }
+
 
     @FXML
     public void refreshDates() {
