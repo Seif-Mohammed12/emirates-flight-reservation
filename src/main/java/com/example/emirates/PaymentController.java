@@ -448,6 +448,12 @@ public class PaymentController {
 
         String paymentId = generatePaymentId();
 
+        BookingConfirmation bookingConfirmation = new BookingConfirmation();
+        BookingConfirmation.Passenger passenger = bookingConfirmation.createPassenger(selectedSeat, selectedClass);
+        BookingConfirmation.Booking booking = bookingConfirmation.createBooking(selectedFlight, passenger);
+
+
+        AppContext.addBooking(booking);
 
         showSuccessAlert(
                 "Your payment of EGP " + String.format("%.2f", totalAmount) +
