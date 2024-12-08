@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+
+<?import javafx.scene.image.ImageView?>
+<AnchorPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@payment.css" fx:controller="com.example.emirates.PaymentController">
+    <VBox spacing="20" AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.bottomAnchor="20">
+        <!-- Existing Payment Section -->
+        <VBox fx:id="paymentContainer" spacing="20">
+            <!-- The flight card and payment summary will be dynamically added here -->
+        </VBox>
+
+        <VBox fx:id="paymentSection" alignment="CENTER" spacing="15" styleClass="payment-section">
+            <Label text="Payment by Credit/Debit Card" styleClass="payment-section-title" />
+
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Label text="Card Number:" styleClass="payment-section-label" />
+                <TextField fx:id="cardNumberField" promptText="Enter card number" styleClass="payment-textfield" />
+                <ImageView fx:id="cardIcon" fitWidth="32" fitHeight="32" />
+            </HBox>
+
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Label text="Expiration Date:" styleClass="payment-section-label" />
+                <TextField fx:id="expirationDateField" promptText="MM/YY" styleClass="payment-textfield-small" />
+
+                <Label text="CVV:" styleClass="payment-section-label" />
+                <TextField fx:id="cvvField" promptText="123" styleClass="payment-textfield-small" />
+            </HBox>
+
+            <HBox alignment="CENTER" spacing="20">
+                <Button fx:id="payButton" onAction="#handlePayButton" text="Pay" styleClass="payment-button payment-button-pay" />
+                <Button fx:id="goBackButton" onAction="#handlegoBack" text="Go Back" styleClass="payment-button payment-button-back" />
+            </HBox>
+        </VBox>
+    </VBox>
+</AnchorPane>

@@ -1,6 +1,7 @@
 package com.example.emirates;
 
 import javafx.animation.FadeTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -58,6 +59,9 @@ public class AboutController {
 
             fadeOut.setOnFinished(e -> {
                 currentScene.setRoot(mainPage);
+                Platform.runLater(() -> {
+                    mainController.titleLabel.requestFocus();
+                });
 
                 FadeTransition fadeIn = new FadeTransition(Duration.millis(500), mainPage);
                 fadeIn.setFromValue(0.0);

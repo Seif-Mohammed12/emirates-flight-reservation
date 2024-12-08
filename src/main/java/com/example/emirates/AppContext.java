@@ -1,16 +1,46 @@
 package com.example.emirates;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class AppContext {
 
     private static String loggedInUsername;
     private static String loggedInPassword;
     private static String loggedInFirstName;
+    private static String loggedInLastName;
+    private static String loggedInEmail;
 
     private static String selectedDestination;
     private static String selectedDeparture;
 
+    private static final List<BookingConfirmation.Booking> bookings = new ArrayList<>();
+
+    public static void addBooking(BookingConfirmation.Booking booking) {
+        bookings.add(booking);
+    }
+
+    public static List<BookingConfirmation.Booking> getBookings() {
+        return new ArrayList<>(bookings); // Return a copy to prevent modification
+    }
+
+    public static boolean hasBookings() {
+        return !bookings.isEmpty();
+    }
+
+    public static void clearBookings() {
+        bookings.clear();
+    }
+
     public static String getLoggedInUsername() {
         return loggedInUsername;
+    }
+    public static String getLoggedInEmail() {
+        return loggedInEmail;
+    }
+
+    public static void setLoggedInEmail(String email) {
+        loggedInEmail = email;
     }
 
     public static void setLoggedInUsername(String username) {
@@ -48,5 +78,13 @@ public class AppContext {
         AppContext.loggedInPassword = loggedInPassword;
 
 
+    }
+
+    public static String getLoggedInLastName() {
+        return loggedInLastName;
+    }
+
+    public static void setLoggedInLastName(String loggedInLastName) {
+        AppContext.loggedInLastName = loggedInLastName;
     }
 }

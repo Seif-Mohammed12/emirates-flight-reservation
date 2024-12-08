@@ -26,7 +26,7 @@
 
             <!-- VBox for buttons with fixed size to avoid covering seat buttons -->
             <VBox alignment="CENTER_RIGHT" maxHeight="200" maxWidth="300" minHeight="100" minWidth="200" spacing="20" styleClass="button-box" StackPane.alignment="CENTER_RIGHT">
-                <Button fx:id="confirmButton" styleClass="confirm-button" text="Confirm Selection" />
+                <Button fx:id="confirmButton" onAction="#handlegotoBooking" styleClass="confirm-button" text="Confirm Selection" />
                 <Button fx:id="backButton" onAction="#handleBackButton" styleClass="back-button" text="Back to Flights" />
             </VBox>
         </StackPane>

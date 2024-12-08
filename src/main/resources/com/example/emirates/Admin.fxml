@@ -1,21 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.VBox?>
 
 <AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@admin.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.emirates.AdminController">
 
-    <!-- Title Section -->
-    <VBox alignment="CENTER" layoutX="-181.0" layoutY="50.0" prefWidth="1920.0">
-        <children>
-            <Label fx:id="titleLabel" style="-fx-font-size: 24px; -fx-font-weight: bold;" text="Admin Dashboard" />
-        </children>
-    </VBox>
-
-    <!-- Table Section -->
+    <!-- Admin Menu -->
     <VBox fx:id="rootPane" alignment="CENTER" layoutX="-170.0" layoutY="150.0" prefWidth="1920.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
         <children>
             <TableView fx:id="actionTable" maxHeight="600.0" onMouseClicked="#handleActionSelected" prefWidth="800.0">
@@ -25,4 +22,70 @@
             </TableView>
         </children>
     </VBox>
+
+    <!-- Add User Form -->
+    <GridPane fx:id="userForm" layoutX="500.0" layoutY="200.0" visible="false" managed="false" hgap="10.0" vgap="10.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0">
+        <children>
+            <Label text="First Name:" GridPane.rowIndex="0" GridPane.columnIndex="0" />
+            <TextField fx:id="firstNameField" GridPane.rowIndex="0" GridPane.columnIndex="1" />
+
+            <Label text="Last Name:" GridPane.rowIndex="1" GridPane.columnIndex="0" />
+            <TextField fx:id="lastNameField" GridPane.rowIndex="1" GridPane.columnIndex="1" />
+
+            <Label text="Email:" GridPane.rowIndex="2" GridPane.columnIndex="0" />
+            <TextField fx:id="emailField" GridPane.rowIndex="2" GridPane.columnIndex="1" />
+
+            <Label text="Phone Number:" GridPane.rowIndex="3" GridPane.columnIndex="0" />
+            <TextField fx:id="phoneNumberField" GridPane.rowIndex="3" GridPane.columnIndex="1" />
+
+            <Label text="Zip Code:" GridPane.rowIndex="4" GridPane.columnIndex="0" />
+            <TextField fx:id="zipCodeField" GridPane.rowIndex="4" GridPane.columnIndex="1" />
+
+            <Label text="Address:" GridPane.rowIndex="5" GridPane.columnIndex="0" />
+            <TextField fx:id="addressField" GridPane.rowIndex="5" GridPane.columnIndex="1" />
+
+            <Label text="Username:" GridPane.rowIndex="6" GridPane.columnIndex="0" />
+            <TextField fx:id="usernameField" GridPane.rowIndex="6" GridPane.columnIndex="1" />
+
+            <Label text="Password:" GridPane.rowIndex="7" GridPane.columnIndex="0" />
+            <PasswordField fx:id="passwordField" GridPane.rowIndex="7" GridPane.columnIndex="1" />
+
+            <Button text="Add User" onAction="#handleAddUser" GridPane.rowIndex="8" GridPane.columnIndex="1" />
+        </children>
+    </GridPane>
+
+    <!-- Add Flights Form -->
+    <GridPane fx:id="flightForm" layoutX="500.0" layoutY="200.0" visible="false" managed="false" hgap="10.0" vgap="10.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0">
+        <children>
+            <Label text="Flight Number:" GridPane.rowIndex="0" GridPane.columnIndex="0" />
+            <TextField fx:id="flightNoField" GridPane.rowIndex="0" GridPane.columnIndex="1" />
+
+            <Label text="Departure City:" GridPane.rowIndex="1" GridPane.columnIndex="0" />
+            <TextField fx:id="departureCityField" GridPane.rowIndex="1" GridPane.columnIndex="1" />
+
+            <Label text="Arrival City:" GridPane.rowIndex="2" GridPane.columnIndex="0" />
+            <TextField fx:id="arrivalCityField" GridPane.rowIndex="2" GridPane.columnIndex="1" />
+
+            <Label text="Departure Time:" GridPane.rowIndex="3" GridPane.columnIndex="0" />
+            <TextField fx:id="departureTimeField" GridPane.rowIndex="3" GridPane.columnIndex="1" />
+
+            <Label text="Arrival Time:" GridPane.rowIndex="4" GridPane.columnIndex="0" />
+            <TextField fx:id="arrivalTimeField" GridPane.rowIndex="4" GridPane.columnIndex="1" />
+
+            <Label text="Duration:" GridPane.rowIndex="5" GridPane.columnIndex="0" />
+            <TextField fx:id="durationField" GridPane.rowIndex="5" GridPane.columnIndex="1" />
+
+            <Label text="Stops:" GridPane.rowIndex="6" GridPane.columnIndex="0" />
+            <TextField fx:id="stopsField" GridPane.rowIndex="6" GridPane.columnIndex="1" />
+
+            <Label text="Aircraft Details:" GridPane.rowIndex="7" GridPane.columnIndex="0" />
+            <TextField fx:id="aircraftDetailsField" GridPane.rowIndex="7" GridPane.columnIndex="1" />
+
+            <Label text="Price:" GridPane.rowIndex="8" GridPane.columnIndex="0" />
+            <TextField fx:id="priceField" GridPane.rowIndex="8" GridPane.columnIndex="1" />
+
+            <Button text="Add Flight" onAction="#handleAddFlight" GridPane.rowIndex="9" GridPane.columnIndex="1" />
+        </children>
+    </GridPane>
+
 </AnchorPane>

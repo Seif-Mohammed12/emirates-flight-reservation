@@ -6,12 +6,10 @@ import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ProgressIndicator;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -21,6 +19,10 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class SeatSelectionController {
 
@@ -30,7 +32,10 @@ public class SeatSelectionController {
     private int adults;
     private int children;
     private String loggedInUsername;
-    private selectFlights.Flights selectedFlight; // If flight-specific details are needed
+    private selectFlights.Flights selectedFlight;
+    private String updatedPrice;
+    private LocalDate departureDate;
+    private LocalDate returnDate;
 
     @FXML
     private GridPane economyGrid, businessGrid, firstGrid;
@@ -99,9 +104,11 @@ public class SeatSelectionController {
     }
 
     private void updateTotalPassengers() {
-        int totalPassengers = adults + children;
+        int totalPassengers = this.adults + this.children;
         seatSelection.setTotalPassengers(totalPassengers);
     }
+
+
 
     public void setLoggedInUsername(String username) {
         this.loggedInUsername = username;
@@ -109,6 +116,20 @@ public class SeatSelectionController {
 
     public void setSelectedFlight(selectFlights.Flights flight) {
         this.selectedFlight = flight;
+    }
+    public void setUpdatedPrice(String price) {
+        this.updatedPrice = price; // Set the updated price
+    }
+    public void setDepartureDate(LocalDate departureDate) {
+        this.departureDate = departureDate;
+    }
+
+    public void setReturnDate(LocalDate returnDate) {
+        this.returnDate = returnDate;
+    }
+
+    public List<ToggleButton> getSelectedSeats() {
+        return seatSelection.getSelectedSeats();
     }
 
     private void displaySelectedClassGrid() {
@@ -227,6 +248,124 @@ public class SeatSelectionController {
         Thread loadThread = new Thread(loadTask);
         loadThread.setDaemon(true); // Mark as a daemon thread to prevent it from blocking application exit
         loadThread.start();
+    }
+
+
+
+    @FXML
+    private void handlegotoBooking(ActionEvent event) {
+        // Get the current stage and scene
+        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene currentScene = currentStage.getScene();
+
+        // Create a loading overlay
+        Pane overlayPane = new Pane();
+        overlayPane.setStyle("-fx-background-color: rgba(0, 0, 0, 0.3);"); // Semi-transparent background
+        overlayPane.setPrefSize(currentScene.getRoot().getBoundsInLocal().getWidth(),
+                currentScene.getRoot().getBoundsInLocal().getHeight());
+
+        // Add a loading spinner to the overlay
+        ProgressIndicator loadingIndicator = new ProgressIndicator();
+        loadingIndicator.setMaxSize(100, 100);
+        loadingIndicator.setStyle("-fx-progress-color: #D71920;" + "-fx-background-color: transparent;");
+
+        // Center the spinner
+        loadingIndicator.layoutXProperty().bind(overlayPane.widthProperty().divide(2).subtract(50)); // Adjusted for centering
+        loadingIndicator.layoutYProperty().bind(overlayPane.heightProperty().divide(2).subtract(50));
+        overlayPane.getChildren().add(loadingIndicator);
+
+        // Add the overlay to the current scene
+        ((Pane) currentScene.getRoot()).getChildren().add(overlayPane);
+
+        // Task for loading the FXML
+        Task<Parent> loadBookingConfirmationTask = new Task<>() {
+            @Override
+            protected Parent call() throws IOException {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("BookingConfirmation.fxml"));
+                Parent bookingConfirmationLayout = loader.load();
+
+                BookingConfirmationController bookingConfirmationController = loader.getController();
+
+                // Fetch the selected seats
+                List<ToggleButton> selectedSeats = seatSelection.getSelectedSeats();
+                String seatDetails = selectedSeats.stream()
+                        .map(ToggleButton::getText)
+                        .collect(Collectors.joining(", ")); // Collect seat names
+
+                // Ensure seats are selected
+                if (seatDetails.isEmpty()) {
+                    throw new IOException("No seats selected. Please select at least one seat.");
+                }
+
+                // Create a Passenger object
+                String passengerName = AppContext.getLoggedInFirstName() + " " + AppContext.getLoggedInLastName();
+                String contactMethod = AppContext.getLoggedInEmail();
+                BookingConfirmation.Passenger passenger = new BookingConfirmation.Passenger(passengerName, seatDetails, contactMethod);
+
+                // Pass details to BookingConfirmationController, including selected class
+                bookingConfirmationController.setBookingDetails(selectedFlight, passenger, seatDetails, selectedClass, updatedPrice, departureDate, returnDate, adults, children, selectedDestination, selectedDeparture);
+                bookingConfirmationController.setLoggedInUsername(AppContext.getLoggedInUsername());
+                return bookingConfirmationLayout;
+            }
+        };
+
+        // Handle success: Transition to booking confirmation
+        loadBookingConfirmationTask.setOnSucceeded(workerStateEvent -> {
+            Parent bookingConfirmationLayout = loadBookingConfirmationTask.getValue();
+
+            // Apply fade-out transition to the current scene
+            FadeTransition fadeOut = new FadeTransition(Duration.millis(500), currentScene.getRoot());
+            fadeOut.setFromValue(1.0);
+            fadeOut.setToValue(0.0);
+
+            fadeOut.setOnFinished(e -> {
+                // Replace the root with the new layout
+                currentScene.setRoot(bookingConfirmationLayout);
+
+                // Apply fade-in transition to the new layout
+                FadeTransition fadeIn = new FadeTransition(Duration.millis(500), bookingConfirmationLayout);
+                fadeIn.setFromValue(0.0);
+                fadeIn.setToValue(1.0);
+                fadeIn.play();
+            });
+
+            fadeOut.play();
+
+            // Remove the overlay once the transition starts
+            ((Pane) currentScene.getRoot()).getChildren().remove(overlayPane);
+        });
+
+        // Handle failure: Remove the loading overlay and log the error
+        loadBookingConfirmationTask.setOnFailed(workerStateEvent -> {
+            Throwable error = loadBookingConfirmationTask.getException();
+            error.printStackTrace(); // Log the error for debugging
+
+            // Show an alert to the user
+            showStyledAlert("Error", "Unable to proceed to booking confirmation. " + error.getMessage(), currentStage);
+
+            // Remove the overlay
+            ((Pane) currentScene.getRoot()).getChildren().remove(overlayPane);
+        });
+
+        // Run the task in a background thread
+        Thread loadThread = new Thread(loadBookingConfirmationTask);
+        loadThread.setDaemon(true);
+        loadThread.start();
+    }
+
+
+    private void showStyledAlert(String title, String message, Stage owner) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+        dialogPane.getStyleClass().add("error-dialog");
+
+        alert.initOwner(owner);
+        alert.showAndWait();
     }
 
 

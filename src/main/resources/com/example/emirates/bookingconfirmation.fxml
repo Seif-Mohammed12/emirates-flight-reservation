@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.layout.HBox?>
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@booking_confirmation.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.emirates.BookingConfirmationController">
+
+    <!-- Card -->
+    <VBox fx:id="cardContainer" alignment="CENTER" layoutX="487.0" layoutY="33.0" prefHeight="700.0" prefWidth="567.0">
+        <Label fx:id="headerLabel" text="Booking Confirmation" />
+
+        <Separator fx:id="headerSeparator" />
+
+        <!-- Flight Details Section -->
+        <VBox fx:id="flightDetailsSection" alignment="CENTER">
+            <Label fx:id="flightDetailsHeader" text="Flight Details" />
+
+            <GridPane fx:id="flightDetailsGrid" alignment="CENTER" hgap="10" vgap="5.0">
+                <Label fx:id="flightNumberText" text="Flight Number:" />
+                <Label fx:id="flightNumberLabel" GridPane.columnIndex="1" />
+
+                <Label fx:id="departureCityText" text="Departure City:" GridPane.rowIndex="1" />
+                <Label fx:id="departureCityLabel" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                <Label fx:id="arrivalCityText" text="Arrival City:" GridPane.rowIndex="2" />
+                <Label fx:id="arrivalCityLabel" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+                <Label fx:id="departureTimeText" text="Departure Time:" GridPane.rowIndex="3" />
+                <Label fx:id="departureTimeLabel" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+                <Label fx:id="arrivalTimeText" text="Arrival Time:" GridPane.rowIndex="4" />
+                <Label fx:id="arrivalTimeLabel" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+
+                <Label fx:id="durationText" text="Duration:" GridPane.rowIndex="5" />
+                <Label fx:id="durationLabel" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+
+                <Label fx:id="stopsText" text="Stops:" GridPane.rowIndex="6" />
+                <Label fx:id="stopsLabel" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+
+                <Label fx:id="priceText" text="Price:" GridPane.rowIndex="7" />
+                <Label fx:id="priceLabel" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+
+                <!-- Departure Date -->
+                <Label fx:id="departureDateText" text="Departure Date:" GridPane.rowIndex="8" />
+                <Label fx:id="departureDateLabel" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+
+                <!-- Return Date -->
+                <Label fx:id="returnDateText" text="Return Date:" GridPane.rowIndex="9" />
+                <Label fx:id="returnDateLabel" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+            <columnConstraints>
+               <ColumnConstraints />
+               <ColumnConstraints />
+            </columnConstraints>
+            <rowConstraints>
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+            </rowConstraints>
+            </GridPane>
+        </VBox>
+
+        <!-- Passenger Details Section -->
+        <VBox alignment="CENTER">
+            <Label fx:id="passengerDetailsHeader" text="Passenger Details" />
+
+            <GridPane fx:id="passengerDetailsGrid" alignment="CENTER" hgap="10" vgap="5.0">
+                <Label fx:id="passengerNameText" text="Passenger Name:" />
+                <Label fx:id="userNameLabel" GridPane.columnIndex="1" />
+
+                <Label fx:id="contactEmailText" text="Contact Email:" GridPane.rowIndex="1" />
+                <Label fx:id="userContactLabel" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                <Label fx:id="passengerCountText" text="Number of Passengers:" GridPane.rowIndex="2" />
+                <Label fx:id="passengerCountLabel" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+                <Label fx:id="selectedClassText" text="Selected Class:" GridPane.rowIndex="3" />
+                <Label fx:id="selectedClassLabel" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <columnConstraints>
+               <ColumnConstraints />
+               <ColumnConstraints />
+            </columnConstraints>
+            <rowConstraints>
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+            </rowConstraints>
+            </GridPane>
+        </VBox>
+
+        <!-- Seat Details Section -->
+    <VBox fx:id="seatDetailsSection" alignment="CENTER">
+        <Label fx:id="seatDetailsHeader" text="Selected Seat(s)" />
+        <Label fx:id="selectedSeatLabel" />
+    </VBox>
+
+    <HBox alignment="CENTER" spacing="10">
+        <!-- Go Back Button -->
+        <Button fx:id="goBackButton" onAction="#goBackToSeatSelection" text="Go Back" />
+
+        <!-- Proceed Button -->
+        <Button fx:id="proceedButton" onAction="#proceedToPayment" text="Proceed to Payment" />
+    </HBox>
+    </VBox>
+</AnchorPane>

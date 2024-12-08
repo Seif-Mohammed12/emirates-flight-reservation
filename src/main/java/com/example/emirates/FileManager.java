@@ -8,8 +8,8 @@ import java.util.List;
 
 public class FileManager {
 
-    public static void writeFile(String filePath, List<String> lines) throws IOException {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath, true))) {
+    public static void writeFile(String filePath, List<String> lines, boolean append) throws IOException {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath, append))) {
             for (String line : lines) {
                 bw.write(line);
                 bw.newLine();
@@ -75,7 +75,9 @@ public class FileManager {
                     String username = parts[6].trim();
                     String password = parts[7].trim();
                     String firstName = parts[0].trim();
-                    usersList.add(new User(username, password, firstName));
+                    String email = parts[2].trim();
+                    String lastName = parts[1].trim();
+                    usersList.add(new User(username, password, firstName, email, lastName));
                 } else {
                     System.out.println("Invalid line format: " + line);
                 }

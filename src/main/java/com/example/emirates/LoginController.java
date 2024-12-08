@@ -52,6 +52,7 @@ public class LoginController {
             System.out.println("Admin login detected!");
             AppContext.setLoggedInUsername(username);
             AppContext.setLoggedInFirstName("Admin");
+            AppContext.setLoggedInEmail("admin@example.com");
             return true;
         }
 
@@ -60,6 +61,8 @@ public class LoginController {
                 System.out.println("User login detected: " + user.getUsername());
                 AppContext.setLoggedInUsername(user.getUsername());
                 AppContext.setLoggedInFirstName(user.getFirstName());
+                AppContext.setLoggedInLastName(user.getLastName());
+                AppContext.setLoggedInEmail(user.getEmail());
                 return true;
             }
         }

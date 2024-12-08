@@ -25,5 +25,56 @@ public class selectFlights {
             this.aircraftDetails = aircraftDetails;
             this.price = price;
         }
+        public String getFlightNo() {
+            return flightNo;
+        }
+
+        public String getDepartureTime() {
+            return departureTime;
+        }
+
+        public String getArrivalTime() {
+            return arrivalTime;
+        }
+
+        public String getDepartureCity() {
+            return departureCity;
+        }
+
+        public String getArrivalCity() {
+            return arrivalCity;
+        }
+
+        public String getDuration() {
+            return duration;
+        }
+
+        public String getStops() {
+            return stops;
+        }
+
+        public String getAircraftDetails() {
+            return aircraftDetails;
+        }
+
+        public String getPrice() {
+            return price;
+        }
+
+        @Override
+        public String toString() {
+            return String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s",
+                    flightNo.trim(),
+                    departureCity.trim(),
+                    arrivalCity.trim(),
+                    departureTime.trim(),
+                    arrivalTime.trim(),
+                    duration.trim(),
+                    stops.trim(),
+                    aircraftDetails.trim(),
+                    price.trim());
+        }
+
     }
-}
+    }
+

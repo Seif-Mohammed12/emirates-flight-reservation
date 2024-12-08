@@ -1,0 +1,148 @@
+/* General Styling */
+.root {
+    -fx-background-image: url("/pexels-saturnus99-11213137.jpg");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+/* VBox Styling */
+.vbox-card {
+    -fx-border-color: lightgray;
+    -fx-border-width: 1;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-background-color: rgba(255, 255, 255, 0.8);
+    -fx-padding: 20;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0.5, 0, 2);
+    -fx-spacing: 20;
+}
+
+/* Labels */
+.label-title {
+    -fx-font-size: 18;
+    -fx-font-weight: bold;
+    -fx-text-fill: #d71920; /* Emirates red */
+}
+
+.label-header {
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333; /* Dark gray */
+}
+
+.label-large {
+    -fx-font-size: 22;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+}
+
+.label-medium {
+    -fx-font-size: 14;
+    -fx-text-fill: #555555; /* Medium gray */
+}
+
+.label-small-bold {
+    -fx-font-size: 14;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+}
+
+.label-small {
+    -fx-font-size: 14;
+    -fx-text-fill: #555555;
+}
+
+/* Input Fields */
+.text-field {
+    -fx-font-size: 18px;
+    -fx-background-color: rgba(255, 255, 255, 0.85);
+    -fx-border-color: rgba(200, 200, 200, 0.5);
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-padding: 10;
+    -fx-text-fill: #333333;
+
+}
+.text-field:hover {
+    -fx-background-color: rgba(240, 240, 240, 1);
+    -fx-border-color: #D71920;
+}
+.text-field:focused {
+    -fx-border-color: #388e3c;
+    -fx-background-color: rgba(255, 255, 255, 1);
+}
+
+
+.date-picker {
+    -fx-font-size: 18px;
+    -fx-padding: 10;
+    -fx-border-color: transparent;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-background-color: transparent;
+}
+
+.date-picker .arrow-button:hover {
+    -fx-background-color: #D71920;
+    -fx-cursor: hand;
+}
+
+.date-picker .arrow-button:pressed {
+    -fx-background-color: darkred;
+}
+
+.date-picker .text-field {
+    -fx-background-color: rgba(255, 255, 255, 0.85);
+    -fx-border-color: rgba(200, 200, 200, 0.5);
+    -fx-border-radius: 10 0 0 10;
+    -fx-background-radius: 10 0 0 10;
+    -fx-text-fill: #333333;
+    -fx-transition: all 0.3s ease;
+}
+
+.date-picker .text-field:hover {
+    -fx-background-color: rgba(240, 240, 240, 1);
+    -fx-border-color: #D71920;
+}
+
+.date-picker .text-field:focused {
+    -fx-border-color: #388e3c;
+    -fx-background-color: rgba(255, 255, 255, 1);
+}
+
+/* Buttons */
+.button-primary {
+    -fx-font-size: 16;
+    -fx-background-color: #d71920; /* Emirates red */
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 10 20;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+}
+.button-primary:hover {
+    -fx-background-color: darkred;
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+}
+.button-primary:pressed {
+    -fx-background-color: green;
+    -fx-scale-x: 0.95;
+    -fx-scale-y: 0.95;
+}
+#iconbtnsearch{
+    -fx-background-image: url("/Emirates_logo.jpg");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: contain;
+    -fx-background-position: center bottom;
+    -fx-background-color: #D71920;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 8, 0.0, 0, 3);
+}
+#iconbtnsearch:hover {
+    -fx-cursor: hand;
+}
+#toolBarSearch{
+    -fx-background-color: rgba(30, 30, 30, 0.85);
+}

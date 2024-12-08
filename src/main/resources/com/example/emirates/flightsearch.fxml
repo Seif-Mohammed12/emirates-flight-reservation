@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@flightsearch.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.emirates.FlightsearchController">
+   <!-- Root Container -->
+   <VBox alignment="CENTER" layoutX="357.0" layoutY="229.0" prefWidth="800" spacing="30" styleClass="vbox-card">
+      <!-- Search Section -->
+      <VBox spacing="20" styleClass="vbox-card">
+         <HBox alignment="CENTER" spacing="40">
+            <Label styleClass="label-title" text="Search for a Flight" />
+         </HBox>
+
+         <HBox alignment="CENTER" spacing="30">
+            <!-- Flight Number Input -->
+            <VBox spacing="10">
+               <Label styleClass="label-header" text="Flight Number" />
+               <TextField fx:id="flightNumberField" prefHeight="40.0" promptText="Enter flight number" styleClass="text-field" />
+            </VBox>
+
+            <!-- Departure Date Input -->
+            <VBox>
+               <Label styleClass="label-header" text="Departure Date" />
+               <DatePicker fx:id="departureDatePicker" styleClass="date-picker" />
+            </VBox>
+            <VBox spacing="13.0">
+               <children>
+                  <Label prefHeight="19.0" prefWidth="116.0" />
+
+                  <!-- Search Button -->
+                  <Button alignment="CENTER" onAction="#handleSearchFlight" prefHeight="40.0" styleClass="button-primary" text="Find Flights" />
+               </children>
+            </VBox>
+         </HBox>
+      </VBox>
+
+      <!-- Flight Details Section -->
+      <VBox fx:id="flightDetailsBox" spacing="20" styleClass="vbox-card" visible="false">
+         <!-- Header Section -->
+         <HBox spacing="10">
+            <!-- Departure Details (Left-Aligned) -->
+            <VBox alignment="TOP_LEFT" spacing="10" HBox.hgrow="ALWAYS">
+               <Label styleClass="label-header" text="Departure" />
+               <Label fx:id="departureCityLabel" styleClass="label-large" />
+               <Label fx:id="departureDetailsLabel" styleClass="label-medium" />
+            </VBox>
+
+            <!-- Flight Number (Center-Aligned) -->
+            <VBox alignment="CENTER" spacing="5" HBox.hgrow="NEVER">
+               <Label fx:id="flightNumberLabel" styleClass="label-title" />
+            </VBox>
+
+            <!-- Arrival Details (Right-Aligned) -->
+            <VBox alignment="TOP_RIGHT" spacing="10" HBox.hgrow="ALWAYS">
+               <Label styleClass="label-header" text="Arrival" />
+               <Label fx:id="arrivalCityLabel" styleClass="label-large" />
+               <Label fx:id="arrivalDetailsLabel" styleClass="label-medium" />
+            </VBox>
+         </HBox>
+
+         <!-- Additional Flight Information -->
+         <VBox spacing="10">
+            <HBox spacing="10">
+               <Label styleClass="label-small-bold" text="Estimated Departure:" />
+               <Label fx:id="estimatedDepartureLabel" styleClass="label-small" />
+            </HBox>
+            <HBox spacing="10">
+               <Label styleClass="label-small-bold" text="Gate:" />
+               <Label fx:id="gateLabel" styleClass="label-small" />
+            </HBox>
+            <HBox spacing="10">
+               <Label styleClass="label-small-bold" text="Departure Date:" />
+               <Label fx:id="departureDateLabel" styleClass="label-small" />
+            </HBox>
+            <HBox spacing="10">
+               <Label styleClass="label-small-bold" text="Estimated Arrival:" />
+               <Label fx:id="estimatedArrivalLabel" styleClass="label-small" />
+            </HBox>
+         </VBox>
+      </VBox>
+   </VBox>
+   <Pane fx:id="toolBarSearch" prefHeight="100.0" prefWidth="1920.0">
+      <children>
+         <Button fx:id="iconbtnsearch" onAction="#goToMain" layoutX="138.0" mnemonicParsing="false" prefHeight="141.0" prefWidth="114.0" />
+      </children>
+   </Pane>
+</AnchorPane>

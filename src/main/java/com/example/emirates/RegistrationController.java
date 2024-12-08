@@ -81,7 +81,7 @@ public class RegistrationController {
             try {
                 List<String> usersData = new ArrayList<>();
                 usersData.add(newUser.toString());
-                FileManager.writeFile("login.txt", usersData);
+                FileManager.writeFile("login.txt", usersData, true);
 
                 showSuccessAlert("Registration successful", (Stage) usernameField.getScene().getWindow());
             } catch (IOException e) {

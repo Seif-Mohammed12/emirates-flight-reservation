@@ -16,6 +16,7 @@ public class Main extends Application {
         stage.setTitle("Flight Reservation");
         stage.setScene(scene);
         stage.setFullScreen(true);
+        stage.setFullScreenExitHint("");
         stage.show();
     }
 

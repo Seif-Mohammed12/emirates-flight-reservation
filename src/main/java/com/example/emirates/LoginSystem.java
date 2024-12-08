@@ -26,10 +26,43 @@ class User {
         this.role = role;
     }
 
-    public User(String username, String password, String firstName) {
+    public User(String username, String password, String firstName, String email, String lastName) {
         this.username = username;
         this.password = password;
         this.firstName = firstName;
+        this.email = email;
+        this.lastName = lastName;
+    }
+
+    public static List<User> loadUsers() {
+        return FileManager.loadUsersFromFile("login.txt");
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getEmail() {
+
+        return email;
+    }
+
+    public String getPhoneNumber() {
+
+        return phoneNumber;
+    }
+
+    public String getZipCode() {
+
+        return zipCode;
+    }
+
+    public String getAddress() {
+        return address;
     }
 
     public String getUsername() {
@@ -40,24 +73,22 @@ class User {
         return password;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
     public String getRole() {
         return role;
     }
 
     @Override
     public String toString() {
-        return firstName + "," + lastName + "," + email + "," + phoneNumber + "," + zipCode + "," + address + "," + username + "," + password + "," + role;
-    }
-
-    public static User fromString(String userData) {
-        String[] parts = userData.split(",");
-        if (parts.length == 9) {
-            return new User(parts[0], parts[1], parts[2], parts[3], parts[4], parts[5], parts[6], parts[7], parts[8]);
-        }
-        return null;
+        return String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s",
+                firstName != null ? firstName : "",
+                lastName != null ? lastName : "",
+                email != null ? email : "",
+                phoneNumber != null ? phoneNumber : "",
+                zipCode != null ? zipCode : "",
+                address != null ? address : "",
+                username != null ? username : "",
+                password != null ? password : "",
+                role != null ? role : "");
     }
 }
 
@@ -74,6 +105,10 @@ public class LoginSystem {
         return users;
     }
 
+    public static void updateUsers(List<User> updatedUsers) {
+        users = new ArrayList<>(updatedUsers);
+    }
+
     public static boolean isAdmin(String username, String password) {
         return "admin".equals(username) && "aabbcc".equals(password);
     }
@@ -88,6 +123,7 @@ public class LoginSystem {
                 return true;
             }
         }
-        return false; // No matching user found
+        return false;
     }
 }
+

@@ -16,10 +16,13 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -56,6 +59,8 @@ public class FlightsController {
     private String loggedInUsername;
     private int adults;
     private int children;
+    private LocalDate departureDate;
+    private LocalDate returnDate;
 
     private List<selectFlights.Flights> flights = new ArrayList<>();
 
@@ -63,7 +68,7 @@ public class FlightsController {
     public void initialize() {
         sortChoiceBox.setOnAction(event -> updateFlightCards());
         try {
-            flights = FileManager.loadFlightsFromCSV("src/main/resources/flights.csv", true, new ArrayList<>());
+            flights = FileManager.loadFlightsFromCSV("flights.csv", true, new ArrayList<>());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -140,6 +145,13 @@ public class FlightsController {
         this.selectedClass = selectedClass;
         System.out.println("Selected Class: " + selectedClass);
         updateFlightCards();
+    }
+    public void setDepartureDate(LocalDate departureDate) {
+        this.departureDate = departureDate;
+    }
+
+    public void setReturnDate(LocalDate returnDate) {
+        this.returnDate = returnDate;
     }
 
 
@@ -222,37 +234,29 @@ public class FlightsController {
     }
 
     private void showSeatSelection(selectFlights.Flights flight) {
-        // Get the current stage and scene
         Stage currentStage = (Stage) flightsContainer.getScene().getWindow();
         Scene currentScene = currentStage.getScene();
 
-        // Create a loading overlay
         Pane overlayPane = new Pane();
-        overlayPane.setStyle("-fx-background-color: rgba(0, 0, 0, 0.3);"); // Semi-transparent background
+        overlayPane.setStyle("-fx-background-color: rgba(0, 0, 0, 0.3);");
         overlayPane.setPrefSize(currentScene.getRoot().getBoundsInLocal().getWidth(),
                 currentScene.getRoot().getBoundsInLocal().getHeight());
 
-        // Add a loading spinner to the overlay
         ProgressIndicator loadingIndicator = new ProgressIndicator();
         loadingIndicator.setMaxSize(100, 100);
-        loadingIndicator.setStyle("-fx-progress-color: #D71920;" + "-fx-background-color: transparent;");
-
-        // Center the spinner
-        loadingIndicator.layoutXProperty().bind(overlayPane.widthProperty().divide(2).subtract(400)); // Adjusted for centering
-        loadingIndicator.layoutYProperty().bind(overlayPane.heightProperty().divide(2).subtract(150));
+        loadingIndicator.setStyle("-fx-progress-color: #D71920; -fx-background-color: transparent;");
+        loadingIndicator.layoutXProperty().bind(overlayPane.widthProperty().divide(2).subtract(50));
+        loadingIndicator.layoutYProperty().bind(overlayPane.heightProperty().divide(2).subtract(50));
         overlayPane.getChildren().add(loadingIndicator);
 
-        // Add the overlay to the current scene
         ((Pane) currentScene.getRoot()).getChildren().add(overlayPane);
 
-        // Task for loading the FXML
         Task<Parent> loadSeatSelectionTask = new Task<>() {
             @Override
             protected Parent call() throws IOException {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("SeatSelection.fxml"));
                 Parent seatSelectionLayout = loader.load();
 
-                // Pass the data to the SeatSelectionController
                 SeatSelectionController seatSelectionController = loader.getController();
                 seatSelectionController.setLoggedInUsername(AppContext.getLoggedInUsername());
                 seatSelectionController.setSelectedClass(selectedClass);
@@ -260,25 +264,26 @@ public class FlightsController {
                 seatSelectionController.setSelectedDeparture(selectedDeparture);
                 seatSelectionController.setAdults(adults);
                 seatSelectionController.setChildren(children);
+                seatSelectionController.setSelectedFlight(flight);
+                String updatedPrice = getUpdatedPrice(flight);
+                seatSelectionController.setUpdatedPrice(updatedPrice);
+                seatSelectionController.setDepartureDate(departureDate);
+                seatSelectionController.setReturnDate(returnDate);
 
                 return seatSelectionLayout;
             }
         };
 
-        // Handle success: Transition to seat selection
         loadSeatSelectionTask.setOnSucceeded(workerStateEvent -> {
             Parent seatSelectionLayout = loadSeatSelectionTask.getValue();
 
-            // Apply fade-out transition to the current scene
             FadeTransition fadeOut = new FadeTransition(Duration.millis(500), currentScene.getRoot());
             fadeOut.setFromValue(1.0);
             fadeOut.setToValue(0.0);
 
             fadeOut.setOnFinished(e -> {
-                // Replace the root with the new layout
                 currentScene.setRoot(seatSelectionLayout);
 
-                // Apply fade-in transition to the new layout
                 FadeTransition fadeIn = new FadeTransition(Duration.millis(500), seatSelectionLayout);
                 fadeIn.setFromValue(0.0);
                 fadeIn.setToValue(1.0);
@@ -286,27 +291,20 @@ public class FlightsController {
             });
 
             fadeOut.play();
-
-            // Remove the overlay once the transition starts
             ((Pane) currentScene.getRoot()).getChildren().remove(overlayPane);
         });
 
-        // Handle failure: Remove the loading overlay and log the error
         loadSeatSelectionTask.setOnFailed(workerStateEvent -> {
             Throwable error = loadSeatSelectionTask.getException();
-            error.printStackTrace(); // Log the error for debugging
-
-            // Remove the overlay
+            error.printStackTrace();
             ((Pane) currentScene.getRoot()).getChildren().remove(overlayPane);
-
-
         });
 
-        // Run the task in a background thread
         Thread loadThread = new Thread(loadSeatSelectionTask);
-        loadThread.setDaemon(true); // Ensure the thread exits with the application
+        loadThread.setDaemon(true);
         loadThread.start();
     }
+
 
 
 
@@ -501,8 +499,20 @@ public class FlightsController {
         Label priceLabel = new Label("from " + getUpdatedPrice(flight));
         priceLabel.setStyle("-fx-font-size: 16px; -fx-text-fill: #D71920;");
 
+        // Create baggage allowance with a larger emoji
+        Text emoji = new Text("\uD83E\uDDF3 "); // Luggage emoji
+        emoji.setStyle("-fx-font-size: 24px; -fx-font-family: 'Segoe UI Emoji';");
+
+        Text baggageText = new Text("2x23kg"); // Default for Economy
+        if (!"Economy".equals(selectedClass)) {
+            baggageText.setText("2x50kg");
+        }
+        baggageText.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #555;");
+
+        TextFlow baggageTextFlow = new TextFlow(emoji, baggageText);
+
         // Add all labels to the pricing section
-        pricing.getChildren().addAll(classLabel, passengersLabel, priceLabel);
+        pricing.getChildren().addAll(classLabel, passengersLabel, priceLabel, baggageTextFlow);
 
         if ("Economy".equals(selectedClass)) {
             Label lowestPriceLabel = new Label("Lowest price");
@@ -513,6 +523,8 @@ public class FlightsController {
         pricingSection.getChildren().add(pricing);
         return pricingSection;
     }
+
+
 
 
     private HBox createPlaneInfoSection(selectFlights.Flights flight) {
@@ -542,28 +554,30 @@ public class FlightsController {
 
     private String getUpdatedPrice(selectFlights.Flights flight) {
         try {
-            double basePrice = parsePrice(flight.price); // Parse the base price
-            double adjustedPricePerAdult = basePrice;   // Full price for an adult
+            double basePrice = parsePrice(flight.price); // Parse the base (Economy) price
+            double adjustedPricePerAdult = basePrice;   // Default is Economy
             double adjustedPricePerChild = basePrice * 0.5; // 50% price for a child
 
-            int totalPassengers = adults + children; // Calculate total passengers
+            if ("Business".equals(selectedClass)) {
+                adjustedPricePerAdult *= 1.5;
+                adjustedPricePerChild *= 1.5;
+            } else if ("First".equals(selectedClass)) {
+                adjustedPricePerAdult *= 2.0;
+                adjustedPricePerChild *= 2.0;
+            }
 
-            // Calculate total price based on the number of adults and children
+            int totalPassengers = adults + children;
+
+
             double totalPrice = (adults * adjustedPricePerAdult) + (children * adjustedPricePerChild);
 
-            // Adjust the total price for the selected class
-            double finalPrice = switch (selectedClass) {
-                case "Business" -> totalPrice * 1.5;
-                case "First" -> totalPrice * 2;
-                default -> totalPrice;
-            };
-
             // Format the price to include currency (EGP)
-            return "EGP " + String.format("%.2f", finalPrice);
+            return "EGP " + String.format("%.2f", totalPrice);
         } catch (Exception e) {
             return "Price not available";
         }
     }
+
 
 
     private Region createSpacer() {
