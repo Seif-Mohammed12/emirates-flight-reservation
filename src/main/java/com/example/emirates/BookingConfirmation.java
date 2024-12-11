@@ -2,6 +2,8 @@ package com.example.emirates;
 
 import java.util.List;
 
+import static com.example.emirates.PaymentController.generateBookingId;
+
 public class BookingConfirmation {
 
     public static class Passenger {
@@ -42,8 +44,10 @@ public class BookingConfirmation {
         private final String bookingId;
         private String status;
         private double totalPrice;
+        private String paymentId; // New field
+        private double totalAmount;
 
-        public Booking(selectFlights.Flights flight, Passenger passenger) {
+        public Booking(selectFlights.Flights flight, Passenger passenger, String bookingId) {
             this.flight = flight;
             this.passenger = passenger;
             this.bookingId = generateBookingId();
@@ -59,9 +63,6 @@ public class BookingConfirmation {
             }
         }
 
-        private String generateBookingId() {
-            return "BOOK-" + System.currentTimeMillis();
-        }
 
         public void displayBookingData() {
             System.out.println("Booking ID: " + bookingId);
@@ -70,6 +71,47 @@ public class BookingConfirmation {
             passenger.displayPassengerData();
             System.out.println("Total Price: " + totalPrice);
         }
+
+        public String getPaymentId() {
+            return paymentId;
+        }
+
+        public void setPaymentId(String paymentId) {
+            this.paymentId = paymentId;
+        }
+
+        public double getTotalAmount() {
+            return totalAmount;
+        }
+
+        public void setTotalAmount(double totalAmount) {
+            this.totalAmount = totalAmount;
+        }
+
+        public String getBookingId() {
+            return bookingId;
+        }
+
+        public String getStatus() {
+            return status;
+        }
+
+        public void setStatus(String status) {
+            this.status = status;
+        }
+
+        public Passenger getPassenger() {
+            return passenger;
+        }
+
+        public selectFlights.Flights getFlight() {
+            return flight;
+        }
+
+        public double getTotalPrice() {
+            return totalPrice;
+        }
+
 
         private void displayFlightData() {
             System.out.println("Flight Data:");
@@ -91,15 +133,15 @@ public class BookingConfirmation {
         return new Passenger(name, seat, contactMethod);
     }
 
-    public Booking createBooking(selectFlights.Flights selectedFlight, Passenger passenger) {
-        return new Booking(selectedFlight, passenger);
+    public Booking createBooking(selectFlights.Flights selectedFlight, Passenger passenger, String bookingId) {
+        return new Booking(selectedFlight, passenger, bookingId);
     }
 
     public void displayBookingDetails(Booking booking) {
         booking.displayBookingData();
     }
 
-    public void executeConsoleBooking(selectFlights.Flights selectedFlight, List<String> selectedSeats, String selectedClass) {
+    public void executeConsoleBooking(selectFlights.Flights selectedFlight, List<String> selectedSeats, String selectedClass, String bookingId) {
         if (selectedFlight == null || selectedSeats.isEmpty() || selectedClass == null) {
             System.out.println("Error: Missing booking details.");
             return;
@@ -108,7 +150,7 @@ public class BookingConfirmation {
         String seatDetails = String.join(", ", selectedSeats);
 
         Passenger passenger = createPassenger(seatDetails, selectedClass);
-        Booking booking = createBooking(selectedFlight, passenger);
+        Booking booking = createBooking(selectedFlight, passenger, bookingId);
 
 
         displayBookingDetails(booking);

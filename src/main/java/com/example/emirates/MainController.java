@@ -65,6 +65,7 @@ public class MainController {
     private MenuBar menuBarMain;
 
 
+
     // ----------------------------------------
     // Class-Level Variables
     // ----------------------------------------
@@ -679,6 +680,67 @@ public class MainController {
         loadThread.setDaemon(true); // Ensure the thread exits with the application
         loadThread.start();
     }
+
+    @FXML
+    public void navigateToManageBooking(String action, ActionEvent event) {
+        try {
+            // Load the ManageBooking.fxml
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("ManageBooking.fxml"));
+            Parent root = loader.load();
+
+            // Pass the action to the Manage Booking Controller
+            ManageBookingController controller = loader.getController();
+            controller.setAction(action);
+
+            // Get the current Stage
+            Stage stage = (Stage) menuBarMain.getScene().getWindow(); // Replace menuBarMain with another known node if needed
+
+            // Apply fade transition for navigation
+            Scene scene = stage.getScene();
+            FadeTransition fadeOut = new FadeTransition(Duration.millis(300), scene.getRoot());
+            fadeOut.setFromValue(1.0);
+            fadeOut.setToValue(0.0);
+
+            fadeOut.setOnFinished(evt -> {
+                stage.setScene(new Scene(root));
+
+                FadeTransition fadeIn = new FadeTransition(Duration.millis(300), root);
+                fadeIn.setFromValue(0.0);
+                fadeIn.setToValue(1.0);
+                fadeIn.play();
+            });
+
+            fadeOut.play();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Navigation Error");
+            alert.setHeaderText("Unable to Load Manage Booking");
+            alert.setContentText("An error occurred while navigating to the Manage Booking page.");
+            alert.showAndWait();
+        }
+    }
+
+
+
+
+
+    @FXML
+    public void handleViewBooking(ActionEvent event) {
+        navigateToManageBooking("VIEW", event);
+    }
+
+    @FXML
+    public void handleChangeSeat(ActionEvent event) {
+        navigateToManageBooking("CHANGE", event);
+    }
+
+    @FXML
+    public void handleCancelBooking(ActionEvent event) {
+        navigateToManageBooking("CANCEL", event);
+    }
+
+
 
 
     // ----------------------------------------
