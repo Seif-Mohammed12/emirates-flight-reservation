@@ -21,10 +21,8 @@ import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -449,14 +447,11 @@ public class PaymentController {
         }
 
         String paymentId = generatePaymentId();
-        String bookingId = generateBookingId();
 
         BookingConfirmation bookingConfirmation = new BookingConfirmation();
         BookingConfirmation.Passenger passenger = bookingConfirmation.createPassenger(selectedSeat, selectedClass);
-        BookingConfirmation.Booking booking = bookingConfirmation.createBooking(selectedFlight, passenger, bookingId);
+        BookingConfirmation.Booking booking = bookingConfirmation.createBooking(selectedFlight, passenger);
 
-        booking.setPaymentId(paymentId);
-        booking.setTotalAmount(totalAmount);
 
         AppContext.addBooking(booking);
 
@@ -583,16 +578,6 @@ public class PaymentController {
 
     private String generatePaymentId() {
         return UUID.randomUUID().toString().toUpperCase();
-    }
-    public static String generateBookingId() {
-        // Prefix with date in "yyyyMMdd" format for traceability
-        String datePrefix = new SimpleDateFormat("ddMMyyyy").format(new Date());
-
-
-        String uniquePart = UUID.randomUUID().toString().substring(0, 8).toUpperCase();
-
-
-        return "EMB-" + datePrefix + "-" + uniquePart;
     }
 
     private boolean isValidCardNumber(String cardNumber) {

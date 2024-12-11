@@ -21,7 +21,7 @@ public class AppContext {
     }
 
     public static List<BookingConfirmation.Booking> getBookings() {
-        return bookings;
+        return new ArrayList<>(bookings); // Return a copy to prevent modification
     }
 
     public static boolean hasBookings() {

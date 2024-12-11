@@ -104,9 +104,9 @@
                      <items>
                         <Menu fx:id="manageDrop" mnemonicParsing="false" text="Manage your booking">
                           <items>
-                            <MenuItem fx:id="viewMenu" mnemonicParsing="false" text="View your booking" onAction="#handleViewBooking" />
-                            <MenuItem fx:id="changeMenu" mnemonicParsing="false" text="Change Seat(s)" onAction="#handleChangeSeat" />
-                            <MenuItem fx:id="cancelMenu" mnemonicParsing="false" text="Cancel booking" onAction="#handleCancelBooking" />
+                            <MenuItem fx:id="viewMenu" mnemonicParsing="false" text="View your booking" />
+                            <MenuItem fx:id="changeMenu" mnemonicParsing="false" text="Change Seat(s)" />
+                            <MenuItem fx:id="cancelMenu" mnemonicParsing="false" text="Cancel booking"  />
 
                           </items>
                         </Menu>
