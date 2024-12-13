@@ -649,14 +649,18 @@ public class MainController {
 
     @FXML
     private void handleViewMenuAction(ActionEvent event) {
+        Stage currentStage = (Stage) menuBarMain.getScene().getWindow();
+        if (AppContext.getLoggedInUsername() == null) {
+            showStyledAlert("Please log in first to access bookings!", currentStage);
+            return;
+        }
         if (!AppContext.hasBookings()) {
-            Stage currentStage = (Stage) menuBarMain.getScene().getWindow();
             showStyledAlert("No bookings found! You have no bookings to view at the moment.", currentStage);
             return;
         }
 
         try {
-            Stage currentStage = (Stage) menuBarMain.getScene().getWindow();
+            currentStage = (Stage) menuBarMain.getScene().getWindow();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("ViewBooking.fxml"));
             Parent root = loader.load();
 
@@ -685,6 +689,14 @@ public class MainController {
     @FXML
     private void handleChangeMenuAction(ActionEvent event) throws IOException {
         Stage currentStage = (Stage) menuBarMain.getScene().getWindow();
+        if (AppContext.getLoggedInUsername() == null) {
+            showStyledAlert("Please log in first to access bookings!", currentStage);
+            return;
+        }
+        if (!AppContext.hasBookings()) {
+            showStyledAlert("No bookings found! You have no bookings to view at the moment.", currentStage);
+            return;
+        }
         Scene currentScene = currentStage.getScene();
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ChangeSeats.fxml"));
@@ -707,12 +719,15 @@ public class MainController {
 
     @FXML
     private void handleCancelMenuAction(ActionEvent event) throws IOException {
-        if (!AppContext.hasBookings()) {
-            Stage currentStage = (Stage) menuBarMain.getScene().getWindow();
-            showStyledAlert("No bookings found! You have no bookings to cancel at the moment.", currentStage);
+        Stage currentStage = (Stage) menuBarMain.getScene().getWindow();
+        if (AppContext.getLoggedInUsername() == null) {
+            showStyledAlert("Please log in first to access bookings!", currentStage);
             return;
         }
-        Stage currentStage = (Stage) menuBarMain.getScene().getWindow();
+        if (!AppContext.hasBookings()) {
+            showStyledAlert("No bookings found! You have no bookings to view at the moment.", currentStage);
+            return;
+        }
         Scene currentScene = currentStage.getScene();
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("CancelBooking.fxml"));

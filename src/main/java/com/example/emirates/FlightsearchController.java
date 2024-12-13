@@ -131,6 +131,8 @@ public class FlightsearchController {
             gateLabel.setText(generateRandomGate());
             departureDateLabel.setText(departureDate.format(dateFormatter));
             estimatedArrivalLabel.setText(result.getArrivalTime());
+            nextFlightButton.setVisible(false);
+            previousFlightButton.setVisible(false);
 
             flightDetailsBox.setVisible(true);
         }
@@ -164,6 +166,8 @@ public class FlightsearchController {
 
         nextFlightButton.setDisable(filteredFlights.size() <= 1);
         previousFlightButton.setDisable(true);
+        nextFlightButton.setVisible(true);
+        previousFlightButton.setVisible(true);
     }
 
     private void displayFlightDetails(selectFlights.Flights flight) {

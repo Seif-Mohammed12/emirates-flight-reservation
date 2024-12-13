@@ -1,0 +1,251 @@
+#changeSeatBorder {
+    -fx-background-image: url("/pexels-kelly-1179532-3119978.jpg");
+    -fx-background-size: cover;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 20;
+}
+
+.center-pane {
+    -fx-alignment: center;
+    -fx-background-color: rgba(0, 0, 0, 0.4);
+}
+
+.scroll-pane {
+    -fx-background: transparent;
+    -fx-background-color: transparent;
+}
+
+.grid-pane {
+    -fx-background: transparent;
+    -fx-background-color: transparent;
+}
+
+.title-text {
+    -fx-text-fill: #ffffff;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 10;
+    -fx-effect: dropshadow(gaussian, #000000, 15, 0.5, 0, 0);
+}
+
+.available-seat, .booked-seat, .selected-seat {
+    -fx-pref-width: 80px;
+    -fx-pref-height: 40px;
+    -fx-alignment: center;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-font-size: 14;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+.available-seat {
+    -fx-background-color: green;
+}
+
+.booked-seat {
+    -fx-background-color: red;
+}
+
+.selected-seat {
+    -fx-background-color: blue;
+}
+.legend-label {
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-font-size: 14;
+}
+
+.toggle-button {
+    -fx-min-width: 50px;
+    -fx-min-height: 50px;
+    -fx-background-color: green;
+    -fx-text-fill: white;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 8, 0.4, 2, 2);
+}
+
+.toggle-button:selected {
+    -fx-background-color: blue;
+}
+
+.toggle-button:disabled {
+    -fx-background-color: red;
+    -fx-opacity: 0.8;
+}
+
+.grid-pane > .toggle-button {
+    -fx-halignment: center;
+    -fx-valignment: center;
+}
+
+#seatButton {
+    -fx-background-color: transparent;
+}
+
+#economyScroll {
+    -fx-background-color: transparent;
+}
+
+#economy-scroll {
+    -fx-background-color: transparent;
+}
+
+.button-box {
+    -fx-alignment: CENTER_RIGHT;
+    -fx-spacing: 20;
+    -fx-padding: 10;
+}
+
+.confirm-button {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 10 20;
+    -fx-border-radius: 5px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0, 2, 2);
+    -fx-transition: all 0.3s ease;
+}
+
+.confirm-button:hover {
+    -fx-background-color: #45a049;
+    -fx-cursor: hand;
+}
+
+.back-button {
+    -fx-background-color: #FF9800;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 10 20;
+    -fx-border-radius: 5px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0, 2, 2);
+    -fx-transition: all 0.3s ease;
+}
+
+.back-button:hover {
+    -fx-background-color: #e6892d;
+    -fx-cursor: hand;
+}
+
+.scroll-pane .scroll-bar {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-pane .scroll-bar .thumb {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .scroll-bar .track {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .scroll-bar:hover {
+    -fx-background-color: rgba(0, 0, 0, 0.1);
+}
+
+#iconBtnSeat{
+    -fx-background-image: url("/Emirates_logo.jpg");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: contain;
+    -fx-background-position: center bottom;
+    -fx-background-color: #D71920;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 8, 0.0, 0, 3);
+}
+#iconBtnSeat:hover {
+    -fx-cursor: hand;
+}
+
+#loginButton {
+    -fx-background-color: linear-gradient(#444, #222);
+    -fx-text-fill: white;
+    -fx-border-radius: 25px;
+    -fx-background-radius: 25px;
+    -fx-padding: 15 30;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+#loginButton:hover {
+    -fx-background-color: linear-gradient(#555, #333);
+    -fx-border-color: #666;
+    -fx-effect: dropshadow(gaussian, rgba(255, 255, 255, 0.5), 15, 0, 0, 3);
+}
+
+#loginButton:pressed {
+    -fx-background-color: linear-gradient(#222, #000);
+    -fx-border-color: #444;
+    -fx-effect: dropshadow(gaussian, rgba(255, 255, 255, 0.2), 5, 0, 0, 1);
+}
+#toolBarSeat{
+    -fx-background-color: linear-gradient(#444, #222);
+}
+
+.dialog-pane {
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+    -fx-border-width: 2px;
+    -fx-padding: 20px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0, 5, 5);
+    -fx-font-family: 'Arial', sans-serif;
+    -fx-font-size: 14px;
+}
+
+.error-dialog {
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-background-color: rgba(255, 99, 71, 0.1);
+    -fx-border-color: rgba(255, 99, 71, 0.8);
+    -fx-font-size: 16px;
+}
+
+.error-dialog .label {
+    -fx-text-fill: #e74c3c;
+}
+
+.success-dialog {
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-background-color: rgba(0, 128, 0, 0.1);
+    -fx-border-color: rgba(0, 128, 0, 0.8);
+    -fx-font-size: 16px;
+}
+
+.success-dialog .label {
+    -fx-text-fill: #27ae60;
+}
+.progress-indicator {
+    -fx-background-color: transparent; /* Main container background */
+    -fx-border-color: transparent; /* Border of the main container */
+    -fx-padding: 0; /* Padding around the spinner */
+}
+
+/* Style for the spinner's container */
+.progress-indicator .spinner-pane {
+    -fx-background-color: transparent; /* Spinner pane background */
+}
+
+/* Style for the arc of the progress indicator */
+.progress-indicator .spinner {
+    -fx-background-color: transparent; /* Spinner arc background */
+    -fx-border-color: transparent;
+    -fx-progress-color: #D71920;
+}
+
+
+/* Remove any potential shadows */
+.progress-indicator .spinner-pane,
+.progress-indicator .spinner {
+    -fx-effect: null;
+}
+
+.progress-indicator .spinner-pane * {
+    -fx-background-color: transparent;
+}

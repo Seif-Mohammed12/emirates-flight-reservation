@@ -292,7 +292,7 @@ public class SeatSelectionController {
 
                 String passengerName = AppContext.getLoggedInFirstName() + " " + AppContext.getLoggedInLastName();
                 String contactMethod = AppContext.getLoggedInEmail();
-                BookingConfirmation.Passenger passenger = new BookingConfirmation.Passenger(passengerName, seatDetails, contactMethod, selectedClass);
+                BookingConfirmation.Passenger passenger = new BookingConfirmation.Passenger(passengerName, seatDetails, contactMethod, selectedClass, adults, children);
 
                 bookingConfirmationController.setBookingDetails(selectedFlight, passenger, seatDetails, selectedClass, updatedPrice, departureDate, returnDate, adults, children, selectedDestination, selectedDeparture);
                 bookingConfirmationController.setLoggedInUsername(AppContext.getLoggedInUsername());
@@ -309,10 +309,8 @@ public class SeatSelectionController {
             fadeOut.setToValue(0.0);
 
             fadeOut.setOnFinished(e -> {
-                // Replace the root with the new layout
                 currentScene.setRoot(bookingConfirmationLayout);
 
-                // Apply fade-in transition to the new layout
                 FadeTransition fadeIn = new FadeTransition(Duration.millis(500), bookingConfirmationLayout);
                 fadeIn.setFromValue(0.0);
                 fadeIn.setToValue(1.0);

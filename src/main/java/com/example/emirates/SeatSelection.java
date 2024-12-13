@@ -14,9 +14,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class SeatSelection {
     private final Random random = new Random();
@@ -44,17 +42,38 @@ public class SeatSelection {
                 break;
         }
 
+        Set<String> bookedSeats = AppContext.getBookedSeats(classType);
+        if (bookedSeats.isEmpty()) {
+            bookedSeats = new HashSet<>();
+            for (int row = 0; row < rows; row++) {
+                for (int col = 0; col < (leftSeats + rightSeats + 1); col++) {
+                    if (col == leftSeats) {
+                        continue; // Skip aisle
+                    }
+
+                    String seatLabel = (col < seatLabels.length) ? String.valueOf(seatLabels[col < leftSeats ? col : col - 1]) : "X";
+                    String seatId = seatLabel + (row + 1);
+
+                    if (random.nextDouble() < 0.2) { // Randomly book ~20% of seats
+                        bookedSeats.add(seatId);
+                    }
+                }
+            }
+            AppContext.setBookedSeats(classType, bookedSeats);
+        }
+
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col < (leftSeats + rightSeats + 1); col++) {
                 if (col == leftSeats) {
-                    continue;
+                    continue; // Skip aisle
                 }
 
                 String seatLabel = (col < seatLabels.length) ? String.valueOf(seatLabels[col < leftSeats ? col : col - 1]) : "X";
-                ToggleButton seatButton = new ToggleButton(seatLabel + (row + 1));
+                String seatId = seatLabel + (row + 1);
+                ToggleButton seatButton = new ToggleButton(seatId);
                 styleAvailableSeat(seatButton);
 
-                if (random.nextDouble() < 0.2) {
+                if (bookedSeats.contains(seatId)) {
                     styleBookedSeat(seatButton);
                 }
 

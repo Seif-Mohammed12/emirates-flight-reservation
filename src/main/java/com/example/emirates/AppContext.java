@@ -1,7 +1,6 @@
 package com.example.emirates;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class AppContext {
 
@@ -15,6 +14,24 @@ public class AppContext {
     private static String selectedDeparture;
 
     private static final List<BookingConfirmation.Booking> bookings = new ArrayList<>();
+
+    private static Map<String, Set<String>> bookedSeatsMap = new HashMap<>();
+
+    public static Map<String, Set<String>> getBookedSeatsMap() {
+        return bookedSeatsMap;
+    }
+
+    public static void setBookedSeatsMap(Map<String, Set<String>> map) {
+        bookedSeatsMap = map;
+    }
+
+    public static Set<String> getBookedSeats(String classType) {
+        return bookedSeatsMap.getOrDefault(classType, new HashSet<>());
+    }
+
+    public static void setBookedSeats(String classType, Set<String> seats) {
+        bookedSeatsMap.put(classType, seats);
+    }
 
     public static void addBooking(BookingConfirmation.Booking booking) {
         bookings.add(booking);

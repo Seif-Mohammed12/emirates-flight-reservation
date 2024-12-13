@@ -11,12 +11,16 @@ public class BookingConfirmation {
         private String seat;
         private String contactMethod;
         private String selectedClass;
+        private int adults;
+        private int children;
 
-        public Passenger(String name, String seat, String contactMethod, String selectedClass) {
+        public Passenger(String name, String seat, String contactMethod, String selectedClass, int adults, int children) {
             this.name = name;
             this.seat = seat;
             this.contactMethod = contactMethod;
             this.selectedClass = selectedClass;
+            this.adults = adults;
+            this.children = children;
         }
 
         public String getName() { return name; }
@@ -30,6 +34,13 @@ public class BookingConfirmation {
 
         public String getFlightClass() { return selectedClass; }
         public void setFlightClass(String selectedClass) { this.selectedClass = selectedClass; }
+        public int getAdults() {
+            return adults;
+        }
+
+        public int getChildren() {
+            return children;
+        }
 
         public void displayPassengerData() {
             System.out.println("Passenger Data:");
@@ -121,10 +132,10 @@ public class BookingConfirmation {
         }
     }
 
-    public Passenger createPassenger(String seat, String selectedClass) {
+    public Passenger createPassenger(String seat, String selectedClass, int adults, int children) {
         String name = AppContext.getLoggedInFirstName();
         String contactMethod = AppContext.getLoggedInUsername();
-        return new Passenger(name, seat, contactMethod, selectedClass);
+        return new Passenger(name, seat, contactMethod, selectedClass, adults, children);
     }
 
     public Booking createBooking(selectFlights.Flights selectedFlight, Passenger passenger, LocalDate departureDate, LocalDate returnDate, double updatedPrice) {
@@ -135,7 +146,7 @@ public class BookingConfirmation {
         booking.displayBookingData();
     }
 
-    public void executeConsoleBooking(selectFlights.Flights selectedFlight, List<String> selectedSeats, String selectedClass, LocalDate departureDate, LocalDate returnDate, double updatedPrice) {
+    public void executeConsoleBooking(selectFlights.Flights selectedFlight, List<String> selectedSeats, String selectedClass, LocalDate departureDate, LocalDate returnDate, double updatedPrice, int adults, int children) {
         if (selectedFlight == null || selectedSeats.isEmpty() || selectedClass == null) {
             System.out.println("Error: Missing booking details.");
             return;
@@ -143,7 +154,7 @@ public class BookingConfirmation {
 
         String seatDetails = String.join(", ", selectedSeats);
 
-        Passenger passenger = createPassenger(seatDetails, selectedClass);
+        Passenger passenger = createPassenger(seatDetails, selectedClass, adults, children);
         Booking booking = createBooking(selectedFlight, passenger, departureDate, returnDate, updatedPrice);
 
         displayBookingDetails(booking);

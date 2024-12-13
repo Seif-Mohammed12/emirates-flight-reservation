@@ -451,7 +451,7 @@
 
                 BookingConfirmation bookingConfirmation = new BookingConfirmation();
 
-                BookingConfirmation.Passenger passenger = bookingConfirmation.createPassenger(selectedSeat, selectedClass);
+                BookingConfirmation.Passenger passenger = bookingConfirmation.createPassenger(selectedSeat, selectedClass, adults, children);
 
                 BookingConfirmation.Booking booking = bookingConfirmation.createBooking(selectedFlight, passenger, departureDate, returnDate, totalAmount);
 
@@ -516,7 +516,7 @@
 
                     String passengerName = AppContext.getLoggedInFirstName() + " " + AppContext.getLoggedInLastName();
                     String contactMethod = AppContext.getLoggedInEmail();
-                    BookingConfirmation.Passenger passenger = new BookingConfirmation.Passenger(passengerName, selectedSeat, contactMethod, selectedClass);
+                    BookingConfirmation.Passenger passenger = new BookingConfirmation.Passenger(passengerName, selectedSeat, contactMethod, selectedClass, adults, children);
 
                     bookingConfirmationController.setBookingDetails(selectedFlight, passenger, selectedSeat, selectedClass, updatedPrice, departureDate, returnDate, adults, children, selectedDestination, selectedDeparture);
                     bookingConfirmationController.setLoggedInUsername(AppContext.getLoggedInUsername());
