@@ -31,16 +31,11 @@ public class VisaPayment extends Payment {
         return true;
     }
 
-    public double calculateRefundAmount(double amount) {
+    public static double calculateRefundAmount(double amount) {
         double cancellationFee = calculateCancellationFee(amount);
         return amount - cancellationFee;
     }
-    /**
-     * Validates the card number using regex for all major card types.
-     *
-     * @param cardNumber The card number to validate.
-     * @return True if the card number is valid, false otherwise.
-     */
+
     private boolean isValidCardNumber(String cardNumber) {
 
         String cardRegex = "^(?:4[0-9]{12}(?:[0-9]{3})?" + // Visa

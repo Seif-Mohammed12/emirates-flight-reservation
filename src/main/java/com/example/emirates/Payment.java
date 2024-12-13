@@ -23,7 +23,7 @@ public abstract class Payment {
         return amount * serviceFeeRate;
     }
 
-    protected double calculateCancellationFee(double amount) {
+    protected static double calculateCancellationFee(double amount) {
         double cancellationFeeRate = 0.10;
         return amount * cancellationFeeRate;
     }

@@ -22,10 +22,6 @@ public class ManageBooking {
         }
     }
 
-    /**
-     * Allows the user to change their seat for a specific booking.
-     * Implements logic to update the booking data stored in AppContext.
-     */
     public void changeSeat() {
         if (!AppContext.hasBookings()) {
             System.out.println("No bookings found. Cannot change seat.");
@@ -71,10 +67,6 @@ public class ManageBooking {
         System.out.println("Seat changed successfully to: " + newSeat);
     }
 
-    /**
-     * Allows the user to cancel a specific booking.
-     * Implements logic to remove the booking from AppContext.
-     */
     public void cancelBooking() {
         if (!AppContext.hasBookings()) {
             System.out.println("No bookings found. Cannot cancel.");

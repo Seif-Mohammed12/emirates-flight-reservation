@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane stylesheets="@ViewBookings.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.emirates.ViewBookingController">
+    <children>
+
+        <!-- VBox for flight details -->
+        <VBox fx:id="detailsContainer" layoutX="50.0" layoutY="80.0" prefHeight="387.0" prefWidth="1000.0" spacing="10.0" styleClass="vbox-container" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="100.0">
+            <!-- Booking ID -->
+            <Label fx:id="bookingIdLabel" styleClass="booking-id" text="Booking ID: " />
+         <Separator fx:id="seperator" prefWidth="200.0" />
+            <!-- Flight Details -->
+            <VBox fx:id="flightDetailsBox" spacing="5" styleClass="booking-card">
+                <Label fx:id="flightNumberLabel" styleClass="booking-details" text="Flight: " />
+                <Label fx:id="passengerNameLabel" styleClass="booking-details" text="Passenger: " />
+                <Label fx:id="flightClassLabel" styleClass="booking-details" text="Class: " />
+                <Label fx:id="seatLabel" styleClass="booking-details" text="Seat(s): " />
+                <Label fx:id="departureLabel" styleClass="booking-details" text="Departure: " />
+                <Label fx:id="arrivalLabel" styleClass="booking-details" text="Arrival: " />
+                <Label fx:id="departureDateLabel" styleClass="booking-details" text="Departure Date: " />
+                <Label fx:id="returnDateLabel" styleClass="booking-details" text="Return Date: " />
+                <Label fx:id="totalPriceLabel" styleClass="booking-details" text="Total Price: " />
+            </VBox>
+        </VBox>
+      <HBox alignment="CENTER" layoutX="168.0" prefHeight="100.0" prefWidth="200.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
+         <children>
+              <!-- Header Label -->
+              <Label fx:id="headerLabel" styleClass="header-label" text="Your Booking Details" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" layoutX="140.0" layoutY="530.0" prefHeight="100.0" prefWidth="200.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+         <children>
+      
+                 <!-- Back Button -->
+              <Button fx:id="backButton" onAction="#gotoMain" alignment="CENTER" styleClass="button" text="Back to Main Menu" />
+         </children>
+      </HBox>
+    </children>
+</AnchorPane>

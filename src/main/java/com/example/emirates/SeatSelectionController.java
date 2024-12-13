@@ -118,7 +118,7 @@ public class SeatSelectionController {
         this.selectedFlight = flight;
     }
     public void setUpdatedPrice(String price) {
-        this.updatedPrice = price; // Set the updated price
+        this.updatedPrice = price;
     }
     public void setDepartureDate(LocalDate departureDate) {
         this.departureDate = departureDate;
@@ -258,26 +258,21 @@ public class SeatSelectionController {
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene currentScene = currentStage.getScene();
 
-        // Create a loading overlay
         Pane overlayPane = new Pane();
-        overlayPane.setStyle("-fx-background-color: rgba(0, 0, 0, 0.3);"); // Semi-transparent background
+        overlayPane.setStyle("-fx-background-color: rgba(0, 0, 0, 0.3);");
         overlayPane.setPrefSize(currentScene.getRoot().getBoundsInLocal().getWidth(),
                 currentScene.getRoot().getBoundsInLocal().getHeight());
 
-        // Add a loading spinner to the overlay
         ProgressIndicator loadingIndicator = new ProgressIndicator();
         loadingIndicator.setMaxSize(100, 100);
         loadingIndicator.setStyle("-fx-progress-color: #D71920;" + "-fx-background-color: transparent;");
 
-        // Center the spinner
-        loadingIndicator.layoutXProperty().bind(overlayPane.widthProperty().divide(2).subtract(50)); // Adjusted for centering
+        loadingIndicator.layoutXProperty().bind(overlayPane.widthProperty().divide(2).subtract(50));
         loadingIndicator.layoutYProperty().bind(overlayPane.heightProperty().divide(2).subtract(50));
         overlayPane.getChildren().add(loadingIndicator);
 
-        // Add the overlay to the current scene
         ((Pane) currentScene.getRoot()).getChildren().add(overlayPane);
 
-        // Task for loading the FXML
         Task<Parent> loadBookingConfirmationTask = new Task<>() {
             @Override
             protected Parent call() throws IOException {
@@ -286,30 +281,25 @@ public class SeatSelectionController {
 
                 BookingConfirmationController bookingConfirmationController = loader.getController();
 
-                // Fetch the selected seats
                 List<ToggleButton> selectedSeats = seatSelection.getSelectedSeats();
                 String seatDetails = selectedSeats.stream()
                         .map(ToggleButton::getText)
-                        .collect(Collectors.joining(", ")); // Collect seat names
+                        .collect(Collectors.joining(", "));
 
-                // Ensure seats are selected
                 if (seatDetails.isEmpty()) {
                     throw new IOException("No seats selected. Please select at least one seat.");
                 }
 
-                // Create a Passenger object
                 String passengerName = AppContext.getLoggedInFirstName() + " " + AppContext.getLoggedInLastName();
                 String contactMethod = AppContext.getLoggedInEmail();
-                BookingConfirmation.Passenger passenger = new BookingConfirmation.Passenger(passengerName, seatDetails, contactMethod);
+                BookingConfirmation.Passenger passenger = new BookingConfirmation.Passenger(passengerName, seatDetails, contactMethod, selectedClass);
 
-                // Pass details to BookingConfirmationController, including selected class
                 bookingConfirmationController.setBookingDetails(selectedFlight, passenger, seatDetails, selectedClass, updatedPrice, departureDate, returnDate, adults, children, selectedDestination, selectedDeparture);
                 bookingConfirmationController.setLoggedInUsername(AppContext.getLoggedInUsername());
                 return bookingConfirmationLayout;
             }
         };
 
-        // Handle success: Transition to booking confirmation
         loadBookingConfirmationTask.setOnSucceeded(workerStateEvent -> {
             Parent bookingConfirmationLayout = loadBookingConfirmationTask.getValue();
 
@@ -335,7 +325,6 @@ public class SeatSelectionController {
             ((Pane) currentScene.getRoot()).getChildren().remove(overlayPane);
         });
 
-        // Handle failure: Remove the loading overlay and log the error
         loadBookingConfirmationTask.setOnFailed(workerStateEvent -> {
             Throwable error = loadBookingConfirmationTask.getException();
             error.printStackTrace(); // Log the error for debugging
@@ -347,7 +336,6 @@ public class SeatSelectionController {
             ((Pane) currentScene.getRoot()).getChildren().remove(overlayPane);
         });
 
-        // Run the task in a background thread
         Thread loadThread = new Thread(loadBookingConfirmationTask);
         loadThread.setDaemon(true);
         loadThread.start();

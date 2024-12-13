@@ -1,5 +1,7 @@
 package com.example.emirates;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class BookingConfirmation {
@@ -8,12 +10,13 @@ public class BookingConfirmation {
         private String name;
         private String seat;
         private String contactMethod;
-        private String flightClass;
+        private String selectedClass;
 
-        public Passenger(String name, String seat, String contactMethod) {
+        public Passenger(String name, String seat, String contactMethod, String selectedClass) {
             this.name = name;
             this.seat = seat;
             this.contactMethod = contactMethod;
+            this.selectedClass = selectedClass;
         }
 
         public String getName() { return name; }
@@ -25,14 +28,15 @@ public class BookingConfirmation {
         public String getContactMethod() { return contactMethod; }
         public void setContactMethod(String contactMethod) { this.contactMethod = contactMethod; }
 
-        public String getFlightClass() { return flightClass; }
-        public void setFlightClass(String flightClass) { this.flightClass = flightClass; }
+        public String getFlightClass() { return selectedClass; }
+        public void setFlightClass(String selectedClass) { this.selectedClass = selectedClass; }
 
         public void displayPassengerData() {
             System.out.println("Passenger Data:");
             System.out.println("Name: " + name);
             System.out.println("Seat: " + seat);
             System.out.println("Contact: " + contactMethod);
+            System.out.println("Class: " + selectedClass);
         }
     }
 
@@ -42,13 +46,41 @@ public class BookingConfirmation {
         private final String bookingId;
         private String status;
         private double totalPrice;
+        private double updatedPrice;
+        private LocalDate departureDate, returnDate;
 
-        public Booking(selectFlights.Flights flight, Passenger passenger) {
+        public Booking(selectFlights.Flights flight, Passenger passenger, LocalDate departureDate, LocalDate returnDate, double updatedPrice) {
             this.flight = flight;
             this.passenger = passenger;
             this.bookingId = generateBookingId();
             this.status = "Confirmed";
             this.totalPrice = parsePrice(flight.getPrice());
+            this.departureDate = departureDate;
+            this.returnDate = returnDate;
+            this.updatedPrice = updatedPrice;
+        }
+
+        public selectFlights.Flights getFlight() {
+            return flight;
+        }
+
+        public Passenger getPassenger() {
+            return passenger;
+        }
+
+        public LocalDate getDepartureDate() {
+            return departureDate;
+        }
+
+        public LocalDate getReturnDate() {
+            return returnDate;
+        }
+        public double getUpdatedPrice() {
+            return updatedPrice;
+        }
+
+        public void setUpdatedPrice(double updatedPrice) {
+            this.updatedPrice = updatedPrice;
         }
 
         private double parsePrice(String price) {
@@ -59,8 +91,12 @@ public class BookingConfirmation {
             }
         }
 
-        private String generateBookingId() {
-            return "BOOK-" + System.currentTimeMillis();
+        public static String generateBookingId() {
+            String airlineCode = "EK"; // Emirates code
+            String datePart = LocalDate.now().format(DateTimeFormatter.ofPattern("ddMMyyyy"));
+            String uniquePart = String.valueOf(System.currentTimeMillis()).substring(5);
+
+            return airlineCode + "-" + datePart + "-" + uniquePart;
         }
 
         public void displayBookingData() {
@@ -85,21 +121,21 @@ public class BookingConfirmation {
         }
     }
 
-    public Passenger createPassenger(String seat, String flightClass) {
+    public Passenger createPassenger(String seat, String selectedClass) {
         String name = AppContext.getLoggedInFirstName();
         String contactMethod = AppContext.getLoggedInUsername();
-        return new Passenger(name, seat, contactMethod);
+        return new Passenger(name, seat, contactMethod, selectedClass);
     }
 
-    public Booking createBooking(selectFlights.Flights selectedFlight, Passenger passenger) {
-        return new Booking(selectedFlight, passenger);
+    public Booking createBooking(selectFlights.Flights selectedFlight, Passenger passenger, LocalDate departureDate, LocalDate returnDate, double updatedPrice) {
+        return new Booking(selectedFlight, passenger, departureDate, returnDate, updatedPrice);
     }
 
     public void displayBookingDetails(Booking booking) {
         booking.displayBookingData();
     }
 
-    public void executeConsoleBooking(selectFlights.Flights selectedFlight, List<String> selectedSeats, String selectedClass) {
+    public void executeConsoleBooking(selectFlights.Flights selectedFlight, List<String> selectedSeats, String selectedClass, LocalDate departureDate, LocalDate returnDate, double updatedPrice) {
         if (selectedFlight == null || selectedSeats.isEmpty() || selectedClass == null) {
             System.out.println("Error: Missing booking details.");
             return;
@@ -108,8 +144,7 @@ public class BookingConfirmation {
         String seatDetails = String.join(", ", selectedSeats);
 
         Passenger passenger = createPassenger(seatDetails, selectedClass);
-        Booking booking = createBooking(selectedFlight, passenger);
-
+        Booking booking = createBooking(selectedFlight, passenger, departureDate, returnDate, updatedPrice);
 
         displayBookingDetails(booking);
     }

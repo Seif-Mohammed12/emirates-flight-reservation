@@ -90,7 +90,7 @@ public class MainController {
         configureLoginButton();
         setupComboBoxFocusListeners();
         Platform.runLater(() -> {
-            depBox.hide(); // Ensure the dropdown is closed
+            depBox.hide();
             titleLabel.requestFocus();
         });
     }
@@ -113,7 +113,6 @@ public class MainController {
             datePicker.setValue(today);
         }
 
-        // Prevent selecting past dates
         datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null && newValue.isBefore(today)) {
                 datePicker.setValue(today);
@@ -138,22 +137,19 @@ public class MainController {
     }
 
     private void configureDatePickers(DatePicker dateFrom, DatePicker dateBack, LocalDate today) {
-        // Configure From DatePicker
         configureDatePicker(dateFrom, today);
 
-        // Configure To DatePicker
         configureDatePicker(dateBack, today);
 
-        // Ensure dateBack cannot be earlier than dateFrom
         dateFrom.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null && dateBack.getValue() != null && dateBack.getValue().isBefore(newValue)) {
-                dateBack.setValue(newValue); // Align To date with From date
+                dateBack.setValue(newValue);
             }
         });
 
         dateBack.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null && dateFrom.getValue() != null && newValue.isBefore(dateFrom.getValue())) {
-                dateBack.setValue(dateFrom.getValue()); // Align To date with From date
+                dateBack.setValue(dateFrom.getValue());
             }
         });
     }
@@ -249,11 +245,9 @@ public class MainController {
             fadeOut.setOnFinished(e -> {
                 try {
                     if (LoginSystem.isAdmin(loggedInUsername, loggedInPassword)) {
-                        // Navigate to admin page
                         Parent adminPage = FXMLLoader.load(getClass().getResource("Admin.fxml"));
                         currentScene.setRoot(adminPage);
                     } else {
-                        // Navigate to regular user page
                         Parent loginPage = FXMLLoader.load(getClass().getResource("LoginPage.fxml"));
                         currentScene.setRoot(loginPage);
                     }
@@ -337,7 +331,6 @@ public class MainController {
 
         depBox.getItems().addAll(uniqueDepartures);
 
-        // Clear selection if items are changed
         if (depBox.getItems().isEmpty()) {
             depBox.getSelectionModel().clearSelection();
             depBox.hide();
@@ -386,7 +379,7 @@ public class MainController {
     @FXML
     public void handleDepMouseClick(MouseEvent event) throws IOException {
         if (dropdownRefreshing) {
-            return; // Skip if already refreshing
+            return;
         }
 
         refreshDep(false);
@@ -408,7 +401,7 @@ public class MainController {
     @FXML
     public void handleArrKeyRelease(KeyEvent event) throws IOException {
         if (dropdownRefreshing || arrBox.isShowing()) {
-            return; // Skip if already refreshing or dropdown is visible
+            return;
         }
         refresh(true);
 
@@ -425,7 +418,6 @@ public class MainController {
             System.out.println("Destination selected: " + selectedDestination);
             AppContext.setSelectedDestination(selectedDestination);
 
-            // Hide the dropdown after selection
             arrBox.hide();
         }
     }
@@ -436,7 +428,6 @@ public class MainController {
         selectedDeparture = depBox.getValue();
 
         if (selectedDeparture == null || selectedDeparture.isEmpty()) {
-            // Clear arrivals and hide dropdown
             arrBox.getItems().clear();
             arrBox.getSelectionModel().clearSelection();
             arrBox.hide();
@@ -446,7 +437,6 @@ public class MainController {
         System.out.println("Departure selected: " + selectedDeparture);
         AppContext.setSelectedDeparture(selectedDeparture);
 
-        // Refresh arrivals and show dropdown only if items are available
         refresh(false);
 
         if (arrBox.getItems().isEmpty()) {
@@ -500,15 +490,15 @@ public class MainController {
 
         currentStage.getScene().getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         Pane overlayPane = new Pane();
-        overlayPane.setStyle("-fx-background-color: rgba(0, 0, 0, 0.3);"); // Semi-transparent background
+        overlayPane.setStyle("-fx-background-color: rgba(0, 0, 0, 0.3);");
         overlayPane.setPrefSize(currentRoot.getBoundsInLocal().getWidth(), currentRoot.getBoundsInLocal().getHeight());
 
 
         ProgressIndicator loadingIndicator = new ProgressIndicator();
         loadingIndicator.setMaxSize(100, 100);
         loadingIndicator.setStyle("-fx-progress-color: #D71920;" + "-fx-background-color: transparent; " + "-fx-border-color: transparent; " + "-fx-padding: 0;");
-        loadingIndicator.layoutXProperty().bind(overlayPane.widthProperty().divide(2).subtract(600)); // Center horizontally
-        loadingIndicator.layoutYProperty().bind(overlayPane.heightProperty().divide(2).subtract(50)); // Center vertically
+        loadingIndicator.layoutXProperty().bind(overlayPane.widthProperty().divide(2).subtract(600));
+        loadingIndicator.layoutYProperty().bind(overlayPane.heightProperty().divide(2).subtract(50));
 
         overlayPane.getChildren().add(loadingIndicator);
 
@@ -572,29 +562,20 @@ public class MainController {
     }
 
     public void gotosearch(ActionEvent event) throws IOException {
-        // Get the current stage and scene
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene currentScene = currentStage.getScene();
 
-        // Load the new FXML file
         FXMLLoader loader = new FXMLLoader(getClass().getResource("flightsearch.fxml"));
         Parent root = loader.load();
 
-        // Get the controller for the new FXML
         FlightsearchController flightsearchController = loader.getController();
 
-        // Pass data to the controller if needed
-        // Example: flightsearchController.initializeData(someData);
-
-        // Optional: Add a fade-out transition for smoother experience
         FadeTransition fadeOut = new FadeTransition(Duration.millis(500), currentScene.getRoot());
         fadeOut.setFromValue(1.0);
         fadeOut.setToValue(0.0);
         fadeOut.setOnFinished(e -> {
-            // Switch to the new scene
             currentScene.setRoot(root);
 
-            // Optional: Add a fade-in transition for the new scene
             FadeTransition fadeIn = new FadeTransition(Duration.millis(500), root);
             fadeIn.setFromValue(0.0);
             fadeIn.setToValue(1.0);
@@ -605,80 +586,153 @@ public class MainController {
     }
 
     public void gotoAbout(ActionEvent event) {
-        // Get the current stage and scene
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene currentScene = currentStage.getScene();
 
-        // Create a loading overlay
         Pane overlayPane = new Pane();
-        overlayPane.setStyle("-fx-background-color: rgba(0, 0, 0, 0.3);"); // Semi-transparent background
+        overlayPane.setStyle("-fx-background-color: rgba(0, 0, 0, 0.3);");
         overlayPane.setPrefSize(currentScene.getRoot().getBoundsInLocal().getWidth(),
                 currentScene.getRoot().getBoundsInLocal().getHeight());
 
-        // Add a loading spinner to the overlay
         ProgressIndicator loadingIndicator = new ProgressIndicator();
         loadingIndicator.setMaxSize(100, 100);
         loadingIndicator.setStyle("-fx-progress-color: #D71920;" + "-fx-background-color: transparent;");
 
-        // Center the loading indicator
         loadingIndicator.layoutXProperty().bind(overlayPane.widthProperty().divide(2).subtract(600));
         loadingIndicator.layoutYProperty().bind(overlayPane.heightProperty().divide(2).subtract(50));
         overlayPane.getChildren().add(loadingIndicator);
 
-        // Add the overlay to the current scene
         ((Pane) currentScene.getRoot()).getChildren().add(overlayPane);
 
-        // Task for loading the FXML
         Task<Parent> loadFXMLTask = new Task<>() {
             @Override
             protected Parent call() throws IOException {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("About.fxml"));
-                return loader.load(); // Load About.fxml
+                return loader.load();
             }
         };
 
-        // Success handler: Transition to the new scene
         loadFXMLTask.setOnSucceeded(workerStateEvent -> {
             Parent newRoot = loadFXMLTask.getValue();
 
-            // Create a fade-out transition for the current scene
             FadeTransition fadeOut = new FadeTransition(Duration.millis(500), currentScene.getRoot());
-            fadeOut.setFromValue(1.0); // Start at full opacity
-            fadeOut.setToValue(0.0);   // Fade to transparent
+            fadeOut.setFromValue(1.0);
+            fadeOut.setToValue(0.0);
 
             fadeOut.setOnFinished(e -> {
-                currentScene.setRoot(newRoot); // Replace the root with the new scene
+                currentScene.setRoot(newRoot);
 
-                // Create and play a fade-in transition for the new scene
                 FadeTransition fadeIn = new FadeTransition(Duration.millis(500), newRoot);
-                fadeIn.setFromValue(0.0); // Start from transparent
-                fadeIn.setToValue(1.0);   // Fade to full opacity
+                fadeIn.setFromValue(0.0);
+                fadeIn.setToValue(1.0);
                 fadeIn.play();
             });
 
-            fadeOut.play(); // Play the fade-out animation
+            fadeOut.play();
 
-            // Remove the overlay once the transition starts
             ((Pane) currentScene.getRoot()).getChildren().remove(overlayPane);
         });
 
-        // Failure handler: Remove the loading indicator and display an error
         loadFXMLTask.setOnFailed(workerStateEvent -> {
             Throwable error = loadFXMLTask.getException();
-            error.printStackTrace(); // Log the error for debugging
+            error.printStackTrace();
 
-            // Remove the overlay
             ((Pane) currentScene.getRoot()).getChildren().remove(overlayPane);
 
-            // Show an alert to the user
             showStyledAlert("Failed to load the About page: " + error.getMessage(), currentStage);
         });
 
-        // Start the task in a background thread
         Thread loadThread = new Thread(loadFXMLTask);
-        loadThread.setDaemon(true); // Ensure the thread exits with the application
+        loadThread.setDaemon(true);
         loadThread.start();
     }
+
+    @FXML
+    private void handleViewMenuAction(ActionEvent event) {
+        if (!AppContext.hasBookings()) {
+            Stage currentStage = (Stage) menuBarMain.getScene().getWindow();
+            showStyledAlert("No bookings found! You have no bookings to view at the moment.", currentStage);
+            return;
+        }
+
+        try {
+            Stage currentStage = (Stage) menuBarMain.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("ViewBooking.fxml"));
+            Parent root = loader.load();
+
+            Scene currentScene = currentStage.getScene();
+
+            FadeTransition fadeOut = new FadeTransition(Duration.millis(500), currentScene.getRoot());
+            fadeOut.setFromValue(1.0);
+            fadeOut.setToValue(0.0);
+
+            fadeOut.setOnFinished(e -> {
+                currentScene.setRoot(root);
+
+                FadeTransition fadeIn = new FadeTransition(Duration.millis(500), root);
+                fadeIn.setFromValue(0.0);
+                fadeIn.setToValue(1.0);
+                fadeIn.play();
+            });
+
+            fadeOut.play();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @FXML
+    private void handleChangeMenuAction(ActionEvent event) throws IOException {
+        Stage currentStage = (Stage) menuBarMain.getScene().getWindow();
+        Scene currentScene = currentStage.getScene();
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("ChangeSeats.fxml"));
+        Parent root = loader.load();
+
+        FadeTransition fadeOut = new FadeTransition(Duration.millis(500), currentScene.getRoot());
+        fadeOut.setFromValue(1.0);
+        fadeOut.setToValue(0.0);
+        fadeOut.setOnFinished(e -> {
+            currentScene.setRoot(root);
+
+            FadeTransition fadeIn = new FadeTransition(Duration.millis(500), root);
+            fadeIn.setFromValue(0.0);
+            fadeIn.setToValue(1.0);
+            fadeIn.play();
+        });
+
+        fadeOut.play();
+    }
+
+    @FXML
+    private void handleCancelMenuAction(ActionEvent event) throws IOException {
+        if (!AppContext.hasBookings()) {
+            Stage currentStage = (Stage) menuBarMain.getScene().getWindow();
+            showStyledAlert("No bookings found! You have no bookings to cancel at the moment.", currentStage);
+            return;
+        }
+        Stage currentStage = (Stage) menuBarMain.getScene().getWindow();
+        Scene currentScene = currentStage.getScene();
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("CancelBooking.fxml"));
+        Parent root = loader.load();
+
+        FadeTransition fadeOut = new FadeTransition(Duration.millis(500), currentScene.getRoot());
+        fadeOut.setFromValue(1.0);
+        fadeOut.setToValue(0.0);
+        fadeOut.setOnFinished(e -> {
+            currentScene.setRoot(root);
+
+            FadeTransition fadeIn = new FadeTransition(Duration.millis(500), root);
+            fadeIn.setFromValue(0.0);
+            fadeIn.setToValue(1.0);
+            fadeIn.play();
+        });
+
+        fadeOut.play();
+    }
+
 
 
     // ----------------------------------------
@@ -696,10 +750,14 @@ public class MainController {
         dialogPane.setHeaderText(null);
         dialogPane.setGraphic(null);
 
-        Stage alertStage = (Stage) alert.getDialogPane().getScene().getWindow();
+        dialogPane.setStyle("-fx-background-color: #f8d7da; -fx-background-radius: 20; -fx-border-radius: 20;");
+
+        dialogPane.setMinSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
+        dialogPane.setMaxSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
+
+        Stage alertStage = (Stage) dialogPane.getScene().getWindow();
         alertStage.initStyle(StageStyle.TRANSPARENT);
         alertStage.getScene().setFill(null);
-        dialogPane.setStyle("-fx-background-color: #f8d7da; -fx-background-radius: 20; -fx-border-radius: 20;");
 
         alert.showAndWait();
     }

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane stylesheets="@ViewBookings.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.emirates.CancelBookingController">
+    <children>
+        <!-- Header Section -->
+        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+            <children>
+                <Label fx:id="headerLabel" styleClass="header-label" text="Cancel Your Booking" />
+            </children>
+        </HBox>
+
+        <!-- Instruction Section -->
+        <VBox alignment="CENTER" spacing="10.0" AnchorPane.topAnchor="100.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0">
+            <children>
+                <Label fx:id="instructionLabel" styleClass="instruction-label" text="Please review the booking details below carefully before proceeding to cancel your booking; note that cancellations are final and cannot be undone." />
+                <Label fx:id="warningLabel" styleClass="warning-label" text="Important: Certain flights may have non-refundable terms; check your booking details or contact support for clarification before proceeding." />
+            </children>
+        </VBox>
+
+        <!-- Booking Details Section -->
+        <VBox fx:id="detailsContainer" layoutX="50.0" layoutY="200.0" prefHeight="400.0" prefWidth="1000.0" spacing="10.0" styleClass="vbox-container" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="200.0">
+            <!-- Booking ID -->
+            <Label fx:id="bookingIdLabel" styleClass="booking-id" text="Booking ID: " />
+            <Separator fx:id="separator" prefWidth="200.0" />
+
+            <!-- Booking Details -->
+            <VBox fx:id="flightDetailsBox" spacing="10.0" styleClass="booking-card">
+                <Label fx:id="flightNumberLabel" styleClass="booking-details" text="Flight: " />
+                <Label fx:id="passengerNameLabel" styleClass="booking-details" text="Passenger: " />
+                <Label fx:id="flightClassLabel" styleClass="booking-details" text="Class: " />
+                <Label fx:id="seatLabel" styleClass="booking-details" text="Seat(s): " />
+                <Label fx:id="departureLabel" styleClass="booking-details" text="Departure: " />
+                <Label fx:id="arrivalLabel" styleClass="booking-details" text="Arrival: " />
+                <Label fx:id="departureDateLabel" styleClass="booking-details" text="Departure Date: " />
+                <Label fx:id="returnDateLabel" styleClass="booking-details" text="Return Date: " />
+                <Label fx:id="totalPriceLabel" styleClass="booking-details" text="Total Price: " />
+            </VBox>
+        </VBox>
+
+        <!-- Buttons Section -->
+        <HBox alignment="CENTER" spacing="20.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0">
+            <children>
+                <Button fx:id="cancelBookingButton" onAction="#handleCancelBooking" styleClass="button-cancel" text="Cancel Booking" />
+                <Button fx:id="backButton" onAction="#gotoMain" styleClass="button" text="Back to Main Menu" />
+            </children>
+        </HBox>
+    </children>
+</AnchorPane>

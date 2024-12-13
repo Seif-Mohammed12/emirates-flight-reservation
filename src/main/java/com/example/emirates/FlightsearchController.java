@@ -31,6 +31,12 @@ public class FlightsearchController {
     private DatePicker departureDatePicker;
 
     @FXML
+    private TextField departureCityField;
+
+    @FXML
+    private TextField arrivalCityField;
+
+    @FXML
     private VBox flightDetailsBox;
 
     @FXML
@@ -53,52 +59,148 @@ public class FlightsearchController {
     private Label estimatedArrivalLabel;
     @FXML
     private Button iconbtnsearch;
+    @FXML
+    private VBox searchByNumberBox;
+    @FXML
+    private Button previousFlightButton;
+    @FXML
+    private Button nextFlightButton;
+    @FXML
+    private VBox searchByRouteBox;
 
     private final Random random = new Random();
     private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    private List<selectFlights.Flights> filteredFlights; // Store the filtered flights
+    private int currentFlightIndex = -1;
 
     public void initialize() {
-        // Load flights from the CSV file
         try {
             List<selectFlights.Flights> flights = FileManager.loadFlightsFromCSV("flights.csv", false, null);
             flightSearch = new FlightSearch(flights);
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
+    public void showSearchByNumber() {
+        searchByNumberBox.setVisible(true);
+        searchByRouteBox.setVisible(false);
 
+        clearSearch();
+    }
+
+    public void showSearchByRoute() {
+        searchByNumberBox.setVisible(false);
+        searchByRouteBox.setVisible(true);
+
+        clearSearch();
+    }
+
+    private void clearSearch() {
+        flightNumberField.clear();
+        departureDatePicker.setValue(null);
+
+        departureCityField.clear();
+        arrivalCityField.clear();
+
+        flightDetailsBox.setVisible(false);
+    }
     @FXML
     private void handleSearchFlight() {
         String flightNumber = flightNumberField.getText();
         LocalDate departureDate = departureDatePicker.getValue();
 
-        Stage currentStage = (Stage) flightNumberField.getScene().getWindow(); // Get the current stage for alert ownership
+        Stage currentStage = (Stage) flightNumberField.getScene().getWindow();
 
         if (flightNumber.isEmpty() || departureDate == null) {
             showStyledAlert("Please fill in both flight number and departure date.", currentStage);
             return;
         }
 
-        // Search for the flight using flight number
         selectFlights.Flights result = flightSearch.getFlightByFlightNumber(flightNumber);
 
         if (result == null) {
             showStyledAlert("Flight " + flightNumber + " not found.", currentStage);
             flightDetailsBox.setVisible(false);
         } else {
-            // Populate flight details from selectFlights.Flights
             departureCityLabel.setText(result.getDepartureCity());
             departureDetailsLabel.setText("Scheduled: " + result.getDepartureTime());
             flightNumberLabel.setText(result.getFlightNo());
             arrivalCityLabel.setText(result.getArrivalCity());
             arrivalDetailsLabel.setText("Scheduled: " + result.getArrivalTime());
-
-            // Populate additional data
             estimatedDepartureLabel.setText(result.getDepartureTime());
-            gateLabel.setText(generateRandomGate()); // Assign random gate
-            departureDateLabel.setText(departureDate.format(dateFormatter)); // Format departure date
+            gateLabel.setText(generateRandomGate());
+            departureDateLabel.setText(departureDate.format(dateFormatter));
             estimatedArrivalLabel.setText(result.getArrivalTime());
 
             flightDetailsBox.setVisible(true);
+        }
+    }
+
+    @FXML
+    private void handleSearchByRoute() {
+        String departureCity = departureCityField.getText().trim();
+        String arrivalCity = arrivalCityField.getText().trim();
+
+        Stage currentStage = (Stage) departureCityField.getScene().getWindow();
+
+        // Validate input fields
+        if (departureCity.isEmpty() || arrivalCity.isEmpty()) {
+            showStyledAlert("Please fill in both departure city and arrival city.", currentStage);
+            return;
+        }
+
+        // Fetch matching flights
+        filteredFlights = flightSearch.searchByRoute(departureCity, arrivalCity);
+
+        // Handle no results
+        if (filteredFlights.isEmpty()) {
+            showStyledAlert("No flights found from " + departureCity + " to " + arrivalCity + ".", currentStage);
+            flightDetailsBox.setVisible(false);
+            return;
+        }
+
+        currentFlightIndex = 0;
+        displayFlightDetails(filteredFlights.get(currentFlightIndex));
+
+        nextFlightButton.setDisable(filteredFlights.size() <= 1);
+        previousFlightButton.setDisable(true);
+    }
+
+    private void displayFlightDetails(selectFlights.Flights flight) {
+
+        departureCityLabel.setText(flight.getDepartureCity());
+        departureDetailsLabel.setText("Scheduled: " + flight.getDepartureTime());
+        flightNumberLabel.setText(flight.getFlightNo());
+        arrivalCityLabel.setText(flight.getArrivalCity());
+        arrivalDetailsLabel.setText("Scheduled: " + flight.getArrivalTime());
+        estimatedDepartureLabel.setText(flight.getDepartureTime());
+        gateLabel.setText(generateRandomGate());
+        estimatedArrivalLabel.setText(flight.getArrivalTime());
+
+        flightDetailsBox.setVisible(true);
+    }
+
+    @FXML
+    private void showPreviousFlight() {
+        if (filteredFlights != null && currentFlightIndex > 0) {
+            currentFlightIndex--;
+            displayFlightDetails(filteredFlights.get(currentFlightIndex));
+
+            // Update button states
+            previousFlightButton.setDisable(currentFlightIndex == 0);
+            nextFlightButton.setDisable(currentFlightIndex == filteredFlights.size() - 1);
+        }
+    }
+
+    @FXML
+    private void showNextFlight() {
+        if (filteredFlights != null && currentFlightIndex < filteredFlights.size() - 1) {
+            currentFlightIndex++;
+            displayFlightDetails(filteredFlights.get(currentFlightIndex));
+
+            // Update button states
+            previousFlightButton.setDisable(currentFlightIndex == 0);
+            nextFlightButton.setDisable(currentFlightIndex == filteredFlights.size() - 1);
         }
     }
 
@@ -140,15 +242,14 @@ public class FlightsearchController {
     }
 
     private String generateRandomGate() {
-        // Define realistic gate patterns
         String[] gatePrefixes = {"A", "B", "C", "D", "E", "L"};
         int gateNumber = random.nextInt(20) + 1;
         String gatePrefix = gatePrefixes[random.nextInt(gatePrefixes.length)];
-        return gatePrefix + gateNumber; // Example: A12, L4, C18
+        return gatePrefix + gateNumber;
     }
 
     private void showStyledAlert(String message, Stage owner) {
-        Alert alert = new Alert(Alert.AlertType.WARNING, message);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION, message);
         alert.initOwner(owner);
         alert.initModality(Modality.APPLICATION_MODAL);
 

@@ -132,6 +132,53 @@
     -fx-scale-x: 0.95;
     -fx-scale-y: 0.95;
 }
+
+/* Default button styling */
+.button-secondary {
+    -fx-background-color: linear-gradient(to bottom, #0072bc, #005fa3); /* Emirates blue gradient */
+    -fx-text-fill: white; /* White text */
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-padding: 10 20;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-border-color: rgba(255, 255, 255, 0.4); /* Subtle border */
+    -fx-border-width: 1;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 8, 0, 0, 2);
+}
+
+/* Hover state */
+.button-secondary:hover {
+    -fx-background-color: linear-gradient(to bottom, #005fa3, #004d84); /* Darker blue gradient on hover */
+    -fx-border-color: rgba(255, 255, 255, 0.7); /* More prominent border on hover */
+    -fx-cursor: hand; /* Change cursor to hand */
+}
+
+/* Pressed state */
+.button-secondary:pressed {
+    -fx-background-color: #004080; /* Solid darker blue */
+    -fx-border-color: rgba(255, 255, 255, 0.9); /* Bright border */
+}
+
+/* Disabled state */
+.button-secondary:disabled {
+    -fx-background-color: #cccccc; /* Light gray for disabled */
+    -fx-text-fill: #666666; /* Gray text for disabled */
+    -fx-border-color: rgba(255, 255, 255, 0.2); /* Subtle border */
+    -fx-effect: none; /* Remove shadow for disabled buttons */
+}
+
+/* Specific styling for "Next" and "Previous" buttons */
+#nextFlightButton, #previousFlightButton {
+    -fx-min-width: 100px; /* Set minimum width */
+    -fx-min-height: 40px; /* Set minimum height */
+    -fx-font-size: 16px; /* Slightly larger font for readability */
+    -fx-background-radius: 20; /* Rounded corners */
+    -fx-border-radius: 20; /* Rounded border */
+    -fx-alignment: center; /* Center align text */
+}
+
+
 #iconbtnsearch{
     -fx-background-image: url("/Emirates_logo.jpg");
     -fx-background-repeat: no-repeat;

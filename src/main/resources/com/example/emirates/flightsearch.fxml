@@ -7,39 +7,68 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
 <AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@flightsearch.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.emirates.FlightsearchController">
    <!-- Root Container -->
-   <VBox alignment="CENTER" layoutX="357.0" layoutY="229.0" prefWidth="800" spacing="30" styleClass="vbox-card">
-      <!-- Search Section -->
-      <VBox spacing="20" styleClass="vbox-card">
-         <HBox alignment="CENTER" spacing="40">
-            <Label styleClass="label-title" text="Search for a Flight" />
-         </HBox>
+   <VBox alignment="CENTER" layoutX="357.0" layoutY="229.0" spacing="30" styleClass="vbox-card">
+      <!-- Buttons to Toggle Search Modes -->
+      <HBox alignment="CENTER" spacing="40">
+         <Button alignment="CENTER" onAction="#showSearchByNumber" prefHeight="40.0" styleClass="button-primary" text="Search by Flight Number" />
+         <Button alignment="CENTER" onAction="#showSearchByRoute" prefHeight="40.0" styleClass="button-primary" text="Search by Route" />
+      </HBox>
 
-         <HBox alignment="CENTER" spacing="30">
-            <!-- Flight Number Input -->
-            <VBox spacing="10">
-               <Label styleClass="label-header" text="Flight Number" />
-               <TextField fx:id="flightNumberField" prefHeight="40.0" promptText="Enter flight number" styleClass="text-field" />
-            </VBox>
+      <!-- StackPane to Toggle Between Sections -->
+      <StackPane>
+         <!-- Search by Flight Number Section -->
+         <VBox fx:id="searchByNumberBox" spacing="20" styleClass="vbox-card" visible="true">
+            <HBox alignment="CENTER" spacing="30">
+               <!-- Flight Number Input -->
+               <VBox spacing="10">
+                  <Label styleClass="label-header" text="Flight Number" />
+                  <TextField fx:id="flightNumberField" prefHeight="40.0" promptText="Enter flight number" styleClass="text-field" />
+               </VBox>
 
-            <!-- Departure Date Input -->
-            <VBox>
-               <Label styleClass="label-header" text="Departure Date" />
-               <DatePicker fx:id="departureDatePicker" styleClass="date-picker" />
-            </VBox>
-            <VBox spacing="13.0">
-               <children>
-                  <Label prefHeight="19.0" prefWidth="116.0" />
+               <!-- Departure Date Input -->
+               <VBox>
+                  <Label styleClass="label-header" text="Departure Date" />
+                  <DatePicker fx:id="departureDatePicker" styleClass="date-picker" />
+               </VBox>
+               <VBox spacing="13.0">
+                  <children>
+                     <Label prefHeight="19.0" prefWidth="116.0" />
+                     <!-- Search Button -->
+                     <Button alignment="CENTER" onAction="#handleSearchFlight" prefHeight="40.0" styleClass="button-primary" text="Find Flights" />
+                  </children>
+               </VBox>
+            </HBox>
+         </VBox>
 
-                  <!-- Search Button -->
-                  <Button alignment="CENTER" onAction="#handleSearchFlight" prefHeight="40.0" styleClass="button-primary" text="Find Flights" />
-               </children>
-            </VBox>
-         </HBox>
-      </VBox>
+         <!-- Search by Route Section -->
+         <VBox fx:id="searchByRouteBox" spacing="20" styleClass="vbox-card" visible="false">
+            <HBox alignment="CENTER" spacing="30">
+               <!-- Departure City Input -->
+               <VBox spacing="10">
+                  <Label styleClass="label-header" text="Departure City" />
+                  <TextField fx:id="departureCityField" prefHeight="40.0" promptText="Enter departure city" styleClass="text-field" />
+               </VBox>
+
+               <!-- Arrival City Input -->
+               <VBox spacing="10">
+                  <Label styleClass="label-header" text="Arrival City" />
+                  <TextField fx:id="arrivalCityField" prefHeight="40.0" promptText="Enter arrival city" styleClass="text-field" />
+               </VBox>
+               <VBox spacing="13.0">
+                  <children>
+                     <Label prefHeight="19.0" prefWidth="116.0" />
+                     <!-- Search by Route Button -->
+                     <Button alignment="CENTER" onAction="#handleSearchByRoute" prefHeight="40.0" styleClass="button-primary" text="Search by Route" />
+                  </children>
+               </VBox>
+            </HBox>
+         </VBox>
+      </StackPane>
 
       <!-- Flight Details Section -->
       <VBox fx:id="flightDetailsBox" spacing="20" styleClass="vbox-card" visible="false">
@@ -84,11 +113,19 @@
                <Label fx:id="estimatedArrivalLabel" styleClass="label-small" />
             </HBox>
          </VBox>
+
+         <!-- Navigation Buttons -->
+         <HBox alignment="CENTER" spacing="20">
+            <Button fx:id="previousFlightButton" styleClass="button-secondary" text="Previous" onAction="#showPreviousFlight" />
+            <Button fx:id="nextFlightButton" styleClass="button-secondary" text="Next" onAction="#showNextFlight" />
+         </HBox>
       </VBox>
    </VBox>
+
+   <!-- Toolbar -->
    <Pane fx:id="toolBarSearch" prefHeight="100.0" prefWidth="1920.0">
       <children>
-         <Button fx:id="iconbtnsearch" onAction="#goToMain" layoutX="138.0" mnemonicParsing="false" prefHeight="141.0" prefWidth="114.0" />
+         <Button fx:id="iconbtnsearch" layoutX="138.0" mnemonicParsing="false" onAction="#goToMain" prefHeight="141.0" prefWidth="114.0" />
       </children>
    </Pane>
 </AnchorPane>
