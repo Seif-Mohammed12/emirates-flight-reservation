@@ -162,7 +162,7 @@ public class RegistrationController {
     }
 
     private static boolean isvalidZipcode(String Zipcode) {
-        String ZipRegex = "^\\d{4,10}$\n";
+        String ZipRegex = "^\\d{4,10}$";
         return Zipcode.matches(ZipRegex);
     }
 
