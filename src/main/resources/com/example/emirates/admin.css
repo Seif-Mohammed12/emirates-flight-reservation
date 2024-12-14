@@ -45,7 +45,7 @@
 
 .admin-button:pressed {
     -fx-background-color: rgba(0, 0, 0, 1); /* Solid black for press state */
-    -fx-effect: inset 0px 2px 4px rgba(255, 255, 255, 0.2); /* Inner glow effect */
+
 }
 
 /* Footer Section */

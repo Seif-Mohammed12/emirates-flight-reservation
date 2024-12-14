@@ -72,62 +72,62 @@ public class LoginController {
     private void navigateToMainPage() {
         try {
             FXMLLoader loader;
+            boolean isAdmin = "admin".equals(AppContext.getLoggedInUsername());
 
-            // Check if the logged-in user is an Admin by using the username
-            if ("admin".equals(AppContext.getLoggedInUsername())) {
-                // Load AdminPage.fxml if the logged-in user is an admin
+            if (isAdmin) {
                 loader = new FXMLLoader(getClass().getResource("Admin.fxml"));
             } else {
-                // Load UserPage.fxml for regular users
                 loader = new FXMLLoader(getClass().getResource("Main.fxml"));
             }
 
             Parent mainPage = loader.load();
 
-            if ("admin".equals(AppContext.getLoggedInUsername())) {
-                // Cast to AdminController for admin login
-                AdminController adminController = loader.getController();
-                adminController.setLoggedInUsername(AppContext.getLoggedInUsername());
-            } else {
-                MainController mainController = loader.getController();
-                mainController.setLoggedInUsername(AppContext.getLoggedInUsername());
-                mainController.depBox.layout();
+            Object controller = loader.getController();
 
+            if (isAdmin) {
+                if (controller instanceof AdminController adminController) {
+                    adminController.setLoggedInUsername(AppContext.getLoggedInUsername());
+                } else {
+                    System.err.println("Expected AdminController but got: " + controller.getClass());
+                }
+            } else {
+                if (controller instanceof MainController mainController) {
+                    mainController.setLoggedInUsername(AppContext.getLoggedInUsername());
+                    mainController.depBox.layout();
+                } else {
+                    System.err.println("Expected MainController but got: " + controller.getClass());
+                }
             }
 
-            // Get the current stage and scene
             Stage stage = (Stage) loginPane.getScene().getWindow();
             Scene currentScene = stage.getScene();
 
-            // Create a fade-out transition effect for smooth page switching
             FadeTransition fadeOut = new FadeTransition(Duration.millis(500), currentScene.getRoot());
             fadeOut.setFromValue(1.0);
             fadeOut.setToValue(0.0);
 
-            // When the fade-out is complete, change the scene root to the new page
             fadeOut.setOnFinished(e -> {
                 currentScene.setRoot(mainPage);
-                Platform.runLater(() -> {
-                    // Ensure MainController is properly cast to access titleLabel
-                    MainController mainController = loader.getController();
-                    mainController.titleLabel.requestFocus();
-                    mainController.depBox.layout();
-                });
 
-                // Create a fade-in transition for the new page
+                if (controller instanceof MainController mainController) {
+                    Platform.runLater(() -> {
+                        mainController.titleLabel.requestFocus();
+                        mainController.depBox.layout();
+                    });
+                }
                 FadeTransition fadeIn = new FadeTransition(Duration.millis(500), mainPage);
                 fadeIn.setFromValue(0.0);
                 fadeIn.setToValue(1.0);
                 fadeIn.play();
             });
 
-            // Play the fade-out effect
             fadeOut.play();
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 
 
 
