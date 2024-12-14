@@ -267,7 +267,13 @@ public class MainController {
 
     public void setLoggedInUsername(String username) {
         this.loggedInUsername = username;
-        System.out.println("Logged-in username in FlightsController: " + loggedInUsername);
+        if(username == null) {
+            loginBtnMain.setText("\uD83D\uDC64 LOG IN");
+        }
+        else {
+            loginBtnMain.setText("Hello " + username);
+        }
+        updateLoginButton();
     }
 
     // ----------------------------------------

@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
 <AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@admin.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.emirates.AdminController">
@@ -11,7 +12,7 @@
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
          <children>
                 <!-- Header Section -->
-                <Label styleClass="header-title" text="Admin Dashboard" />
+                <Label fx:id="headerlabel" styleClass="header-title" text="Admin Dashboard" />
          </children>
       </HBox>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="200.0">
@@ -35,5 +36,11 @@
               </VBox>
          </children>
       </HBox>
+      <Pane fx:id="toolBarAdmin" layoutX="170.0" prefHeight="62.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <Button fx:id="loginBtnAdmin" onAction="#gotomain" layoutX="1290.0" mnemonicParsing="false" prefHeight="50.0" text="Login" />
+            <Button fx:id="iconBtnAdmin" onAction="#gotomain" layoutX="177.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="140.0" />
+         </children>
+      </Pane>
     </children>
 </AnchorPane>

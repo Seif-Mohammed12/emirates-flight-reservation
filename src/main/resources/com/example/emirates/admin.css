@@ -16,15 +16,12 @@
     -fx-border-radius: 15px;
     -fx-border-color: rgba(255, 255, 255, 0.3); /* Subtle border to blend */
     -fx-border-width: 1px;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 10, 0.3, 0, 3); /* Gentle shadow for depth */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 10, 0.3, 0, 3);
 }
 
-/* Header Title */
 .header-title {
-    -fx-font-size: 28px; /* Prominent font size */
-    -fx-font-weight: bold;
-    -fx-text-fill: #ffffff; /* White text to pop against background */
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 3, 0.5, 0, 1); /* Text shadow for readability */
+    -fx-text-fill: #333;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 3, 0.5, 0, 1);
     -fx-underline: true;
 }
 
@@ -54,48 +51,47 @@
 /* Footer Section */
 .dashboard-footer {
     -fx-padding: 10px;
-    -fx-background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black */
-    -fx-border-color: rgba(255, 255, 255, 0.3); /* Subtle white border */
+    -fx-background-color: rgba(0, 0, 0, 0.6);
+    -fx-border-color: rgba(255, 255, 255, 0.3);
     -fx-border-width: 1px;
     -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
     -fx-alignment: center;
 }
 
 .footer-label {
     -fx-font-size: 14px;
-    -fx-text-fill: #ffffff; /* White text */
+    -fx-text-fill: #ffffff;
     -fx-font-style: italic;
 }
 
-/* Input Fields Styling */
 .text-field {
-    -fx-border-color: rgba(255, 255, 255, 0.7); /* Subtle white border */
+    -fx-border-color: rgba(255, 255, 255, 0.7);
     -fx-border-radius: 8px;
     -fx-background-radius: 8px;
     -fx-padding: 10px;
     -fx-font-size: 14px;
-    -fx-background-color: rgba(255, 255, 255, 0.7); /* Slight transparency */
-    -fx-text-fill: #2c3e50; /* Dark text for clarity */
+    -fx-background-color: rgba(255, 255, 255, 0.7);
+    -fx-text-fill: #2c3e50;
 }
 
 .text-field:focused {
-    -fx-border-color: #3498db; /* Highlight with Emirates blue */
-    -fx-background-color: rgba(255, 255, 255, 0.9); /* Opaque when focused */
+    -fx-border-color: #3498db;
+    -fx-background-color: rgba(255, 255, 255, 0.9);
 }
 
 /* Dashboard Container Hover */
 .admin-dashboard:hover {
-    -fx-background-color: rgba(255, 255, 255, 0.7); /* Slightly brighter on hover */
+    -fx-background-color: rgba(255, 255, 255, 0.7);
 }
 
 /* Dashboard Footer Hover */
 .dashboard-footer:hover {
-    -fx-background-color: rgba(0, 0, 0, 0.7); /* Slightly darker on hover */
+    -fx-background-color: rgba(0, 0, 0, 0.7);
 }
 
-/* Menu Button Styling */
 .menu-button {
-    -fx-background-color: rgba(0, 0, 0, 0.6); /* Match button styling */
+    -fx-background-color: rgba(0, 0, 0, 0.6);
     -fx-text-fill: white;
     -fx-font-size: 14px;
     -fx-border-radius: 8px;
@@ -105,17 +101,57 @@
 }
 
 .menu-button:hover {
-    -fx-background-color: rgba(0, 0, 0, 0.8); /* Darker black on hover */
+    -fx-background-color: rgba(0, 0, 0, 0.8);
 }
 
-/* Adjust Menu Item Styling */
 .menu-item {
-    -fx-background-color: rgba(255, 255, 255, 0.8); /* Light background for readability */
-    -fx-text-fill: #2c3e50; /* Corporate blue text */
+    -fx-background-color: rgba(255, 255, 255, 0.8);
+    -fx-text-fill: #2c3e50;
     -fx-padding: 8px 12px;
 }
 
 .menu-item:hover {
-    -fx-background-color: rgba(255, 255, 255, 1); /* Opaque white on hover */
-    -fx-text-fill: #3498db; /* Emirates blue highlight */
+    -fx-background-color: rgba(255, 255, 255, 1);
+    -fx-text-fill: #3498db;
+}
+#toolBarAdmin{
+    -fx-background-color: rgba(30, 30, 30, 0.85);
+}
+#iconBtnAdmin{
+    -fx-background-image: url("/Emirates_logo.jpg");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: contain;
+    -fx-background-position: center bottom;
+    -fx-background-color: #D71920;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 8, 0.0, 0, 3);
+}
+#iconBtnAdmin:hover {
+    -fx-cursor: hand;
+}
+#loginBtnAdmin {
+    -fx-font-weight: bold;
+    -fx-min-height: 60px;
+    -fx-pref-height: 60px;
+    -fx-background-color: rgba(30, 30, 30, 0.85);
+    -fx-text-fill: white; /* White text */
+    -fx-font-size: 18px;
+    -fx-border-radius: 10; /* Rounded corners */
+    -fx-background-radius: 10;
+}
+
+/* Hover Effect for Default State */
+#loginBtnAdmin:hover {
+    -fx-background-color: #555; /* Slightly lighter on hover */
+    -fx-text-fill: #FFD700; /* Highlight text with Emirates gold */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 8, 0.0, 0, 3); /* Subtle shadow */
+    -fx-scale-x: 1.05; /* Slight zoom on hover */
+    -fx-scale-y: 1.05;
+    -fx-cursor: hand;
+}
+
+/* Pressed Effect */
+#loginBtnAdmin:pressed {
+    -fx-background-color: #444; /* Darker background on press */
+    -fx-scale-x: 1.0; /* Restore scale on press */
+    -fx-scale-y: 1.0;
 }
