@@ -527,6 +527,7 @@ public class MainController {
                 flightListController.setDepartureDate(departureDate);
                 flightListController.setReturnDate(returnDate);
                 flightListController.updateFlightCards();
+                flightListController.updateToggleButtons();
 
                 return root;
             }

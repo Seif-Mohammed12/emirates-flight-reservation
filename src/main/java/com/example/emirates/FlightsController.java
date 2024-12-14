@@ -53,7 +53,7 @@ public class FlightsController {
     @FXML
     private ChoiceBox<String> sortChoiceBox;
 
-    private String selectedClass = "Economy";
+    private String selectedClass;
     private String selectedDestination;
     private String selectedDeparture;
     private String loggedInUsername;
@@ -82,7 +82,14 @@ public class FlightsController {
         businessButton.setToggleGroup(classToggleGroup);
         firstClassButton.setToggleGroup(classToggleGroup);
 
-        economyButton.setSelected(true);
+        if (selectedClass == null || selectedClass.isEmpty()) {
+            economyButton.setSelected(true);
+        } else {
+            updateToggleButtons();
+        }
+        economyButton.setOnAction(event -> setSelectedClass("Economy"));
+        businessButton.setOnAction(event -> setSelectedClass("Business"));
+        firstClassButton.setOnAction(event -> setSelectedClass("First"));
 
         if (titleLabel != null) {
             Font customFontLarge = Font.loadFont(getClass().getResourceAsStream("/fonts/Emirates_Medium.ttf"), 50);
@@ -102,6 +109,16 @@ public class FlightsController {
         loginBtnFlights.setOnMouseExited(event -> updateLoginButton());
 
         updateLoginButton();
+    }
+
+    public void updateToggleButtons() {
+        if ("Economy".equalsIgnoreCase(selectedClass)) {
+            economyButton.setSelected(true);
+        } else if ("Business".equalsIgnoreCase(selectedClass)) {
+            businessButton.setSelected(true);
+        } else if ("First".equalsIgnoreCase(selectedClass)) {
+            firstClassButton.setSelected(true);
+        }
     }
 
     private void updateLoginButton() {
