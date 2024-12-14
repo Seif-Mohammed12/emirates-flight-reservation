@@ -2,8 +2,8 @@ package com.example.emirates;
 
 public class selectFlights {
 
-    static class Flights{
-        String flightNo;
+    public static class Flights {
+        private String flightNo;
         String departureTime;
         String arrivalTime;
         String departureCity;
@@ -14,7 +14,7 @@ public class selectFlights {
         String price;
 
         public Flights(String flightNo, String departureTime, String arrivalTime,
-                       String departureCity, String arrivalCity, String duration, String stops, String aircraftDetails, String price){
+                       String departureCity, String arrivalCity, String duration, String stops, String aircraftDetails, String price) {
             this.flightNo = flightNo;
             this.departureTime = departureTime;
             this.departureCity = departureCity;
@@ -25,6 +25,8 @@ public class selectFlights {
             this.aircraftDetails = aircraftDetails;
             this.price = price;
         }
+
+        // Getters
         public String getFlightNo() {
             return flightNo;
         }
@@ -61,6 +63,24 @@ public class selectFlights {
             return price;
         }
 
+        public String extractDepartureCode() {
+            return extractCode(departureCity);
+        }
+
+        public String extractArrivalCode() {
+            return extractCode(arrivalCity);
+        }
+
+        private String extractCode(String combinedCityCode) {
+            int startIndex = combinedCityCode.indexOf("(");
+            int endIndex = combinedCityCode.indexOf(")");
+
+            if (startIndex != -1 && endIndex != -1 && endIndex > startIndex) {
+                return combinedCityCode.substring(startIndex + 1, endIndex).toUpperCase();
+            }
+            return "";
+        }
+
         @Override
         public String toString() {
             return String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s",
@@ -74,7 +94,5 @@ public class selectFlights {
                     aircraftDetails.trim(),
                     price.trim());
         }
-
     }
-    }
-
+}

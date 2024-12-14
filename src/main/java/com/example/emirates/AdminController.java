@@ -24,7 +24,7 @@ public class AdminController {
     private final Admin admin;
     private String loggedInUsername;
     @FXML
-    private Button addflightbtn, loginBtnAdmin, iconBtnAdmin;
+    private Button addflightbtn, loginBtnAdmin, iconBtnAdmin, updateBtn;
     @FXML
     private Label headerlabel;
 
@@ -90,9 +90,36 @@ public class AdminController {
 
     @FXML
     private void handleUpdateFlight() {
-        // Placeholder for handling Update Flight
-        showAlert("Info", "Update Flight functionality is coming soon!", Alert.AlertType.INFORMATION);
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("UpdateFlight.fxml"));
+            AnchorPane updateFlightPage = loader.load();
+
+            Stage currentStage = (Stage) updateBtn.getScene().getWindow();
+            Scene currentScene = currentStage.getScene();
+
+            // Create a fade-out transition for the current scene
+            FadeTransition fadeOut = new FadeTransition(Duration.millis(500), currentScene.getRoot());
+            fadeOut.setFromValue(1.0);
+            fadeOut.setToValue(0.0);
+
+            fadeOut.setOnFinished(e -> {
+                currentScene.setRoot(updateFlightPage);
+
+                // Create a fade-in transition for the new scene
+                FadeTransition fadeIn = new FadeTransition(Duration.millis(500), updateFlightPage);
+                fadeIn.setFromValue(0.0);
+                fadeIn.setToValue(1.0);
+                fadeIn.play();
+            });
+
+            fadeOut.play();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Error", "An error occurred while loading the Update Flight page.", Alert.AlertType.ERROR);
+        }
     }
+
 
     @FXML
     private void handleDeleteFlight() {

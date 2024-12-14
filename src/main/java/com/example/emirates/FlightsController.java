@@ -540,7 +540,7 @@ public class FlightsController {
         planeInfo.getChildren().addAll(
                 planeView,
                 new Label(flight.aircraftDetails),
-                new Label(flight.flightNo)
+                new Label(flight.getFlightNo())
         );
 
         return planeInfo;
