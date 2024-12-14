@@ -1,89 +1,121 @@
-/* General root styles */
+/* Root styling */
 .root {
-    -fx-font-family: "Arial", sans-serif;
-    -fx-base: #2c3e50;
-    -fx-background-image: url("/pexels-ahmedmuntasir-912050.jpg");
-    -fx-background-size: cover; /* Ensures the image covers the entire area */
-    -fx-background-position: center; /* Centers the image */
-    -fx-padding: 20px;
-    -fx-alignment: center;
+    -fx-background-image: url("/adminpic.jpg"); /* Path to your background image */
+    -fx-background-size: cover;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
 }
 
-/* Title styling for the Admin Dashboard */
-#titleLabel {
-    -fx-font-size: 32px; /* Slightly larger title text */
-    -fx-text-fill: #ffffff;
+/* Admin dashboard container */
+.admin-dashboard {
+    -fx-padding: 50px; /* Spacious padding */
+    -fx-spacing: 30px;
+    -fx-alignment: center;
+    -fx-background-color: rgba(255, 255, 255, 0.6); /* Semi-transparent white */
+    -fx-background-radius: 15px; /* Rounded corners for smoothness */
+    -fx-border-radius: 15px;
+    -fx-border-color: rgba(255, 255, 255, 0.3); /* Subtle border to blend */
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 10, 0.3, 0, 3); /* Gentle shadow for depth */
+}
+
+/* Header Title */
+.header-title {
+    -fx-font-size: 28px; /* Prominent font size */
     -fx-font-weight: bold;
-    -fx-padding: 20px 30px;
-    -fx-background-color: rgba(52, 73, 94, 0.85); /* Semi-transparent to show background */
-    -fx-border-radius: 8px;
-    -fx-border-color: #4a4e5d;
-    -fx-border-width: 2px;
+    -fx-text-fill: #ffffff; /* White text to pop against background */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 3, 0.5, 0, 1); /* Text shadow for readability */
+    -fx-underline: true;
 }
 
-/* TableView for available actions */
-#actionTable {
-    -fx-background-color: rgba(59, 63, 74, 0.8); /* Semi-transparent background */
-    -fx-border-color: #5c6678; /* Metallic border */
-    -fx-border-radius: 5px;
+/* Buttons styling */
+.admin-button {
+    -fx-background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black for buttons */
+    -fx-text-fill: #ffffff; /* White text for contrast */
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-padding: 12px 40px;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-pref-width: 260px; /* Consistent width */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0.5, 0, 2); /* Subtle shadow */
+}
+
+.admin-button:hover {
+    -fx-background-color: rgba(0, 0, 0, 0.8); /* Darker black on hover */
+    -fx-cursor: hand;
+}
+
+.admin-button:pressed {
+    -fx-background-color: rgba(0, 0, 0, 1); /* Solid black for press state */
+    -fx-effect: inset 0px 2px 4px rgba(255, 255, 255, 0.2); /* Inner glow effect */
+}
+
+/* Footer Section */
+.dashboard-footer {
     -fx-padding: 10px;
-    -fx-selection-bar: #1abc9c;
+    -fx-background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black */
+    -fx-border-color: rgba(255, 255, 255, 0.3); /* Subtle white border */
+    -fx-border-width: 1px;
+    -fx-border-radius: 10px;
     -fx-alignment: center;
 }
 
-#actionColumn {
-    -fx-text-fill: #e1e1e1; /* Light text for clarity */
-    -fx-font-size: 18px; /* Larger text for better readability */
-    -fx-alignment: CENTER;
-    -fx-padding: 12px;
-    -fx-background-color: rgba(74, 78, 93, 0.9); /* Slightly darker semi-transparent shade */
-    -fx-border-color: #5c6678; /* Matching border */
+.footer-label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #ffffff; /* White text */
+    -fx-font-style: italic;
 }
 
-#actionTable .table-row-cell {
-    -fx-alignment: center-left;
-    -fx-padding: 14px;
-    -fx-background-color: rgba(59, 63, 74, 0.8); /* Consistent semi-transparent background */
-    -fx-border-color: #4a4e5d;
-    -fx-cursor: hand;
-    -fx-font-size: 16px; /* Increased text size */
-    -fx-text-fill: #e1e1e1;
+/* Input Fields Styling */
+.text-field {
+    -fx-border-color: rgba(255, 255, 255, 0.7); /* Subtle white border */
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-padding: 10px;
+    -fx-font-size: 14px;
+    -fx-background-color: rgba(255, 255, 255, 0.7); /* Slight transparency */
+    -fx-text-fill: #2c3e50; /* Dark text for clarity */
 }
 
-#actionTable .table-row-cell:hover {
-    -fx-background-color: rgba(97, 107, 118, 0.9); /* Brighter hover effect */
+.text-field:focused {
+    -fx-border-color: #3498db; /* Highlight with Emirates blue */
+    -fx-background-color: rgba(255, 255, 255, 0.9); /* Opaque when focused */
 }
 
-#actionTable .table-row-cell:pressed {
-    -fx-background-color: rgba(91, 103, 114, 0.9); /* Subtle pressed state */
+/* Dashboard Container Hover */
+.admin-dashboard:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.7); /* Slightly brighter on hover */
 }
 
-#actionTable .table-row-cell:focused {
-    -fx-background-color: rgba(26, 188, 156, 0.9); /* Accent for focus */
-    -fx-text-fill: #ffffff;
+/* Dashboard Footer Hover */
+.dashboard-footer:hover {
+    -fx-background-color: rgba(0, 0, 0, 0.7); /* Slightly darker on hover */
 }
 
-#actionTable .table-row-cell:selected {
-    -fx-background-color: rgba(22, 160, 133, 0.9); /* Deeper accent */
-    -fx-text-fill: #ffffff;
+/* Menu Button Styling */
+.menu-button {
+    -fx-background-color: rgba(0, 0, 0, 0.6); /* Match button styling */
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-padding: 10px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0.3, 0, 2);
 }
 
-/* Set colors for different alert levels (if used) */
-.alert {
-    -fx-background-color: rgba(59, 63, 74, 0.8); /* Matches semi-transparent theme */
-    -fx-border-radius: 5px;
-    -fx-padding: 20px;
-    -fx-border-color: #5c6678; /* Metallic border */
+.menu-button:hover {
+    -fx-background-color: rgba(0, 0, 0, 0.8); /* Darker black on hover */
 }
 
-.alert .content {
-    -fx-text-fill: #e1e1e1; /* Light gray for visibility */
-    -fx-font-size: 16px; /* Increased font size */
+/* Adjust Menu Item Styling */
+.menu-item {
+    -fx-background-color: rgba(255, 255, 255, 0.8); /* Light background for readability */
+    -fx-text-fill: #2c3e50; /* Corporate blue text */
+    -fx-padding: 8px 12px;
 }
 
-.alert .button {
-    -fx-background-color: #1abc9c; /* Consistent turquoise accent */
-    -fx-text-fill: #ffffff;
-    -fx-border-radius: 5px;
-    -fx-font-size: 16px; /* Larger button text */
+.menu-item:hover {
+    -fx-background-color: rgba(255, 255, 255, 1); /* Opaque white on hover */
+    -fx-text-fill: #3498db; /* Emirates blue highlight */
 }

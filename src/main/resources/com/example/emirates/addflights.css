@@ -1,0 +1,141 @@
+.root {
+    -fx-background-image: url("/pexels-joerg-mangelsen-337913024-27256833.jpg");
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+
+/* Style for the VBox card */
+.vbox {
+    -fx-background-color: rgba(255, 255, 255, 0.85); /* White with 85% opacity */
+    -fx-background-radius: 15; /* Rounded corners */
+    -fx-padding: 20px;
+    -fx-spacing: 15px; /* Spacing between children */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.5, 0, 5); /* Subtle shadow */
+}
+
+/* Labels */
+.labels {
+    -fx-text-fill: #333333; /* Dark gray text */
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+/* ComboBox Styling */
+.combo-box {
+    -fx-border-color: #cccccc; /* Light gray border */
+    -fx-border-radius: 8px;    /* Rounded corners */
+    -fx-background-radius: 8px;
+    -fx-font-size: 14px;       /* Match font size */
+    -fx-background-color: #ffffff; /* White background */
+    -fx-text-fill: #333333;    /* Dark gray text */
+    -fx-padding: 5px;          /* Consistent padding */
+    -fx-pref-width: 200px;     /* Set minimum width for ComboBox */
+    -fx-pref-height: 30px;     /* Set minimum height for ComboBox */
+}
+
+.combo-box:hover {
+    -fx-border-color: #0078d7; /* Blue border on hover */
+}
+
+.combo-box:focused {
+    -fx-border-color: #0078d7; /* Blue border when focused */
+}
+
+/* ComboBox Popup Styling */
+.combo-box-popup {
+    -fx-background-color: #ffffff; /* White background for dropdown */
+    -fx-border-color: #cccccc;     /* Light gray border for dropdown */
+    -fx-border-radius: 8px;        /* Rounded corners for dropdown */
+    -fx-padding: 5px;              /* Consistent padding for dropdown */
+}
+
+.list-cell {
+    -fx-font-size: 14px;          /* Match font size */
+    -fx-text-fill: #333333;       /* Dark gray text */
+    -fx-background-color: #ffffff; /* White background for each item */
+}
+
+.list-cell:hover {
+    -fx-background-color: #f0f0f0; /* Light gray hover effect */
+}
+
+/* Label Styling */
+.labels-combo {
+    -fx-text-fill: #333333; /* Dark gray text */
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-padding: 5px 0;    /* Spacing between label and ComboBox */
+}
+
+
+
+/* TextFields */
+.text-field{
+    -fx-border-color: #cccccc; /* Light gray border */
+    -fx-border-radius: 5px;    /* Rounded corners */
+    -fx-background-radius: 5px;
+    -fx-padding: 5px;          /* Consistent padding */
+    -fx-font-size: 14px;       /* Match font size */
+    -fx-background-color: #ffffff; /* White background */
+    -fx-text-fill: #333333;    /* Dark gray text */
+    -fx-pref-width: 200px;     /* Set minimum width for all fields */
+    -fx-pref-height: 30px;     /* Set minimum height for all fields */
+}
+
+.text-field:focused {
+    -fx-border-color: #0078d7;
+}
+
+
+.menu-button {
+    -fx-border-color: #cccccc; /* Light gray border */
+    -fx-border-radius: 8px;    /* Rounded corners */
+    -fx-background-radius: 8px;
+    -fx-font-size: 10px;       /* Match font size */
+    -fx-background-color: #ffffff; /* White background */
+    -fx-text-fill: #333333;    /* Dark gray text */
+    -fx-pref-width: 200px;     /* Set minimum width for all fields */
+    -fx-pref-height: 30px;     /* Set minimum height for all fields */
+}
+.menu-button:hover {
+    -fx-border-color: #0078d7; /* Blue border on hover */
+}
+
+.menu-button:focused {
+    -fx-border-color: #0078d7; /* Blue border when focused */
+}
+
+/* MenuItem Styling */
+.menu-item {
+    -fx-font-size: 14px;      /* Match font size */
+    -fx-text-fill: #333333;   /* Dark gray text */
+    -fx-background-color: #ffffff; /* White background */
+    -fx-padding: 5px 10px;    /* Consistent padding */
+}
+
+.menu-item:hover {
+    -fx-background-color: #f0f0f0; /* Light gray hover effect */
+}
+
+
+
+
+/* Buttons */
+.button {
+    -fx-background-color: linear-gradient(to bottom, #0078d7, #005bb5);
+    -fx-text-fill: white;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-padding: 10px 20px;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: linear-gradient(to bottom, #005bb5, #003f8a);
+}
+
+.button:pressed {
+    -fx-background-color: #003f8a;
+    -fx-text-fill: #e6e6e6;
+}

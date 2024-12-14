@@ -458,30 +458,30 @@ public class MainController {
         AppContext.setSelectedDestination(selectedDestination);
         AppContext.setSelectedDeparture(selectedDeparture);
 
-        //if (AppContext.getLoggedInUsername() == null) {
-        //    showStyledAlert("Please log in first to access flights!", currentStage);
-        //    return;
-        //}
-//
-        //if (selectedDestination == null || selectedDestination.isEmpty()) {
-        //    showStyledAlert("Please select a destination first!", currentStage);
-        //    return;
-        //}
-//
-        //if (dateFrom.getValue() == null || dateBack.getValue() == null) {
-        //    showStyledAlert("Please select a departure and return date!", currentStage);
-        //    return;
-        //}
-//
-        //if (selectedDeparture == null || selectedDeparture.isEmpty()) {
-        //    showStyledAlert("Please select a departure first!", currentStage);
-        //    return;
-        //}
-//
-        //if (selectedClass == null || selectedClass.isEmpty()) {
-        //    showStyledAlert("Please select a class first!", currentStage);
-        //    return;
-        //}
+        if (AppContext.getLoggedInUsername() == null) {
+            showStyledAlert("Please log in first to access flights!", currentStage);
+            return;
+        }
+
+        if (selectedDestination == null || selectedDestination.isEmpty()) {
+            showStyledAlert("Please select a destination first!", currentStage);
+            return;
+        }
+
+        if (dateFrom.getValue() == null || dateBack.getValue() == null) {
+            showStyledAlert("Please select a departure and return date!", currentStage);
+            return;
+        }
+
+        if (selectedDeparture == null || selectedDeparture.isEmpty()) {
+            showStyledAlert("Please select a departure first!", currentStage);
+            return;
+        }
+
+        if (selectedClass == null || selectedClass.isEmpty()) {
+            showStyledAlert("Please select a class first!", currentStage);
+            return;
+        }
 
         LocalDate departureDate = dateFrom.getValue();
         LocalDate returnDate = dateBack.getValue();
