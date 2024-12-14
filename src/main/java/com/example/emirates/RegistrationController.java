@@ -98,6 +98,15 @@ public class RegistrationController {
             return false;
         }
 
+        if(!isvalidName(firstName)) {
+            showErrorAlert(firstName + " is an invalid first name.", (Stage) usernameField.getScene().getWindow());
+            return false;
+        }
+        if(!isvalidName(lastName)) {
+            showErrorAlert(lastName + " is an invalid last name.", (Stage) usernameField.getScene().getWindow());
+            return false;
+        }
+
         if (!isValidEmail(email)) {
             showErrorAlert("Please enter a valid email address.", (Stage) usernameField.getScene().getWindow());
             return false;
@@ -105,6 +114,11 @@ public class RegistrationController {
 
         if (!isValidPhoneNumber(phoneNumber)) {
             showErrorAlert("Phone number should start with +20 and be 10 digits.", (Stage) usernameField.getScene().getWindow());
+            return false;
+        }
+
+        if(!isvalidZipcode(zipCode)) {
+            showErrorAlert("Please enter a valid zip code.", (Stage) usernameField.getScene().getWindow());
             return false;
         }
 
@@ -140,6 +154,16 @@ public class RegistrationController {
                 password.matches(".*[A-Z].*") &&
                 password.matches(".*[0-9].*") &&
                 password.matches(".*[!@#$%^&*()_+].*");
+    }
+
+    private static boolean isvalidName(String name) {
+        String nameRegex = "^[a-zA-Z]+(?: [a-zA-Z]+)*$";
+        return name.matches(nameRegex);
+    }
+
+    private static boolean isvalidZipcode(String Zipcode) {
+        String ZipRegex = "^\\d{4,10}$\n";
+        return Zipcode.matches(ZipRegex);
     }
 
     private void showSuccessAlert(String message, Stage owner) {

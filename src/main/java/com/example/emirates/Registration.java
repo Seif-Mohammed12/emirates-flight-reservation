@@ -11,11 +11,11 @@ public class Registration {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        String firstName = getValidatedInput(scanner, "Enter First Name: ");
-        String lastName = getValidatedInput(scanner, "Enter Last Name: ");
+        String firstName = getValidatedName(scanner, "Enter First Name: ");
+        String lastName = getValidatedName(scanner, "Enter Last Name: ");
         String email = getValidatedEmail(scanner);
         String phoneNumber = getValidatedPhoneNumber(scanner);
-        String zipCode = getValidatedInput(scanner, "Enter Zip Code: ");
+        String zipCode = getValidatedZipcode(scanner, "Enter Zip Code: ");
         String address = getValidatedInput(scanner, "Enter Address: ");
         String username = getValidatedUsername(scanner);
         String password = getValidatedPassword(scanner);
@@ -26,7 +26,7 @@ public class Registration {
 
         try (FileWriter writer = new FileWriter("login.txt", true)) {
             writer.write(newUser.toString() + "\n");
-            System.out.println("Registration successful, Welcome to EgyptAir");
+            System.out.println("Registration successful, Welcome to Emirates");
         } catch (IOException e) {
             System.out.println("Error writing to file: " + e.getMessage());
         }
@@ -39,6 +39,33 @@ public class Registration {
             input = scanner.nextLine();
         } while (input.isEmpty());
         return input;
+    }
+    private static String getValidatedName(Scanner scanner, String prompt) {
+        String name;
+        do {
+            System.out.print(prompt);
+            name = scanner.nextLine();
+        } while (!isvalidName(name));
+        return name;
+    }
+
+    private static boolean isvalidName(String name) {
+        String nameRegex = "^[a-zA-Z]+(?: [a-zA-Z]+)*$";
+        return name.matches(nameRegex);
+    }
+
+    private static String getValidatedZipcode(Scanner scanner, String prompt) {
+        String Zipcode;
+        do {
+            System.out.print(prompt);
+            Zipcode = scanner.nextLine();
+        } while (!isvalidZipcode(Zipcode));
+        return Zipcode;
+    }
+
+    private static boolean isvalidZipcode(String Zipcode) {
+        String ZipRegex = "^\\d{4,10}$\n";
+        return Zipcode.matches(ZipRegex);
     }
 
     private static String getValidatedEmail(Scanner scanner) {
