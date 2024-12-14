@@ -24,7 +24,7 @@ public class AdminController {
     private final Admin admin;
     private String loggedInUsername;
     @FXML
-    private Button addflightbtn, loginBtnAdmin, iconBtnAdmin, updateBtn;
+    private Button addflightbtn, loginBtnAdmin, iconBtnAdmin, updateBtn, deleteBtn;
     @FXML
     private Label headerlabel;
 
@@ -123,8 +123,34 @@ public class AdminController {
 
     @FXML
     private void handleDeleteFlight() {
-        // Placeholder for handling Delete Flight
-        showAlert("Info", "Delete Flight functionality is coming soon!", Alert.AlertType.INFORMATION);
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("deleteflights.fxml"));
+            AnchorPane deleteFlightPage = loader.load();
+
+            Stage currentStage = (Stage) deleteBtn.getScene().getWindow();
+            Scene currentScene = currentStage.getScene();
+
+            // Create a fade-out transition for the current scene
+            FadeTransition fadeOut = new FadeTransition(Duration.millis(500), currentScene.getRoot());
+            fadeOut.setFromValue(1.0);
+            fadeOut.setToValue(0.0);
+
+            fadeOut.setOnFinished(e -> {
+                currentScene.setRoot(deleteFlightPage);
+
+                // Create a fade-in transition for the new scene
+                FadeTransition fadeIn = new FadeTransition(Duration.millis(500), deleteFlightPage);
+                fadeIn.setFromValue(0.0);
+                fadeIn.setToValue(1.0);
+                fadeIn.play();
+            });
+
+            fadeOut.play();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Error", "An error occurred while loading the Update Flight page.", Alert.AlertType.ERROR);
+        }
     }
 
     private void showAlert(String title, String message, Alert.AlertType type) {

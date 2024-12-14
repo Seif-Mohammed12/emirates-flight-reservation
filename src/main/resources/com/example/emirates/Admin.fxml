@@ -25,7 +25,7 @@
                       <VBox alignment="CENTER" spacing="15" styleClass="dashboard-options">
                           <Button fx:id="addflightbtn" onAction="#handleAddFlightPage" styleClass="admin-button" text="Add Flight" />
                           <Button fx:id="updateBtn" onAction="#handleUpdateFlight" styleClass="admin-button" text="Update Flight" />
-                          <Button onAction="#handleDeleteFlight" styleClass="admin-button" text="Delete Flight" />
+                          <Button fx:id="deleteBtn" onAction="#handleDeleteFlight" styleClass="admin-button" text="Delete Flight" />
                       </VBox>
       
                       <!-- Footer Section -->

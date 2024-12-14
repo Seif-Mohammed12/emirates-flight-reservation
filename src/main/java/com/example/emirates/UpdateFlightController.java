@@ -1,9 +1,19 @@
 package com.example.emirates;
 
+import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.List;
@@ -218,7 +228,7 @@ public class UpdateFlightController {
         String flightNo = flightNoField.getText().trim();
 
         if (flightNo.isEmpty()) {
-            showAlert("Error", "Please enter a flight number to search.", Alert.AlertType.ERROR);
+            showStyledAlert("Error: Please enter a flight number to search.", (Stage) flightNoField.getScene().getWindow());
             return;
         }
 
@@ -227,7 +237,7 @@ public class UpdateFlightController {
 
             for (selectFlights.Flights flight : flights) {
                 if (flight.getFlightNo().equalsIgnoreCase(flightNo)) {
-                    populateFields(flight); // Populate the fields with the flight details
+                    populateFields(flight);
                     statusLabel.setText("Flight found. Edit the details and save.");
                     return;
                 }
@@ -235,7 +245,7 @@ public class UpdateFlightController {
 
             // If no flight is found
             statusLabel.setText("Flight not found.");
-            showAlert("Error", "No flight found with the provided flight number.", Alert.AlertType.ERROR);
+            showStyledAlert("Error: No flight found with the provided flight number.", (Stage) flightNoField.getScene().getWindow());
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -274,7 +284,7 @@ public class UpdateFlightController {
         if (flightNo.isEmpty() || departureCity.isEmpty() || departureCode.isEmpty() ||
                 arrivalCity.isEmpty() || arrivalCode.isEmpty() || departureTime.isEmpty() ||
                 arrivalTime.isEmpty() || duration.isEmpty() || updatedPrice.isEmpty() || selectedAircraft == null) {
-            showAlert("Error", "All fields must be filled out to save changes.", Alert.AlertType.ERROR);
+            showStyledAlert("Error: All fields must be filled out to save changes.", (Stage) flightNoField.getScene().getWindow());
             return;
         }
 
@@ -292,17 +302,45 @@ public class UpdateFlightController {
                     updatedPrice
             );
 
-            showAlert("Success", "Flight details updated successfully!", Alert.AlertType.INFORMATION);
+            showSuccessAlert("Success: Flight details updated successfully!", (Stage) flightNoField.getScene().getWindow());
             statusLabel.setText("Flight updated successfully.");
         } catch (IOException e) {
             showAlert("Error", "An error occurred while saving the flight details.", Alert.AlertType.ERROR);
         }
+        handleCancel();
     }
 
     @FXML
     private void handleCancel() {
-        Stage stage = (Stage) cancelButton.getScene().getWindow();
-        stage.close();
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Admin.fxml"));
+            AnchorPane adminPage = loader.load();
+            AdminController adminController = loader.getController();
+
+            String loggedInUsername = AppContext.getLoggedInUsername();
+            adminController.setLoggedInUsername(loggedInUsername);
+
+            Stage stage = (Stage) cancelButton.getScene().getWindow();
+            Scene currentScene = stage.getScene();
+
+            FadeTransition fadeOut = new FadeTransition(Duration.millis(500), currentScene.getRoot());
+            fadeOut.setFromValue(1.0);
+            fadeOut.setToValue(0.0);
+
+            fadeOut.setOnFinished(e -> {
+                currentScene.setRoot(adminPage);
+
+                FadeTransition fadeIn = new FadeTransition(Duration.millis(500), adminPage);
+                fadeIn.setFromValue(0.0);
+                fadeIn.setToValue(1.0);
+                fadeIn.play();
+            });
+
+            fadeOut.play();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void showAlert(String title, String message, Alert.AlertType type) {
@@ -314,6 +352,53 @@ public class UpdateFlightController {
     private void showStyledAlert(String message, Stage owner) {
         Alert alert = new Alert(Alert.AlertType.WARNING, message);
         alert.initOwner(owner);
+        alert.initModality(Modality.APPLICATION_MODAL);
+
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+        dialogPane.getStyleClass().add("error-dialog");
+        dialogPane.setHeaderText(null);
+        dialogPane.setGraphic(null);
+
+        dialogPane.setStyle("-fx-background-color: #f8d7da; -fx-background-radius: 20; -fx-border-radius: 20;");
+
+        dialogPane.setMinSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
+        dialogPane.setMaxSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
+
+        Stage alertStage = (Stage) dialogPane.getScene().getWindow();
+        alertStage.initStyle(StageStyle.TRANSPARENT);
+        alertStage.getScene().setFill(null);
+
+        alert.showAndWait();
+    }
+
+    private void showSuccessAlert(String message, Stage owner) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Success");
+        alert.setContentText(message);
+        alert.initOwner(owner);
+        alert.initModality(Modality.APPLICATION_MODAL);
+
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+        dialogPane.getStyleClass().add("success-dialog");
+        dialogPane.setHeaderText(null);
+
+        TextFlow textFlow = new TextFlow();
+        Text text = new Text(message);
+        text.setWrappingWidth(300);
+        textFlow.getChildren().add(text);
+        dialogPane.setContent(textFlow);
+
+        dialogPane.setStyle("-fx-background-color: #d4edda; -fx-background-radius: 20; -fx-border-radius: 20; " +
+                "-fx-border-color: #388e3c; -fx-border-width: 2px;");
+
+        alert.setHeaderText(null);
+        alert.setGraphic(null);
+
+        Stage alertStage = (Stage) alert.getDialogPane().getScene().getWindow();
+        alertStage.initStyle(StageStyle.TRANSPARENT);
+        alertStage.getScene().setFill(null);
         alert.showAndWait();
     }
 }

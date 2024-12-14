@@ -16,13 +16,14 @@ public class Admin extends User {
     private static final String FLIGHTS_CSV_PATH = "flights.csv";
     private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("hh:mm a");
 
+    // Add flight
     public static void addFlight(String flightNo, String departureCity, String departureAirportCode,
                                  String arrivalCity, String arrivalAirportCode, String departureTime,
                                  String arrivalTime, String duration, String aircraftDetails, String price) throws IOException {
-        String formattedFlightNo = flightNo.toUpperCase();
+        String formattedFlightNo = flightNo.toUpperCase(); // bey5aly el airport code dayman kolo capital
         String formattedDepartureCity = formatCityAndCode(departureCity, departureAirportCode);
         String formattedArrivalCity = formatCityAndCode(arrivalCity, arrivalAirportCode);
-        String stops = "Non-stop";
+        String stops = "Non-stop"; // mfeesh transit ehna non stop bas el7
         String shortenedAircraft = shortenAircraftName(aircraftDetails);
         String formattedPrice = formatPrice(price);
         String formattedDepartureTime = formatTime(departureTime);
@@ -66,7 +67,7 @@ public class Admin extends User {
                         combinedDepartureCity,
                         combinedArrivalCity,
                         duration,
-                        "Non-stop",
+                        "Non-stop", // Assuming flights are always non-stop
                         shortenAircraftName(aircraftDetails),
                         formatPrice(price)
                 ));
@@ -82,7 +83,6 @@ public class Admin extends User {
         }
     }
 
-    // Delete flight
     public static void deleteFlight(String flightNo) throws IOException {
         List<selectFlights.Flights> flights = FileManager.loadFlightsFromCSV(FLIGHTS_CSV_PATH, false, null);
         boolean flightRemoved = flights.removeIf(flight -> flight.getFlightNo().equalsIgnoreCase(flightNo));
@@ -95,6 +95,7 @@ public class Admin extends User {
         }
     }
 
+    //method lawahdaha 3lshan cleaner
     private static void saveFlightsToCSV(List<selectFlights.Flights> flights) throws IOException {
         List<String> updatedLines = new ArrayList<>();
         for (selectFlights.Flights flight : flights) {
@@ -103,8 +104,7 @@ public class Admin extends User {
         FileManager.writeFile(FLIGHTS_CSV_PATH, updatedLines, false);
     }
 
-
-    //bey5aly el price double we beysheel el egp el fel awl 3lshan yet2ry s7
+    // bey5aly el price double we beysheel el egp el fel awl 3lshan yet2ry s7
     static String formatPrice(String price) {
         try {
             if (price.startsWith("EGP ")) {
@@ -119,8 +119,7 @@ public class Admin extends User {
         }
     }
 
-
-    //bey3ml format lel time eno yb2a 12hr we am/pm we kda
+    // bey3ml format lel time eno yb2a 12hr we am/pm we kda
     static String formatTime(String time) {
         try {
             if (time.matches("(0[1-9]|1[0-2]):[0-5]\\d\\s?(AM|PM|am|pm)")) {
@@ -134,8 +133,7 @@ public class Admin extends User {
         }
     }
 
-
-    //beyfsl el city 3an el code bta3ha ex: dubai ... (dxb)
+    // beyfsl el city 3an el code bta3ha ex: dubai ... (dxb)
     private static String formatCityAndCode(String city, String code) {
         if (city.matches(".*\\(.*\\).*")) {
             return city;
@@ -143,7 +141,7 @@ public class Admin extends User {
         return capitalizeFirstLetter(city) + " (" + code.toUpperCase() + ")";
     }
 
-    //self explanatory
+    // self explanatory
     private static String capitalizeFirstLetter(String input) {
         if (input == null || input.isEmpty()) {
             return input;
@@ -151,8 +149,7 @@ public class Admin extends User {
         return input.substring(0, 1).toUpperCase() + input.substring(1).toLowerCase();
     }
 
-
-    //brdo self explanatory
+    // brdo self explanatory
     private static String shortenAircraftName(String aircraftDetails) {
         return switch (aircraftDetails) {
             case "A380-800" -> "A380";
@@ -161,7 +158,7 @@ public class Admin extends User {
         };
     }
 
-    //by3ml combine lel city m3 el code bta3ha on save bel index (city heya 0 hence fel awl wel code 1 etc)
+    // by3ml combine lel city m3 el code bta3ha on save bel index (city heya 0 hence fel awl wel code 1 etc)
     public static String parseCity(String combined) {
         int startIdx = combined.indexOf('(');
         if (startIdx != -1) {
@@ -179,7 +176,7 @@ public class Admin extends User {
         return "";
     }
 
-    //beyt2kd en el egp etshalet
+    // beyt2kd en el egp etshalet
     static String stripCurrencySymbol(String price) {
         if (price.startsWith("EGP ")) {
             return price.substring(4).trim();
