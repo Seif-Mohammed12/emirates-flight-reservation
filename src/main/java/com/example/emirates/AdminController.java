@@ -30,7 +30,7 @@ public class AdminController {
 
 
     public AdminController() {
-        // Replace with the actual Admin instance
+        
         this.admin = new Admin("Admin", "User", "admin@example.com", "1234567890", "12345",
                 "Admin Address", "admin", "aabbcc", "admin");
     }
@@ -64,16 +64,16 @@ public class AdminController {
             Stage stage = (Stage) addflightbtn.getScene().getWindow();
             Scene currentScene = stage.getScene();
 
-            // Create fade-out animation for the current scene
+            
             FadeTransition fadeOut = new FadeTransition(Duration.millis(500), currentScene.getRoot());
             fadeOut.setFromValue(1.0);
             fadeOut.setToValue(0.0);
 
             fadeOut.setOnFinished(e -> {
-                // Transition to the Add Flight page after fade-out
+                
                 currentScene.setRoot(addFlightPage);
 
-                // Create fade-in animation for the new scene
+                
                 FadeTransition fadeIn = new FadeTransition(Duration.millis(500), addFlightPage);
                 fadeIn.setFromValue(0.0);
                 fadeIn.setToValue(1.0);
@@ -97,7 +97,7 @@ public class AdminController {
             Stage currentStage = (Stage) updateBtn.getScene().getWindow();
             Scene currentScene = currentStage.getScene();
 
-            // Create a fade-out transition for the current scene
+            
             FadeTransition fadeOut = new FadeTransition(Duration.millis(500), currentScene.getRoot());
             fadeOut.setFromValue(1.0);
             fadeOut.setToValue(0.0);
@@ -105,7 +105,7 @@ public class AdminController {
             fadeOut.setOnFinished(e -> {
                 currentScene.setRoot(updateFlightPage);
 
-                // Create a fade-in transition for the new scene
+                
                 FadeTransition fadeIn = new FadeTransition(Duration.millis(500), updateFlightPage);
                 fadeIn.setFromValue(0.0);
                 fadeIn.setToValue(1.0);
@@ -130,7 +130,7 @@ public class AdminController {
             Stage currentStage = (Stage) deleteBtn.getScene().getWindow();
             Scene currentScene = currentStage.getScene();
 
-            // Create a fade-out transition for the current scene
+            
             FadeTransition fadeOut = new FadeTransition(Duration.millis(500), currentScene.getRoot());
             fadeOut.setFromValue(1.0);
             fadeOut.setToValue(0.0);
@@ -138,7 +138,7 @@ public class AdminController {
             fadeOut.setOnFinished(e -> {
                 currentScene.setRoot(deleteFlightPage);
 
-                // Create a fade-in transition for the new scene
+                
                 FadeTransition fadeIn = new FadeTransition(Duration.millis(500), deleteFlightPage);
                 fadeIn.setFromValue(0.0);
                 fadeIn.setToValue(1.0);

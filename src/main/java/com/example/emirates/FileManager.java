@@ -19,28 +19,27 @@ public class FileManager {
 
     public static List<selectFlights.Flights> loadFlightsFromCSV(String filePath, boolean rawData, List<String> rawLines) throws IOException {
         List<selectFlights.Flights> flights = new ArrayList<>();
-        List<String> lines = Files.readAllLines(Paths.get(filePath)); // Read all lines from the CSV
+        List<String> lines = Files.readAllLines(Paths.get(filePath));
         boolean isFirstLine = true;
 
         for (String line : lines) {
-            line = line.trim(); // Trim any leading/trailing whitespace
+            line = line.trim();
             if (isFirstLine || line.isEmpty()) {
                 isFirstLine = false;
-                continue; // Skip the header line or empty lines
+                continue;
             }
 
             if (rawData && rawLines != null) {
-                rawLines.add(line); // Optionally add raw lines to a separate list
+                rawLines.add(line);
             }
 
             if (line.isEmpty()) {
-                continue; // Skip any empty lines
+                continue;
             }
 
-            String[] fields = line.split(","); // Split by comma to extract the fields
+            String[] fields = line.split(",");
             if (fields.length == 9) {
                 try {
-                    // Extract the individual fields from the CSV line
                     String flightNo = fields[0].trim();
                     String departureCity = fields[1].trim();
                     String arrivalCity = fields[2].trim();
@@ -51,17 +50,16 @@ public class FileManager {
                     String aircraftDetails = fields[7].trim();
                     String price = fields[8].trim();
 
-                    // Create a new selectFlights.Flights object and add it to the list
                     flights.add(new selectFlights.Flights(flightNo, departureTime, arrivalTime, departureCity, arrivalCity, duration, stops, aircraftDetails, price));
                 } catch (NumberFormatException e) {
-                    System.err.println("Invalid price format in line: " + line); // Handle invalid number format
+                    System.err.println("Invalid price format in line: " + line);
                 }
             } else {
-                System.err.println("Invalid line format: " + line); // Handle invalid line format (not enough fields)
+                System.err.println("Invalid line format: " + line);
             }
         }
 
-        return flights; // Return the list of selectFlights.Flights objects
+        return flights;
     }
 
 
@@ -88,7 +86,4 @@ public class FileManager {
         return usersList;
     }
 
-    public static void writeDate(String filePath, List<String> data) throws IOException {
-        Files.write(Paths.get(filePath), data);
-    }
 }

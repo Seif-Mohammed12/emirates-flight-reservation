@@ -4,30 +4,30 @@
     -fx-background-size: cover;
 }
 
-/* General Styles */
+
 body {
     background: url('emirate-2704231.jpg') no-repeat center center fixed;
     background-size: cover;
 }
 
-/* Booking Panel */
+
 #bookingPanel {
-    -fx-background-color: rgba(255, 255, 255, 0.75); /* Semi-transparent white */
+    -fx-background-color: rgba(255, 255, 255, 0.75); 
     -fx-border-color: rgba(200, 200, 200, 0.5);
     -fx-border-radius: 12;
     -fx-background-radius: 12;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.0, 0, 5);
-    -fx-transition: all 0.3s ease; /* Smooth transitions */
+    -fx-transition: all 0.3s ease; 
 }
 
-/* Title Label */
+
 #titleLabel {
     -fx-text-fill: #D71920;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.8), 6, 0.0, 0, 3);
 
 }
 
-/* Welcome Text */
+
 #welcomeLabel {
     -fx-text-fill: #333 ;
     -fx-text-alignment: center;
@@ -35,27 +35,27 @@ body {
 
 }
 
-/* Main ProgressIndicator style */
+
 .progress-indicator {
-    -fx-background-color: transparent; /* Main container background */
-    -fx-border-color: transparent; /* Border of the main container */
-    -fx-padding: 0; /* Padding around the spinner */
+    -fx-background-color: transparent; 
+    -fx-border-color: transparent; 
+    -fx-padding: 0; 
 }
 
-/* Style for the spinner's container */
+
 .progress-indicator .spinner-pane {
-    -fx-background-color: transparent; /* Spinner pane background */
+    -fx-background-color: transparent; 
 }
 
-/* Style for the arc of the progress indicator */
+
 .progress-indicator .spinner {
-    -fx-background-color: transparent; /* Spinner arc background */
+    -fx-background-color: transparent; 
     -fx-border-color: transparent;
     -fx-progress-color: #D71920;
 }
 
 
-/* Remove any potential shadows */
+
 .progress-indicator .spinner-pane,
 .progress-indicator .spinner {
     -fx-effect: null;
@@ -74,7 +74,7 @@ body {
     -fx-font-size: 16px;
     -fx-text-fill: #333;
     -fx-font-weight: bold;
-    -fx-cursor: pointer; /* Pointer cursor for interactivity */
+    -fx-cursor: pointer; 
     -fx-transition: all 0.3s ease;
     -fx-max-height: 60;
     -fx-max-width: 320;
@@ -90,57 +90,57 @@ body {
     -fx-transition: all 0.3s ease;
 }
 #depBox:hover {
-    -fx-background-color: rgba(240, 240, 240, 1); /* Lighten background on hover */
+    -fx-background-color: rgba(240, 240, 240, 1); 
     -fx-border-color: #D71920;
 }
 
-/* Focus Effect for ComboBox */
+
 #depBox:focused {
-    -fx-border-color: #388e3c; /* Highlight border when focused */
-    -fx-background-color: rgba(255, 255, 255, 1); /* Bright background */
+    -fx-border-color: #388e3c; 
+    -fx-background-color: rgba(255, 255, 255, 1); 
 }
 
 #depBox .combo-box-popup {
-    -fx-background-color: rgba(255, 255, 255, 0.95); /* Bright dropdown background */
-    -fx-border-color: #D71920; /* Emirates Red border */
-    -fx-border-radius: 8; /* Rounded corners */
+    -fx-background-color: rgba(255, 255, 255, 0.95); 
+    -fx-border-color: #D71920; 
+    -fx-border-radius: 8; 
     -fx-background-radius: 8;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0, 3, 3);
     -fx-padding: 0 0 10 0;
     -fx-popup-side: bottom;
 }
 
-/* List Cells */
+
 #depBox .combo-box-popup .list-cell {
-    -fx-background-color: transparent; /* Default background */
-    -fx-text-fill: #333; /* Dark gray text */
+    -fx-background-color: transparent; 
+    -fx-text-fill: #333; 
     -fx-font-size: 16px;
-    -fx-padding: 10 20; /* Add padding for better spacing */
+    -fx-padding: 10 20; 
 }
 
 #depBox .combo-box-popup .list-cell:hover {
-    -fx-background-color: #D71920; /* Light blue hover effect */
-    -fx-text-fill: white; /* White text on hover */
+    -fx-background-color: #D71920; 
+    -fx-text-fill: white; 
 }
 
 #depBox .combo-box-popup .list-cell:selected {
-    -fx-background-color: #D71920; /* Emirates Red for selected item */
-    -fx-text-fill: white; /* White text */
+    -fx-background-color: #D71920; 
+    -fx-text-fill: white; 
 }
 #depBox .arrow-button {
-    /* Remove the arrow button's background */
-    -fx-padding: 0; /* Remove padding */
-    -fx-shape: null; /* Remove button shape */
-    -fx-opacity: 0; /* Make the arrow invisible */
-    -fx-min-width: 0; /* Remove its size */
-    -fx-pref-width: 0; /* Completely collapse the arrow button */
-    -fx-max-width: 0; /* Ensure it doesn't take up any space */
+    
+    -fx-padding: 0; 
+    -fx-shape: null; 
+    -fx-opacity: 0; 
+    -fx-min-width: 0; 
+    -fx-pref-width: 0; 
+    -fx-max-width: 0; 
 }
 
 #depBox .arrow {
-    -fx-background-insets: 0; /* Remove arrow background */
-    -fx-background-size: 0; /* Remove the arrow graphic */
-    -fx-opacity: 0; /* Make it invisible */
+    -fx-background-insets: 0; 
+    -fx-background-size: 0; 
+    -fx-opacity: 0; 
 }
 
 
@@ -152,7 +152,7 @@ body {
     -fx-font-size: 16px;
     -fx-text-fill: #333;
     -fx-font-weight: bold;
-    -fx-cursor: pointer; /* Pointer cursor for interactivity */
+    -fx-cursor: pointer; 
     -fx-transition: all 0.3s ease;
     -fx-max-height: 60;
     -fx-max-width: 320;
@@ -169,59 +169,59 @@ body {
 }
 
 #arrBox:hover {
-    -fx-background-color: rgba(240, 240, 240, 1); /* Lighten background on hover */
-    -fx-border-color: #D71920; /* Add blue border */
+    -fx-background-color: rgba(240, 240, 240, 1); 
+    -fx-border-color: #D71920; 
 }
 
-/* Focus Effect for ComboBox */
+
 #arrBox:focused {
-    -fx-border-color: #388e3c; /* Highlight border when focused */
+    -fx-border-color: #388e3c; 
     -fx-background-color: rgba(255, 255, 255, 1);
     -fx-effect: none;
 }
 
 #arrBox .combo-box-popup {
-    -fx-background-color: rgba(255, 255, 255, 0.95); /* Bright dropdown background */
-    -fx-border-color: #D71920; /* Emirates Red border */
-    -fx-border-radius: 8; /* Rounded corners */
+    -fx-background-color: rgba(255, 255, 255, 0.95); 
+    -fx-border-color: #D71920; 
+    -fx-border-radius: 8; 
     -fx-background-radius: 8;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0, 3, 3);
     -fx-padding: 0 0 10 0;
 }
 
-/* List Cells */
+
 #arrBox .combo-box-popup .list-cell {
-    -fx-background-color: transparent; /* Default background */
-    -fx-text-fill: #333; /* Dark gray text */
+    -fx-background-color: transparent; 
+    -fx-text-fill: #333; 
     -fx-font-size: 16px;
-    -fx-padding: 10 20; /* Add padding for better spacing */
+    -fx-padding: 10 20; 
 }
 
 #arrBox .combo-box-popup .list-cell:hover {
-    -fx-background-color: #D71920; /* Light blue hover effect */
-    -fx-text-fill: white; /* White text on hover */
+    -fx-background-color: #D71920; 
+    -fx-text-fill: white; 
 }
 
 #arrBox .combo-box-popup .list-cell:selected {
-    -fx-background-color: #D71920; /* Emirates Red for selected item */
-    -fx-text-fill: white; /* White text */
+    -fx-background-color: #D71920; 
+    -fx-text-fill: white; 
 }
 
 #arrBox .arrow-button {
     -fx-background-color: rgba(255, 255, 255, 0.9);
-    -fx-padding: 0; /* Remove padding */
-    -fx-shape: null; /* Remove button shape */
-    -fx-opacity: 0; /* Make the arrow invisible */
-    -fx-min-width: 0; /* Remove its size */
-    -fx-pref-width: 0; /* Completely collapse the arrow button */
-    -fx-max-width: 0; /* Ensure it doesn't take up any space */
+    -fx-padding: 0; 
+    -fx-shape: null; 
+    -fx-opacity: 0; 
+    -fx-min-width: 0; 
+    -fx-pref-width: 0; 
+    -fx-max-width: 0; 
 }
 
 #arrBox .arrow {
     -fx-background-color: rgba(255, 255, 255, 0.9);
-    -fx-background-insets: 0; /* Remove arrow background */
-    -fx-background-size: 0; /* Remove the arrow graphic */
-    -fx-opacity: 0; /* Make it invisible */
+    -fx-background-insets: 0; 
+    -fx-background-size: 0; 
+    -fx-opacity: 0; 
 }
 
 #classMenu {
@@ -232,7 +232,7 @@ body {
     -fx-font-size: 16px;
     -fx-text-fill: #333;
     -fx-font-weight: bold;
-    -fx-cursor: pointer; /* Pointer cursor for interactivity */
+    -fx-cursor: pointer; 
     -fx-transition: all 0.3s ease;
     -fx-max-height: 60;
     -fx-max-width: 320;
@@ -249,40 +249,40 @@ body {
 }
 
 #classMenu:hover {
-    -fx-background-color: rgba(240, 240, 240, 1); /* Lighten background on hover */
-    -fx-border-color: #D71920; /* Add blue border */
+    -fx-background-color: rgba(240, 240, 240, 1); 
+    -fx-border-color: #D71920; 
 }
 
-/* Focus Effect for ComboBox */
+
 #classMenu:focused {
-    -fx-border-color: #388e3c; /* Highlight border when focused */
-    -fx-background-color: rgba(255, 255, 255, 1); /* Bright background */
+    -fx-border-color: #388e3c; 
+    -fx-background-color: rgba(255, 255, 255, 1); 
 }
 
 #classMenu .combo-box-popup {
-    -fx-background-color: rgba(255, 255, 255, 0.95); /* Bright dropdown background */
-    -fx-border-color: #D71920; /* Emirates Red border */
-    -fx-border-radius: 8; /* Rounded corners */
+    -fx-background-color: rgba(255, 255, 255, 0.95); 
+    -fx-border-color: #D71920; 
+    -fx-border-radius: 8; 
     -fx-background-radius: 8;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0, 3, 3); /* Soft shadow */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0, 3, 3); 
 }
 
-/* List Cells */
+
 #classMenu .combo-box-popup .list-cell {
-    -fx-background-color: transparent; /* Default background */
-    -fx-text-fill: #333; /* Dark gray text */
+    -fx-background-color: transparent; 
+    -fx-text-fill: #333; 
     -fx-font-size: 16px;
-    -fx-padding: 10 20; /* Add padding for better spacing */
+    -fx-padding: 10 20; 
 }
 
 #classMenu .combo-box-popup .list-cell:hover {
-    -fx-background-color: rgba(135, 206, 235, 0.8); /* Light blue hover effect */
-    -fx-text-fill: white; /* White text on hover */
+    -fx-background-color: rgba(135, 206, 235, 0.8); 
+    -fx-text-fill: white; 
 }
 
 #classMenu .combo-box-popup .list-cell:selected {
-    -fx-background-color: #D71920; /* Emirates Red for selected item */
-    -fx-text-fill: white; /* White text */
+    -fx-background-color: #D71920; 
+    -fx-text-fill: white; 
 }
 #classMenu .arrow-button {
     -fx-background-color: rgba(255, 255, 255, 0.9);
@@ -298,7 +298,7 @@ body {
 }
 
 #dateMenu {
-    -fx-background-color: rgba(255, 255, 255, 0.9); /* Bright background */
+    -fx-background-color: rgba(255, 255, 255, 0.9); 
     -fx-border-color: rgba(200, 200, 200, 0.5);
     -fx-border-radius: 8;
     -fx-background-radius: 8;
@@ -313,28 +313,28 @@ body {
     -fx-min-height: 60;
 }
 #dateMenu:hover {
-    -fx-background-color: rgba(240, 240, 240, 1); /* Lighten background on hover */
+    -fx-background-color: rgba(240, 240, 240, 1); 
     -fx-border-color: #D71920;
 }
 
-/* Menu Items (e.g., Spinners, Labels, etc.) */
+
 #dateMenu .menu-item {
-    -fx-font-size: 18px; /* Larger font size for readability */
-    -fx-padding: 10 20; /* Add padding for larger clickable area */
-    -fx-background-color: rgba(255, 255, 255, 0.9); /* Bright background */
+    -fx-font-size: 18px; 
+    -fx-padding: 10 20; 
+    -fx-background-color: rgba(255, 255, 255, 0.9); 
     -fx-border-radius: 8;
-    -fx-text-fill: #333333; /* Consistent dark gray text */
+    -fx-text-fill: #333333; 
 }
 
-/* Ensure Labels Don't Change on Hover */
+
 #dateMenu .label {
-    -fx-text-fill: #333333; /* Explicitly set label text color to prevent hover effect */
+    -fx-text-fill: #333333; 
 }
 
-/* Prevent Hover Propagation for Menu Items */
+
 #dateMenu:hover {
-    -fx-background-color: rgba(255, 255, 255, 0.9); /* No hover effect on menu item background */
-    -fx-text-fill: #333333; /* Keep consistent text color */
+    -fx-background-color: rgba(255, 255, 255, 0.9); 
+    -fx-text-fill: #333333; 
 }
 #dateMenu:focused {
     -fx-background-color: rgba(255, 255, 255, 0.9);
@@ -342,7 +342,7 @@ body {
 }
 
 #passMenu {
-    -fx-background-color: rgba(255, 255, 255, 0.9); /* Bright background */
+    -fx-background-color: rgba(255, 255, 255, 0.9); 
     -fx-border-color: rgba(200, 200, 200, 0.5);
     -fx-border-radius: 8;
     -fx-background-radius: 8;
@@ -357,35 +357,35 @@ body {
     -fx-min-height: 60;
 }
 #passMenu:hover {
-    -fx-background-color: rgba(240, 240, 240, 1); /* Lighten background on hover */
+    -fx-background-color: rgba(240, 240, 240, 1); 
     -fx-border-color: #D71920;
 }
 
-/* Menu Items (e.g., Spinners, Labels, etc.) */
+
 #passMenu .menu-item {
-    -fx-font-size: 18px; /* Larger font size for readability */
-    -fx-padding: 10 20; /* Add padding for larger clickable area */
-    -fx-background-color: rgba(255, 255, 255, 0.9); /* Bright background */
+    -fx-font-size: 18px; 
+    -fx-padding: 10 20; 
+    -fx-background-color: rgba(255, 255, 255, 0.9); 
     -fx-border-radius: 8;
-    -fx-text-fill: #333333; /* Consistent dark gray text */
+    -fx-text-fill: #333333; 
 }
 
-/* Ensure Labels Don't Change on Hover */
+
 #passMenu .label {
-    -fx-text-fill: #333333; /* Explicitly set label text color to prevent hover effect */
+    -fx-text-fill: #333333; 
 }
 
-/* Prevent Hover Propagation for Menu Items */
+
 #passMenu:hover {
-    -fx-background-color: rgba(255, 255, 255, 0.9); /* No hover effect on menu item background */
-    -fx-text-fill: #333333; /* Keep consistent text color */
+    -fx-background-color: rgba(255, 255, 255, 0.9); 
+    -fx-text-fill: #333333; 
 }
 #passMenu:focused {
     -fx-background-color: rgba(255, 255, 255, 0.9);
     -fx-border-color: #388e3c;
 }
 
-/* DatePicker Styling */
+
 .date-picker {
     -fx-font-size: 18px;
     -fx-padding: 10;
@@ -396,15 +396,15 @@ body {
 }
 
 .date-picker .arrow-button:hover {
-    -fx-background-color: #D71920; /* Soft blue background for hover */
+    -fx-background-color: #D71920; 
     -fx-cursor: hand;
 }
 
 .date-picker .arrow-button:pressed {
-    -fx-background-color: #357ABD; /* Darker blue on press */
+    -fx-background-color: #357ABD; 
 }
 
-/* Input Fields */
+
 .date-picker .text-field {
     -fx-background-color: rgba(255, 255, 255, 0.85);
     -fx-border-color: rgba(200, 200, 200, 0.5);
@@ -424,7 +424,7 @@ body {
     -fx-background-color: rgba(255, 255, 255, 1);
 }
 
-/* Spinner Styling */
+
 .spinner {
     -fx-font-size: 18px;
     -fx-padding: 5;
@@ -433,44 +433,43 @@ body {
     -fx-border-radius: 8;
 }
 
-/* Hover Effect ONLY for Increment/Decrement Buttons */
 .spinner .increment-arrow-button:hover,
 .spinner .decrement-arrow-button:hover {
-    -fx-background-color: #D71920; /* Soft blue background */
+    -fx-background-color: #D71920; 
     -fx-cursor: pointer;
 }
 
 .spinner .increment-arrow-button:pressed,
 .spinner .decrement-arrow-button:pressed {
-    -fx-background-color: #357ABD; /* Darker blue on press */
+    -fx-background-color: #357ABD; 
 }
 
-/* Keep the main spinner text unaffected */
+
 .spinner .text-field {
     -fx-background-color: rgba(255, 255, 255, 0.9);
-    -fx-text-fill: #333333; /* Dark gray text */
-    -fx-cursor: text; /* Text cursor for input area */
+    -fx-text-fill: #333333; 
+    -fx-cursor: text; 
 }
 
-/* Ensure Labels in Spinners or Submenus Stay Consistent */
+
 .spinner .label,
 .date-picker .label,
 .menu-button .label {
-    -fx-text-fill: #333333; /* Explicitly set label text to dark gray */
+    -fx-text-fill: #333333; 
     -fx-font-size: 18px;
 }
 
 
-/* Submenu Styling */
+
 .sub-menu {
     -fx-background-color: rgba(255, 255, 255, 0.95);
     -fx-border-color: rgba(200, 200, 200, 0.5);
-    -fx-font-size: 18px; /* Larger submenu font size */
-    -fx-padding: 10 20; /* Increase padding */
+    -fx-font-size: 18px; 
+    -fx-padding: 10 20; 
 }
 
 
-/* Go Button */
+
 #goBtn {
     -fx-background-image: url("/plane-alt_(1).png");
     -fx-background-repeat: no-repeat ;
@@ -488,28 +487,28 @@ body {
 }
 
 #goBtn:hover {
-    -fx-background-color: darkred; /* Darker blue on hover */
-    -fx-scale-x: 1.1; /* Slightly enlarge */
+    -fx-background-color: darkred; 
+    -fx-scale-x: 1.1; 
     -fx-scale-y: 1.1;
 }
 
 #goBtn:pressed {
-    -fx-background-color: green; /* Even darker blue when clicked */
-    -fx-scale-x: 0.95; /* Slightly shrink for click feedback */
+    -fx-background-color: green; 
+    -fx-scale-x: 0.95; 
     -fx-scale-y: 0.95;
 }
 
 #aboutBtn{
     -fx-background-color: #333;
-    -fx-text-fill: white; /* White text for menu labels */
+    -fx-text-fill: white; 
     -fx-font-weight: bold;
     -fx-padding: 10 20;
     -fx-font-size: 21px;
 }
 #aboutBtn:hover {
-    -fx-background-color: #444; /* Slightly darker gray on hover */
+    -fx-background-color: #444; 
     -fx-transition: -fx-background-color 0.3s ease, -fx-effect 0.3s ease;
-    -fx-cursor: hand; /* Change cursor to hand */
+    -fx-cursor: hand; 
     -fx-scale-x: 1.05;
     -fx-scale-y: 1.05;
 }
@@ -523,35 +522,35 @@ body {
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 15, 0.1, 0, 5);
 }
 #toolBarPane{
-    -fx-background-color: rgba(255, 255, 255, 0.75); /* Semi-transparent white */
+    -fx-background-color: rgba(255, 255, 255, 0.75); 
     -fx-border-color: rgba(200, 200, 200, 0.5);
 }
 
 
 #menuBarMain {
-    -fx-background-color: #333; /* Dark background for the menu bar */
+    -fx-background-color: #333; 
     -fx-min-height: 60px;
     -fx-pref-height: 60px;
 }
 
-/* Menu Label Styling */
+
 #menuBarMain #manageMenu .label,#menuBarMain #aboutMenu .label {
-    -fx-text-fill: white; /* White text for menu labels */
+    -fx-text-fill: white; 
     -fx-font-weight: bold;
-    -fx-padding: 10 20; /* Add padding for better spacing */
+    -fx-padding: 10 20; 
 }
 
-/* Prevent Parent Menu from Turning Blue */
+
 #menuBarMain #manageMenu:focused,#menuBarMain #aboutMenu:focused {
-    -fx-background-color: #333; /* Keep original menu background */
-    -fx-text-fill: white; /* Ensure text remains white */
+    -fx-background-color: #333; 
+    -fx-text-fill: white; 
 }
 
-/* Hover Effect for Parent Menus */
+
 #menuBarMain #manageMenu:hover,#menuBarMain #aboutMenu:hover {
-    -fx-background-color: #444; /* Slightly darker gray on hover */
+    -fx-background-color: #444; 
     -fx-transition: -fx-background-color 0.3s ease, -fx-effect 0.3s ease;
-    -fx-cursor: hand; /* Change cursor to hand */
+    -fx-cursor: hand; 
     -fx-scale-x: 1.05;
     -fx-scale-y: 1.05;
 }
@@ -562,14 +561,14 @@ body {
 }
 
 #menuBarMain #manageMenu:showing,#menuBarMain #aboutMenu:showing {
-    -fx-background-color: #222; /* Ensure parent menu background stays the same */
-    -fx-text-fill: white; /* Text color remains consistent */
+    -fx-background-color: #222; 
+    -fx-text-fill: white; 
 }
 
-/* Additional Cleanup for Blue Highlight */
+
 #menuBarMain #manageMenu:showing .label,#menuBarMain #aboutMenu:showing .label {
-    -fx-text-fill: white; /* Keep label text color */
-    -fx-background-color: transparent; /* Ensure no background interference */
+    -fx-text-fill: white; 
+    -fx-background-color: transparent; 
 }
 
 
@@ -577,17 +576,17 @@ body {
     -fx-text-fill: #D71920;
     -fx-font-weight: bold;
     -fx-font-size: 20px;
-    -fx-padding: 5 15; /* Padding for better spacing */
+    -fx-padding: 5 15; 
     -fx-background-color: #333;
 }
 
 #manageMenu .menu-item:hover, #aboutMenu .menu-item:hover {
-    -fx-background-color: #444; /* Slightly darker background on hover */
-    -fx-text-fill: #FFD700; /* Emirates gold for hover text */
-    -fx-cursor: hand; /* Pointer cursor on hover */
+    -fx-background-color: #444; 
+    -fx-text-fill: #FFD700; 
+    -fx-cursor: hand; 
 }
 
-/* Hover for manageDrop Submenu Items */
+
 #manageDrop .menu-item {
     -fx-text-fill: #D71920;
     -fx-font-size: 16px;
@@ -601,10 +600,10 @@ body {
     -fx-cursor: hand;
 }
 
-/* Dropdown Menu Focused State */
+
 #manageMenu .menu-item:focused, #aboutMenu .menu-item:focused, #manageDrop .menu-item:focused {
-    -fx-background-color: #555; /* Keep consistent background */
-    -fx-text-fill: #D71920; /* Emirates red text when focused */
+    -fx-background-color: #555; 
+    -fx-text-fill: #D71920; 
 }
 #manageMenu .context-menu {
     -fx-padding: 0;
@@ -625,48 +624,48 @@ body {
     -fx-cursor: hand;
 }
 
-/* Default Style for Login Button */
+
 #loginBtnMain {
     -fx-font-weight: bold;
     -fx-min-height: 60px;
     -fx-pref-height: 60px;
-    -fx-background-color: #333; /* Dark background */
-    -fx-text-fill: white; /* White text */
+    -fx-background-color: #333; 
+    -fx-text-fill: white; 
     -fx-font-size: 18px;
-    -fx-border-radius: 10; /* Rounded corners */
+    -fx-border-radius: 10; 
     -fx-background-radius: 10;
 }
 
-/* Hover Effect for Default State */
+
 #loginBtnMain:hover {
-    -fx-background-color: #555; /* Slightly lighter on hover */
-    -fx-text-fill: #FFD700; /* Highlight text with Emirates gold */
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 8, 0.0, 0, 3); /* Subtle shadow */
-    -fx-scale-x: 1.05; /* Slight zoom on hover */
+    -fx-background-color: #555; 
+    -fx-text-fill: #FFD700;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 8, 0.0, 0, 3);
+    -fx-scale-x: 1.05;
     -fx-scale-y: 1.05;
     -fx-cursor: hand;
 }
 
-/* Pressed Effect */
+
 #loginBtnMain:pressed {
-    -fx-background-color: #444; /* Darker background on press */
-    -fx-scale-x: 1.0; /* Restore scale on press */
+    -fx-background-color: #444;
+    -fx-scale-x: 1.0;
     -fx-scale-y: 1.0;
 }
 
-/* Style for Logged-in State */
+
 #loginBtnMain.logged-in {
     -fx-font-weight: bold;
-    -fx-background-color: #333; /* Emirates Green for logged-in state */
-    -fx-text-fill: white; /* Keep text white */
+    -fx-background-color: #333;
+    -fx-text-fill: white;
 }
 
-/* Hover Effect When Logged In */
+
 #loginBtnMain.logged-in:hover {
-    -fx-text-fill: #D71920; /* Emirates Red text on hover */
-    -fx-background-color: #555; /* Darker green background */
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 8, 0.0, 0, 3); /* Keep shadow */
-    -fx-scale-x: 1.05; /* Slight zoom */
+    -fx-text-fill: #D71920;
+    -fx-background-color: #555;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 8, 0.0, 0, 3);
+    -fx-scale-x: 1.05;
     -fx-scale-y: 1.05;
 }
 
@@ -688,50 +687,50 @@ body {
     -fx-scale-y: 0.95;
 }
 
-/* Scroll Bar Styling */
+
 .scroll-bar {
-    -fx-background-color: transparent; /* Make the scroll bar track transparent */
-    -fx-padding: 5px; /* Add some padding for spacing */
+    -fx-background-color: transparent;
+    -fx-padding: 5px;
 }
 
 .scroll-bar:vertical .thumb {
-    -fx-background-color: #D71920; /* Emirates Red for the scroll button */
-    -fx-background-radius: 5px; /* Rounded edges for the scroll button */
-    -fx-min-height: 20px; /* Minimum height for visibility */
-    -fx-max-width: 8px; /* Slim and modern width */
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 4, 0, 2, 2); /* Subtle shadow for a floating effect */
+    -fx-background-color: #D71920;
+    -fx-background-radius: 5px;
+    -fx-min-height: 20px;
+    -fx-max-width: 8px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 4, 0, 2, 2);
 }
 
 .scroll-bar:vertical .thumb:hover {
-    -fx-background-color: #FF4500; /* Slightly lighter red on hover */
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.6), 6, 0, 2, 2); /* Enhanced shadow on hover */
-    -fx-cursor: hand; /* Pointer cursor for interactivity */
+    -fx-background-color: #FF4500;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.6), 6, 0, 2, 2);
+    -fx-cursor: hand;
 }
 
 .scroll-bar:vertical .track {
-    -fx-background-color: transparent; /* Make the scroll track invisible */
+    -fx-background-color: transparent;
 }
 
 .scroll-bar:horizontal {
-    -fx-background-color: transparent; /* Hide horizontal scroll bar track */
+    -fx-background-color: transparent;
 }
 
 .scroll-bar:horizontal .thumb {
-    -fx-background-color: #D71920; /* Emirates Red for horizontal scroll button */
-    -fx-background-radius: 5px; /* Rounded corners */
-    -fx-min-width: 20px; /* Minimum width for visibility */
-    -fx-max-height: 8px; /* Slim and modern height */
+    -fx-background-color: #D71920;
+    -fx-background-radius: 5px;
+    -fx-min-width: 20px;
+    -fx-max-height: 8px;
 }
 
 .scroll-bar:horizontal .thumb:hover {
-    -fx-background-color: #FF4500; /* Slightly lighter red on hover */
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.6), 6, 0, 2, 2); /* Enhanced shadow on hover */
+    -fx-background-color: #FF4500;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.6), 6, 0, 2, 2);
 }
 
-/* Hide the arrows in the scroll bar */
+
 .scroll-bar .increment-arrow,
 .scroll-bar .decrement-arrow {
-    -fx-opacity: 0; /* Make them invisible */
+    -fx-opacity: 0; 
     -fx-min-width: 0;
     -fx-min-height: 0;
     -fx-max-width: 0;
@@ -739,7 +738,7 @@ body {
     -fx-padding: 0;
 }
 
-/* Remove extra padding and margin for a cleaner look */
+
 .scroll-bar .track {
     -fx-padding: 0;
     -fx-margin: 0;

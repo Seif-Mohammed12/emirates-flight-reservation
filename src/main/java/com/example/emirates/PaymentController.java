@@ -54,7 +54,7 @@
             private String selectedSeat;
             private LocalDate departureDate;
             private LocalDate returnDate;
-            private final double serviceFeeRate = 0.10; // 10% service fee
+            private final double serviceFeeRate = 0.10;
             private final double taxRate = 0.14;
             private String updatedPrice;
             private String loggedInUsername;
@@ -69,11 +69,11 @@
             }
             private void setupCardIconUpdater() {
                 cardNumberField.textProperty().addListener((observable, oldValue, newValue) -> {
-                    // Get the first 4 digits (ignoring spaces)
+                    
                     String rawCardNumber = newValue.replaceAll("\\D", "");
                     String firstFourDigits = rawCardNumber.length() >= 4 ? rawCardNumber.substring(0, 4) : "";
 
-                    // Determine the card type
+                    
                     String cardType = getCardType(firstFourDigits);
                     if (cardType != null) {
                         cardIcon.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/icons/" + cardType + ".png"))));
@@ -83,25 +83,19 @@
                 });
             }
 
-            /**
-             * Identifies the card type based on the first 4 digits.
-             *
-             * @param firstFourDigits The first 4 digits of the card number.
-             * @return The name of the card type (e.g., "visa", "mastercard") or null if unknown.
-             */
             private String getCardType(String firstFourDigits) {
                 if (firstFourDigits.matches("^4[0-9]{3}$")) {
-                    return "visa"; // Visa
+                    return "visa"; 
                 } else if (firstFourDigits.matches("^5[1-5][0-9]{2}$")) {
-                    return "mastercard"; // MasterCard
+                    return "mastercard"; 
                 } else if (firstFourDigits.matches("^3[47][0-9]{2}$")) {
-                    return "amex"; // American Express
+                    return "amex"; 
                 } else if (firstFourDigits.matches("^6(?:011|5[0-9]{2})$")) {
-                    return "discover"; // Discover
+                    return "discover"; 
                 } else if (firstFourDigits.matches("^(?:2131|1800|35\\d{2})$")) {
-                    return "jcb"; // JCB
+                    return "jcb"; 
                 }
-                return null; // Unknown card type
+                return null; 
             }
 
             private void setupExpirationDateFormatter() {
@@ -133,7 +127,7 @@
 
             private boolean isValidExpiryDate(String expiryDate) {
                 if (!expiryDate.matches("(0[1-9]|1[0-2])/\\d{2}")) {
-                    return false; // Invalid format
+                    return false; 
                 }
 
                 String[] parts = expiryDate.split("/");
@@ -151,7 +145,7 @@
                 cardNumberField.textProperty().addListener((observable, oldValue, newValue) -> {
                     String digitsOnly = newValue.replaceAll("\\D", "");
 
-                    // Limit to a maximum of 16 digits
+                    
                     if (digitsOnly.length() > 16) {
                         digitsOnly = digitsOnly.substring(0, 16);
                     }
@@ -204,7 +198,7 @@
                 flightCard.setOnMouseEntered(event -> flightCard.setStyle("-fx-effect: dropshadow(gaussian, #888, 10, 0, 0, 0);"));
                 flightCard.setOnMouseExited(event -> flightCard.setStyle("-fx-effect: none;"));
 
-                // Flight Details (Top Section)
+                
                 HBox flightDetails = new HBox(20);
                 flightDetails.setAlignment(Pos.CENTER);
 
@@ -229,7 +223,7 @@
 
                 bottomSection.getChildren().addAll(additionalInfo, pricingSection);
 
-                // Add all sections to the flight card
+                
                 flightCard.getChildren().addAll(
                         flightDetails,
                         createSeparator(),
@@ -329,7 +323,7 @@
 
             private VBox createPricingSection(selectFlights.Flights flight) {
                 VBox pricing = new VBox(5);
-                pricing.setAlignment(Pos.CENTER_RIGHT); // Align to the right
+                pricing.setAlignment(Pos.CENTER_RIGHT); 
 
                 Label classLabel = new Label(selectedClass + " Class");
                 classLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
@@ -481,7 +475,7 @@
 
                     Scene currentScene = currentStage.getScene();
 
-                    // Apply fade transition
+                    
                     FadeTransition fadeOut = new FadeTransition(Duration.millis(500), currentScene.getRoot());
                     fadeOut.setFromValue(1.0);
                     fadeOut.setToValue(0.0);
@@ -584,11 +578,11 @@
             }
 
             private boolean isValidCardNumber(String cardNumber) {
-                String cardRegex = "^(?:4[0-9]{12}(?:[0-9]{3})?" + // Visa
-                        "|5[1-5][0-9]{14}" +                       // MasterCard
-                        "|3[47][0-9]{13}" +                        // American Express
-                        "|6(?:011|5[0-9]{2})[0-9]{12}" +           // Discover
-                        "|(?:2131|1800|35\\d{3})\\d{11})$";        // JCB
+                String cardRegex = "^(?:4[0-9]{12}(?:[0-9]{3})?" + 
+                        "|5[1-5][0-9]{14}" +                       
+                        "|3[47][0-9]{13}" +                        
+                        "|6(?:011|5[0-9]{2})[0-9]{12}" +           
+                        "|(?:2131|1800|35\\d{3})\\d{11})$";        
 
                 boolean matches = cardNumber.matches(cardRegex);
 
@@ -634,7 +628,7 @@
 
                 TextFlow textFlow = new TextFlow();
                 Text text = new Text(message);
-                text.setWrappingWidth(300); // Wrap the text for better readability
+                text.setWrappingWidth(300);
                 textFlow.getChildren().add(text);
                 dialogPane.setContent(textFlow);
 
@@ -644,7 +638,7 @@
                 alert.setHeaderText(null);
                 alert.setGraphic(null);
 
-                // Add onCloseAction if provided
+                
                 if (onCloseAction != null) {
                     alert.setOnHidden(event -> onCloseAction.run());
                 }

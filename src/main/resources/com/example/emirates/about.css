@@ -6,14 +6,14 @@
 }
 
 #overlay {
-    -fx-background-color: rgba(0, 0, 0, 0.6); /* Dark overlay */
-    -fx-background-radius: 15; /* Rounded corners */
+    -fx-background-color: rgba(0, 0, 0, 0.6); 
+    -fx-background-radius: 15; 
     -fx-padding: 15px;
 }
 
 .label {
-    -fx-text-fill: #D71920; /* Emirates red */
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.8), 6, 0.0, 0, 3); /* Shadow effect */
+    -fx-text-fill: #D71920; 
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.8), 6, 0.0, 0, 3); 
     -fx-padding: 10px;
     -fx-text-alignment: center;
 }

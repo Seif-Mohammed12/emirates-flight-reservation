@@ -59,7 +59,7 @@ public class DeleteFlightController {
 
         loadCustomFonts();
 
-        setFieldsEditable(false); // Make all fields uneditable
+        setFieldsEditable(false); 
 
         searchButton.setOnAction(e -> searchFlight());
         deleteButton.setOnAction(e -> handleDelete());
@@ -103,7 +103,7 @@ public class DeleteFlightController {
                 }
             }
 
-            // If no flight is found
+            
             statusLabel.setText("Flight not found.");
             showStyledAlert("Error: No flight found with the provided flight number.", (Stage) flightNoField.getScene().getWindow());
 
@@ -172,16 +172,16 @@ public class DeleteFlightController {
             Stage stage = (Stage) cancelButton.getScene().getWindow();
             Scene currentScene = stage.getScene();
 
-            // Create a fade-out transition for the current scene
+            
             FadeTransition fadeOut = new FadeTransition(Duration.millis(500), currentScene.getRoot());
             fadeOut.setFromValue(1.0);
             fadeOut.setToValue(0.0);
 
             fadeOut.setOnFinished(e -> {
-                // Set the new root to adminPage
+                
                 currentScene.setRoot(adminPage);
 
-                // Create a fade-in transition for the new scene
+                
                 FadeTransition fadeIn = new FadeTransition(Duration.millis(500), adminPage);
                 fadeIn.setFromValue(0.0);
                 fadeIn.setToValue(1.0);
@@ -288,7 +288,7 @@ public class DeleteFlightController {
         dialogPane.setStyle("-fx-background-color: #f8f9fa; -fx-background-radius: 20; -fx-border-radius: 20;" +
                 "-fx-border-color: rgba(220, 220, 220, 0.8); -fx-padding: 20;");
 
-        alert.initOwner(parentStage); // Set the parent stage explicitly
+        alert.initOwner(parentStage); 
         Stage alertStage = (Stage) dialogPane.getScene().getWindow();
         alertStage.initModality(Modality.WINDOW_MODAL);
         alertStage.initStyle(StageStyle.UNDECORATED);

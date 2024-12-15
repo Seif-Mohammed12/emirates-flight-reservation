@@ -1,66 +1,66 @@
-/* Root Pane */
+
 .root-pane {
     -fx-background-image: url("/pexels-gyorgy-toth-21175056-9298364.jpg");
     -fx-background-repeat: no-repeat;
     -fx-background-size: cover;
 }
 
-/* Form Grid */
+
 .form-grid {
     -fx-alignment: center;
     -fx-padding: 20;
-    -fx-border-color: rgba(201, 33, 39, 0.8); /* Emirates Red border */
-    -fx-border-width: 2px; /* Red border around the entire form */
+    -fx-border-color: rgba(201, 33, 39, 0.8); 
+    -fx-border-width: 2px; 
     -fx-border-radius: 10;
-    -fx-background-color: rgba(255, 255, 255, 0.7); /* Semi-transparent white */
+    -fx-background-color: rgba(255, 255, 255, 0.7); 
     -fx-background-radius: 10;
 }
 
-/* Form Labels */
+
 .form-label {
     -fx-font-size: 16px;
     -fx-text-fill: #333;
     -fx-font-weight: bold;
 }
 
-/* Form Fields */
+
 .form-field {
     -fx-font-size: 14px;
     -fx-pref-height: 40px;
     -fx-pref-width: 300px;
-    -fx-border-color: rgba(201, 33, 39, 0.8); /* Emirates Red border */
+    -fx-border-color: rgba(201, 33, 39, 0.8); 
     -fx-border-radius: 5px;
     -fx-padding: 5;
 }
 
-/* Focused Form Fields (with Emirates Green) */
+
 .form-field:focused {
-    -fx-border-color: #388e3c; /* Emirates Green when focused */
+    -fx-border-color: #388e3c; 
     -fx-border-width: 2px;
 }
 
-/* Hover on Form Fields (Emirates Green) */
+
 .form-field:hover {
-    -fx-border-color: #388e3c; /* Change to Emirates Green on hover */
+    -fx-border-color: #388e3c; 
 }
 
-/* Primary Button (Register) */
+
 .primary-button {
     -fx-font-size: 16px;
     -fx-text-fill: #fff;
-    -fx-background-color: rgba(201, 33, 39, 0.9); /* Emirates Red */
+    -fx-background-color: rgba(201, 33, 39, 0.9); 
     -fx-background-radius: 5px;
     -fx-pref-width: 120px;
     -fx-pref-height: 40px;
-    -fx-border-color: rgba(201, 33, 39, 0.8); /* Emirates Red border */
+    -fx-border-color: rgba(201, 33, 39, 0.8); 
     -fx-border-width: 2px;
 }
 
 .primary-button:hover {
-    -fx-background-color: rgba(139, 0, 0, 1); /* Darker Emirates Red on hover */
+    -fx-background-color: rgba(139, 0, 0, 1); 
 }
 
-/* Secondary Button (Back to Login) */
+
 .secondary-button {
     -fx-font-size: 16px;
     -fx-text-fill: #fff;
@@ -68,7 +68,7 @@
     -fx-background-radius: 5px;
     -fx-pref-width: 140px;
     -fx-pref-height: 40px;
-    -fx-border-color: #5a6268; /* Darker gray border */
+    -fx-border-color: #5a6268; 
     -fx-border-width: 2px;
 }
 
@@ -76,13 +76,13 @@
     -fx-background-color: #5a6268;
 }
 
-/* Tooltip Styling */
+
 .tooltip {
-    -fx-background-color: #d4edda; /* Light green background to match the theme */
+    -fx-background-color: #d4edda; 
     -fx-font-size: 12px;
-    -fx-text-fill: #388e3c; /* Emirates Green text */
+    -fx-text-fill: #388e3c; 
     -fx-padding: 5px;
-    -fx-border-color: #388e3c; /* Border with Emirates Green */
+    -fx-border-color: #388e3c; 
     -fx-border-radius: 5px;
     -fx-font-weight: normal;
 }

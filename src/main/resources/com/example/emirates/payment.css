@@ -7,8 +7,8 @@
     -fx-base: #ffffff;
 }
 #paymentContainer {
-    -fx-spacing: 0; /* Remove spacing between child elements */
-    -fx-padding: 0; /* Remove padding around the container */
+    -fx-spacing: 0; 
+    -fx-padding: 0; 
 }
 
 .flight-card {
@@ -59,12 +59,12 @@
 .flight-card .pricing-section .price {
     -fx-font-size: 16px;
     -fx-font-weight: bold;
-    -fx-text-fill: #e4002b; /* Emirates red */
+    -fx-text-fill: #e4002b; 
 }
 
-/* Pricing Details */
+
 .flight-card .pricing-section .class-type {
-    -fx-text-fill: #e4002b; /* Emirates red */
+    -fx-text-fill: #e4002b; 
     -fx-font-weight: bold;
     -fx-font-size: 14px;
 }
@@ -99,7 +99,7 @@
     -fx-text-fill: #777;
 }
 
-/* General Layout for the Card */
+
 .flight-card .content-container {
     -fx-alignment: center;
 }
@@ -110,11 +110,11 @@
 }
 
 .payment-summary {
-    -fx-background-color: #333; /* White with slight transparency */
-    -fx-border-color: rgba(215, 25, 32, 0.8);       /* Matching Emirates red */
-    -fx-border-width: 2;                            /* Border thickness */
-    -fx-border-radius: 0 0 10px 10px;                          /* Rounded corners */
-    -fx-background-radius: 0 0 10px 10px;                     /* Rounded background */
+    -fx-background-color: #333; 
+    -fx-border-color: rgba(215, 25, 32, 0.8);       
+    -fx-border-width: 2;                            
+    -fx-border-radius: 0 0 10px 10px;                          
+    -fx-background-radius: 0 0 10px 10px;                     
     -fx-padding: 10;
     -fx-spacing: 5;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 0, 0);
@@ -124,24 +124,24 @@
 .payment-summary-title {
     -fx-font-size: 20px;
     -fx-font-weight: bold;
-    -fx-text-fill: #ffffff; /* Dark gray for consistency */
+    -fx-text-fill: #ffffff; 
 }
 
 .payment-summary-label {
     -fx-font-size: 16px;
-    -fx-text-fill: #ffffff; /* Slightly lighter gray */
+    -fx-text-fill: #ffffff; 
 }
 
 .payment-summary-total {
     -fx-font-size: 18px;
     -fx-font-weight: bold;
-    -fx-text-fill: #D71920; /* Emirates red for the total amount */
+    -fx-text-fill: #D71920; 
 }
 
-/* Payment Section Styles */
+
 .payment-section {
     -fx-background-color: rgba(255, 255, 255, 0.9);
-    -fx-border-color: rgba(215, 25, 32, 0.8); /* Emirates red */
+    -fx-border-color: rgba(215, 25, 32, 0.8); 
     -fx-border-width: 2;
     -fx-border-radius: 10;
     -fx-background-radius: 10;
@@ -151,12 +151,12 @@
 .payment-section-title {
     -fx-font-size: 16px;
     -fx-font-weight: bold;
-    -fx-text-fill: #333; /* Dark gray */
+    -fx-text-fill: #333; 
 }
 
 .payment-section-label {
     -fx-font-size: 14px;
-    -fx-text-fill: #555; /* Slightly lighter gray */
+    -fx-text-fill: #555; 
 }
 
 .payment-textfield {
@@ -178,28 +178,28 @@
     -fx-cursor: hand;
 }
 
-/* Pay Button Styles */
+
 #payButton {
     -fx-background-color: #D71920;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 4, 0.5, 0, 2);
 }
 
-/* Pay Button Hover Effect */
+
 #payButton:hover {
     -fx-background-color: #b9141b;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 6, 0.5, 0, 3);
 }
 
-/* Go Back Button Styles */
+
 #goBackButton {
     -fx-background-color: #555;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 4, 0.5, 0, 2);
 }
 
-/* Go Back Button Hover Effect */
+
 #goBackButton:hover {
-    -fx-background-color: #333; /* Slightly darker gray */
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 6, 0.5, 0, 3); /* Enhanced shadow */
+    -fx-background-color: #333; 
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 6, 0.5, 0, 3); 
 }
 
 .dialog-pane {
@@ -237,25 +237,25 @@
 }
 
 .progress-indicator {
-    -fx-background-color: transparent; /* Main container background */
-    -fx-border-color: transparent; /* Border of the main container */
-    -fx-padding: 0; /* Padding around the spinner */
+    -fx-background-color: transparent; 
+    -fx-border-color: transparent; 
+    -fx-padding: 0; 
 }
 
-/* Style for the spinner's container */
+
 .progress-indicator .spinner-pane {
-    -fx-background-color: transparent; /* Spinner pane background */
+    -fx-background-color: transparent; 
 }
 
-/* Style for the arc of the progress indicator */
+
 .progress-indicator .spinner {
-    -fx-background-color: transparent; /* Spinner arc background */
+    -fx-background-color: transparent; 
     -fx-border-color: transparent;
     -fx-progress-color: #D71920;
 }
 
 
-/* Remove any potential shadows */
+
 .progress-indicator .spinner-pane,
 .progress-indicator .spinner {
     -fx-effect: null;

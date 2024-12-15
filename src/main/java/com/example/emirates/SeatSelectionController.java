@@ -75,7 +75,7 @@ public class SeatSelectionController {
 
         updateLoginButton();
         if (selectedClass == null) {
-            selectedClass = "Economy"; // Default to "Economy" if not set
+            selectedClass = "Economy"; 
         }
         displaySelectedClassGrid();
     }
@@ -164,7 +164,7 @@ public class SeatSelectionController {
 
     @FXML
     private void handleBackButton(ActionEvent event) {
-        // Create a loading overlay using a Pane
+        
         Pane overlay = new Pane();
         overlay.setStyle("-fx-background-color: rgba(0, 0, 0, 0.5);");
         overlay.setPrefSize(backButton.getScene().getWidth(), backButton.getScene().getHeight());
@@ -183,17 +183,17 @@ public class SeatSelectionController {
             throw new IllegalStateException("Root is not a Pane. Cannot add overlay.");
         }
 
-        // Show the overlay before starting the task
+        
         overlay.setVisible(true);
 
-        // Create a background task to load the FXML
+        
         Task<Parent> loadTask = new Task<>() {
             @Override
             protected Parent call() throws IOException {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("Flights.fxml"));
                 Parent flightsLayout = loader.load();
 
-                // Update FlightsController with data
+                
                 FlightsController flightsController = loader.getController();
                 flightsController.setLoggedInUsername(loggedInUsername);
                 flightsController.setSelectedClass(selectedClass);
@@ -207,7 +207,7 @@ public class SeatSelectionController {
             }
         };
 
-        // When loading is successful, update the UI
+        
         loadTask.setOnSucceeded(workerStateEvent -> {
             Parent flightsLayout = loadTask.getValue();
             Stage stage = (Stage) backButton.getScene().getWindow();
@@ -228,24 +228,24 @@ public class SeatSelectionController {
 
             fadeOut.play();
 
-            // Hide the loading overlay
+            
             overlay.setVisible(false);
-            ((Pane) currentRoot).getChildren().remove(overlay); // Clean up the overlay after transition
+            ((Pane) currentRoot).getChildren().remove(overlay); 
         });
 
-        // Handle failure
+        
         loadTask.setOnFailed(workerStateEvent -> {
             Throwable error = loadTask.getException();
             error.printStackTrace();
 
-            // Hide the loading overlay in case of failure
+            
             overlay.setVisible(false);
-            ((Pane) currentRoot).getChildren().remove(overlay); // Clean up the overlay
+            ((Pane) currentRoot).getChildren().remove(overlay); 
         });
 
-        // Run the task in a background thread
+        
         Thread loadThread = new Thread(loadTask);
-        loadThread.setDaemon(true); // Mark as a daemon thread to prevent it from blocking application exit
+        loadThread.setDaemon(true); 
         loadThread.start();
     }
 
@@ -253,7 +253,7 @@ public class SeatSelectionController {
 
     @FXML
     private void handlegotoBooking(ActionEvent event) {
-        // Get the current stage and scene
+        
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene currentScene = currentStage.getScene();
 
@@ -302,7 +302,7 @@ public class SeatSelectionController {
         loadBookingConfirmationTask.setOnSucceeded(workerStateEvent -> {
             Parent bookingConfirmationLayout = loadBookingConfirmationTask.getValue();
 
-            // Apply fade-out transition to the current scene
+            
             FadeTransition fadeOut = new FadeTransition(Duration.millis(500), currentScene.getRoot());
             fadeOut.setFromValue(1.0);
             fadeOut.setToValue(0.0);
@@ -318,18 +318,18 @@ public class SeatSelectionController {
 
             fadeOut.play();
 
-            // Remove the overlay once the transition starts
+            
             ((Pane) currentScene.getRoot()).getChildren().remove(overlayPane);
         });
 
         loadBookingConfirmationTask.setOnFailed(workerStateEvent -> {
             Throwable error = loadBookingConfirmationTask.getException();
-            error.printStackTrace(); // Log the error for debugging
+            error.printStackTrace(); 
 
-            // Show an alert to the user
+            
             showStyledAlert("Error", "Unable to proceed to booking confirmation. " + error.getMessage(), currentStage);
 
-            // Remove the overlay
+            
             ((Pane) currentScene.getRoot()).getChildren().remove(overlayPane);
         });
 

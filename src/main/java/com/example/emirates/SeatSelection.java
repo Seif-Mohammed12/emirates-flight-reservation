@@ -48,13 +48,13 @@ public class SeatSelection {
             for (int row = 0; row < rows; row++) {
                 for (int col = 0; col < (leftSeats + rightSeats + 1); col++) {
                     if (col == leftSeats) {
-                        continue; // Skip aisle
+                        continue; 
                     }
 
                     String seatLabel = (col < seatLabels.length) ? String.valueOf(seatLabels[col < leftSeats ? col : col - 1]) : "X";
                     String seatId = seatLabel + (row + 1);
 
-                    if (random.nextDouble() < 0.2) { // Randomly book ~20% of seats
+                    if (random.nextDouble() < 0.2) { 
                         bookedSeats.add(seatId);
                     }
                 }
@@ -65,7 +65,7 @@ public class SeatSelection {
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col < (leftSeats + rightSeats + 1); col++) {
                 if (col == leftSeats) {
-                    continue; // Skip aisle
+                    continue; 
                 }
 
                 String seatLabel = (col < seatLabels.length) ? String.valueOf(seatLabels[col < leftSeats ? col : col - 1]) : "X";
@@ -113,7 +113,6 @@ public class SeatSelection {
                     selectedSeats.add(seatButton);
                 }
             } else {
-                // Revert to original size for unselected state
                 seatButton.setStyle("-fx-min-width: 60px; -fx-min-height: 60px; " +
                         "-fx-background-color: green; -fx-border-radius: 10; -fx-background-radius: 10;");
                 selectedSeats.remove(seatButton);
@@ -162,8 +161,7 @@ public class SeatSelection {
         text.setStyle("-fx-font-size: 16px; -fx-fill: #721c24;");
         text.setWrappingWidth(300);
         textFlow.getChildren().add(text);
-
-        // Set content as TextFlow for wrapping
+        
         dialogPane.setContent(textFlow);
 
         Stage alertStage = (Stage) alert.getDialogPane().getScene().getWindow();
@@ -171,7 +169,7 @@ public class SeatSelection {
         alertStage.getScene().setFill(null);
         dialogPane.setStyle("-fx-background-color: #f8d7da; -fx-background-radius: 20; -fx-border-radius: 20;");
         dialogPane.setMinWidth(Region.USE_COMPUTED_SIZE);
-        dialogPane.setPrefWidth(350); // Set a preferred width
+        dialogPane.setPrefWidth(350); 
         dialogPane.setMaxWidth(400);
 
         alert.showAndWait();

@@ -129,7 +129,7 @@ public class FlightsController {
         } else {
             loginBtnFlights.setText("Login");
         }
-        loginBtnFlights.setMinWidth(Region.USE_COMPUTED_SIZE); // Allow resizing to fit content
+        loginBtnFlights.setMinWidth(Region.USE_COMPUTED_SIZE);
         loginBtnFlights.setPrefWidth(Region.USE_COMPUTED_SIZE);
         loginBtnFlights.setMaxWidth(Double.MAX_VALUE);
     }
@@ -322,10 +322,6 @@ public class FlightsController {
         loadThread.start();
     }
 
-
-
-
-
     public void updateFlightCards() {
         flightsContainer.getChildren().clear();
 
@@ -384,13 +380,11 @@ public class FlightsController {
     }
 
     private void addFlightCard(selectFlights.Flights flight) {
-        // Flight Card (VBox)
         VBox flightCard = createStyledVBox("flight-card", 10, 15);
         flightCard.setOnMouseEntered(event -> flightCard.setStyle("-fx-effect: dropshadow(gaussian, #888, 10, 0, 0, 0);"));
         flightCard.setOnMouseExited(event -> flightCard.setStyle("-fx-effect: none;"));
         flightCard.setOnMouseClicked(event -> showSeatSelection(flight));
 
-        // Flight Details
         HBox flightDetails = new HBox(20);
         flightDetails.setAlignment(Pos.CENTER);
 
@@ -402,13 +396,10 @@ public class FlightsController {
                 createArrivalSection(flight)
         );
 
-        // Pricing Section
         HBox pricingSection = createPricingSection(flight);
 
-        // Plane Info Section
         HBox planeInfoSection = createPlaneInfoSection(flight);
 
-        // Add to Flight Card
         flightCard.getChildren().addAll(
                 flightDetails,
                 createSeparator(),
@@ -434,7 +425,7 @@ public class FlightsController {
         departureTimeLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
 
         Label departureCityLabel = new Label(flight.departureCity);
-        departureCityLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: rgba(215, 25, 32, 0.8);"); // Corrected style
+        departureCityLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: rgba(215, 25, 32, 0.8);");
 
         departure.getChildren().addAll(departureTimeLabel, departureCityLabel);
 
@@ -463,7 +454,7 @@ public class FlightsController {
         arrivalTimeLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
 
         Label arrivalCityLabel = new Label(flight.arrivalCity);
-        arrivalCityLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: rgba(215, 25, 32, 0.8);"); // Custom color for arrival city
+        arrivalCityLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: rgba(215, 25, 32, 0.8);");
 
         arrival.getChildren().addAll(arrivalTimeLabel, arrivalCityLabel);
 
@@ -502,25 +493,21 @@ public class FlightsController {
 
         VBox pricing = new VBox(5);
 
-        // Add class type information
         Label classLabel = new Label(selectedClass + " Class");
         classLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
 
-        // Add passengers count information
         int totalPassengers = adults + children;
         String passengerText = totalPassengers + " Passenger" + (totalPassengers > 1 ? "s" : "");
         Label passengersLabel = new Label(passengerText);
         passengersLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: #555;");
 
-        // Add price information
         Label priceLabel = new Label("from " + getUpdatedPrice(flight));
         priceLabel.setStyle("-fx-font-size: 16px; -fx-text-fill: #D71920;");
 
-        // Create baggage allowance with a larger emoji
-        Text emoji = new Text("\uD83E\uDDF3 "); // Luggage emoji
+        Text emoji = new Text("\uD83E\uDDF3 ");
         emoji.setStyle("-fx-font-size: 24px; -fx-font-family: 'Segoe UI Emoji';");
 
-        Text baggageText = new Text("2x23kg"); // Default for Economy
+        Text baggageText = new Text("2x23kg");
         if (!"Economy".equals(selectedClass)) {
             baggageText.setText("2x50kg");
         }
@@ -528,7 +515,6 @@ public class FlightsController {
 
         TextFlow baggageTextFlow = new TextFlow(emoji, baggageText);
 
-        // Add all labels to the pricing section
         pricing.getChildren().addAll(classLabel, passengersLabel, priceLabel, baggageTextFlow);
 
         if ("Economy".equals(selectedClass)) {
@@ -571,9 +557,9 @@ public class FlightsController {
 
     private String getUpdatedPrice(selectFlights.Flights flight) {
         try {
-            double basePrice = parsePrice(flight.price); // Parse the base (Economy) price
-            double adjustedPricePerAdult = basePrice;   // Default is Economy
-            double adjustedPricePerChild = basePrice * 0.5; // 50% price for a child
+            double basePrice = parsePrice(flight.price);
+            double adjustedPricePerAdult = basePrice;
+            double adjustedPricePerChild = basePrice * 0.5;
 
             if ("Business".equals(selectedClass)) {
                 adjustedPricePerAdult *= 1.5;
@@ -588,7 +574,7 @@ public class FlightsController {
 
             double totalPrice = (adults * adjustedPricePerAdult) + (children * adjustedPricePerChild);
 
-            // Format the price to include currency (EGP)
+            
             return "EGP " + String.format("%.2f", totalPrice);
         } catch (Exception e) {
             return "Price not available";

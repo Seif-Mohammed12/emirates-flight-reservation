@@ -103,7 +103,7 @@ public class BookingConfirmation {
         }
 
         public static String generateBookingId() {
-            String airlineCode = "EK"; // Emirates code
+            String airlineCode = "EK"; 
             String datePart = LocalDate.now().format(DateTimeFormatter.ofPattern("ddMMyyyy"));
             String uniquePart = String.valueOf(System.currentTimeMillis()).substring(5);
 

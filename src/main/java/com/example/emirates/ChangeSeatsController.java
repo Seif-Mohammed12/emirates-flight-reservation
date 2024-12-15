@@ -110,7 +110,7 @@ public class ChangeSeatsController {
             if (node instanceof ToggleButton) {
                 ToggleButton seatButton = (ToggleButton) node;
 
-                // Mark booked seats as disabled
+                
                 if (bookedSeats.contains(seatButton.getText())) {
                     seatButton.setDisable(true);
                     seatButton.setStyle("-fx-background-color: red; -fx-min-width: 50px; -fx-min-height: 50px; " +
@@ -128,7 +128,7 @@ public class ChangeSeatsController {
                             seatButton.setStyle("-fx-min-width: 50px; -fx-min-height: 50px; " +
                                     "-fx-background-color: blue; -fx-border-radius: 10; -fx-background-radius: 10;");
                         } else {
-                            seatButton.setSelected(false); // Deselect if limit exceeded
+                            seatButton.setSelected(false); 
                             showStyledAlert("You cannot select more than " + totalPassengers + " seats.",
                                     (Stage) confirmChangeButton.getScene().getWindow());
                         }
@@ -202,12 +202,12 @@ public class ChangeSeatsController {
             newSeats.append(seatButton.getText()).append(", ");
         }
 
-        // Remove the trailing comma and space
+        
         if (newSeats.length() > 0) {
             newSeats.setLength(newSeats.length() - 2);
         }
 
-        // Update the current booking with the new seat selection
+        
         currentBooking.getPassenger().setSeat(newSeats.toString());
         showSuccessAlert("Seats successfully changed to: " + newSeats, stage);
         handleCancelChange();
@@ -264,7 +264,7 @@ public class ChangeSeatsController {
 
         TextFlow textFlow = new TextFlow();
         Text text = new Text(message);
-        text.setWrappingWidth(300); // Wrap the text for better readability
+        text.setWrappingWidth(300); 
         textFlow.getChildren().add(text);
         dialogPane.setContent(textFlow);
 

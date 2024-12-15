@@ -5,59 +5,59 @@
 }
 
 
-/* General Card Styling */
+
 #cardContainer {
-    -fx-background-color: rgba(255, 255, 255, 0.75); /* Soft semi-transparent background */
-    -fx-background-radius: 20; /* Rounded corners for a modern look */
+    -fx-background-color: rgba(255, 255, 255, 0.75); 
+    -fx-background-radius: 20; 
     -fx-padding: 20;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 20, 0.5, 0, 0);
     -fx-border-color: rgba(215, 25, 32, 0.6);
     -fx-border-width: 2;
-    -fx-border-radius: 20; /* Same as background for seamless flow */
-    -fx-background-insets: 0, 5; /* Add subtle layering for depth */
+    -fx-border-radius: 20; 
+    -fx-background-insets: 0, 5; 
 }
 
-/* Header Label Styling */
+
 #headerLabel {
-    -fx-font-size: 28px; /* Larger for prominence */
+    -fx-font-size: 28px; 
     -fx-font-family: 'Roboto Bold', 'Arial Bold', sans-serif;
     -fx-text-fill: #d71920;
     -fx-alignment: center;
     -fx-padding: 10;
-    -fx-effect: dropshadow(gaussian, rgba(215, 25, 32, 0.4), 4, 0.5, 0, 2); /* Soft shadow for pop */
+    -fx-effect: dropshadow(gaussian, rgba(215, 25, 32, 0.4), 4, 0.5, 0, 2); 
 }
 
-/* Separator */
+
 #headerSeparator {
-    -fx-background-color: rgba(215, 25, 32, 0.5); /* Semi-transparent red */
+    -fx-background-color: rgba(215, 25, 32, 0.5); 
 }
 
-/* Section Headers */
+
 #flightDetailsHeader, #passengerDetailsHeader, #seatDetailsHeader {
-    -fx-font-size: 20px; /* Increased size for section headers */
+    -fx-font-size: 20px; 
     -fx-font-family: 'Roboto Bold', 'Arial Bold', sans-serif;
     -fx-text-fill: #333;
-    -fx-padding: 8 12; /* Add space around section headers */
-    -fx-background-color: rgba(0, 0, 0, 0.05); /* Light transparent background for separation */
-    -fx-border-color: rgba(0, 0, 0, 0.1); /* Subtle border for elegance */
+    -fx-padding: 8 12; 
+    -fx-background-color: rgba(0, 0, 0, 0.05); 
+    -fx-border-color: rgba(0, 0, 0, 0.1); 
     -fx-border-width: 1;
     -fx-border-radius: 8;
     -fx-background-radius: 8;
 }
 
-/* Grid Styling */
+
 #flightDetailsGrid, #passengerDetailsGrid {
     -fx-padding: 10;
 }
 
-/* Text Styling */
+
 #flightNumberText, #departureCityText, #arrivalCityText, #departureTimeText,
 #arrivalTimeText, #durationText, #stopsText, #priceText,
 #passengerNameText, #contactEmailText, #departureDateText, #returnDateText, #selectedClassText, #passengerCountText {
-    -fx-font-size: 18px; /* Slightly larger text */
+    -fx-font-size: 18px; 
     -fx-font-family: 'Roboto', 'Arial', sans-serif;
-    -fx-font-weight: bold; /* Emphasize text */
-    -fx-text-fill: #444; /* Neutral color for text */
+    -fx-font-weight: bold; 
+    -fx-text-fill: #444; 
 }
 
 #flightNumberLabel, #departureCityLabel, #arrivalCityLabel, #departureTimeLabel,
@@ -66,10 +66,10 @@
     -fx-font-size: 16px;
     -fx-font-weight: bold;
     -fx-font-family: 'Roboto', 'Arial', sans-serif;
-    -fx-text-fill: #555; /* Muted text for readability */
+    -fx-text-fill: #555; 
 }
 
-/* Seat Details Section */
+
 #selectedSeatLabel {
     -fx-font-size: 16px;
     -fx-font-family: 'Roboto', 'Arial', sans-serif;
@@ -77,21 +77,21 @@
     -fx-wrap-text: true;
 }
 
-/* Confirmation Button Styling */
+
 #proceedButton, #goBackButton {
-    -fx-background-color: linear-gradient(to bottom, #d71920, #a31512); /* Subtle gradient */
+    -fx-background-color: linear-gradient(to bottom, #d71920, #a31512); 
     -fx-text-fill: white;
     -fx-font-family: 'Roboto Bold', 'Arial Bold', sans-serif;
-    -fx-font-size: 18px; /* Larger and bold for visibility */
+    -fx-font-size: 18px; 
     -fx-background-radius: 10;
-    -fx-padding: 12; /* Increased padding for a more clickable button */
-    -fx-cursor: hand; /* Indicate interactivity */
-    -fx-effect: dropshadow(gaussian, rgba(215, 25, 32, 0.4), 10, 0.3, 0, 2); /* Subtle shadow for depth */
+    -fx-padding: 12; 
+    -fx-cursor: hand; 
+    -fx-effect: dropshadow(gaussian, rgba(215, 25, 32, 0.4), 10, 0.3, 0, 2); 
 }
 
 
-/* Card Interaction: Hover Effects */
+
 #cardContainer:hover {
-    -fx-background-color: rgba(255, 255, 255, 0.85); /* Slightly brighter on hover */
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 30, 0.7, 0, 0); /* More prominent shadow */
+    -fx-background-color: rgba(255, 255, 255, 0.85); 
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 30, 0.7, 0, 0); 
 }

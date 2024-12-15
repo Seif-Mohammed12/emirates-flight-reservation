@@ -172,40 +172,33 @@ public class RegistrationController {
     private void showSuccessAlert(String message, Stage owner) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Success");
-        alert.setContentText(null); // Prevent the default text content
+        alert.setContentText(null);
         alert.initOwner(owner);
         alert.initModality(Modality.APPLICATION_MODAL);
 
-        // Customize DialogPane
         DialogPane dialogPane = alert.getDialogPane();
         dialogPane.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         dialogPane.getStyleClass().add("success-dialog");
         dialogPane.setHeaderText(null);
 
-        // Create a TextFlow for text wrapping
         TextFlow textFlow = new TextFlow();
-        textFlow.setMaxWidth(400); // Restrict the width of the text flow
-        textFlow.setPrefWidth(400); // Set preferred width
+        textFlow.setMaxWidth(400);
+        textFlow.setPrefWidth(400);
 
         Text text = new Text(message);
-        text.setWrappingWidth(380); // Slightly smaller than TextFlow width for padding
+        text.setWrappingWidth(380);
         textFlow.getChildren().add(text);
-
-        // Set the TextFlow as the dialog content
         dialogPane.setContent(textFlow);
 
-        // Style dialog pane
         dialogPane.setStyle("-fx-background-color: #d4edda; -fx-background-radius: 20; -fx-border-radius: 20; " +
                 "-fx-border-color: #388e3c; -fx-border-width: 2px;");
 
         alert.setHeaderText(null);
         alert.setGraphic(null);
 
-        // Ensure the dialog has a nice compact size
         dialogPane.setPrefWidth(420);
         dialogPane.setMaxWidth(420);
 
-        // Make the dialog background transparent
         Stage alertStage = (Stage) alert.getDialogPane().getScene().getWindow();
         alertStage.initStyle(StageStyle.TRANSPARENT);
         alertStage.getScene().setFill(null);

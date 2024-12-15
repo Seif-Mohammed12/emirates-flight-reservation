@@ -26,7 +26,7 @@ public class selectFlights {
             this.price = price;
         }
 
-        // Getters
+        
         public String getFlightNo() {
             return flightNo;
         }

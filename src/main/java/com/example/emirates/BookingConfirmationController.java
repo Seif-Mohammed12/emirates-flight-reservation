@@ -147,7 +147,7 @@ public class BookingConfirmationController {
             ((Pane) currentRoot).getChildren().add(overlay);
             overlay.setVisible(true);
 
-            // Load the SeatSelection.fxml
+            
             FXMLLoader loader = new FXMLLoader(getClass().getResource("SeatSelection.fxml"));
             Parent seatSelectionPage = loader.load();
 
@@ -181,7 +181,7 @@ public class BookingConfirmationController {
 
             fadeOut.play();
             overlay.setVisible(false);
-            ((Pane) currentRoot).getChildren().remove(overlay); // Clean up the overlay
+            ((Pane) currentRoot).getChildren().remove(overlay); 
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -1,4 +1,4 @@
-/* Root container background with the Emirates background image */
+
 .root {
     -fx-background-image: url('/pexels-suissounet-20848201.jpg');
     -fx-background-size: cover;
@@ -6,16 +6,16 @@
     -fx-padding: 20;
 }
 
-/* Header label styling */
+
 .header-label {
     -fx-text-fill: #d71920;
     -fx-padding: 10 0 20 0;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.7), 4, 0, 0, 2);
 }
 
-/* Booking card container (VBox) */
+
 .vbox-container {
-    -fx-background-color: rgba(255, 255, 255, 0.7); /* Semi-transparent white */
+    -fx-background-color: rgba(255, 255, 255, 0.7); 
     -fx-background-radius: 15;
     -fx-border-color: rgba(220, 220, 220, 0.8);
     -fx-border-width: 1;
@@ -25,24 +25,24 @@
     -fx-opacity: 0.95;
 }
 
-/* Individual booking details box */
+
 .booking-card {
-    -fx-background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent white */
+    -fx-background-color: rgba(255, 255, 255, 0.5); 
     -fx-padding: 10;
     -fx-border-radius: 10;
     -fx-background-radius: 10;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0, 0, 1);
 }
 
-/* Booking ID styling */
+
 .booking-id {
     -fx-font-size: 20px;
     -fx-font-weight: bold;
-    -fx-text-fill: #d71920; /* Emirates red */
+    -fx-text-fill: #d71920; 
     -fx-padding: 5 0 5 0;
 }
 
-/* Booking details text styling */
+
 .booking-details {
     -fx-font-size: 18px;
     -fx-font-weight: bold;
@@ -50,9 +50,9 @@
     -fx-line-spacing: 4px;
 }
 
-/* Button styling */
+
 .button {
-    -fx-background-color: linear-gradient(to bottom, #0072bc, #005fa3); /* Emirates blue */
+    -fx-background-color: linear-gradient(to bottom, #0072bc, #005fa3); 
     -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-font-size: 18px;
@@ -63,18 +63,18 @@
 }
 
 .button:hover {
-    -fx-background-color: linear-gradient(to bottom, #005fa3, #004d84); /* Darker on hover */
+    -fx-background-color: linear-gradient(to bottom, #005fa3, #004d84); 
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.6), 6, 0, 0, 3);
 }
 
 .button:pressed {
-    -fx-background-color: #004080; /* Solid darker blue */
+    -fx-background-color: #004080; 
     -fx-effect: none;
 }
 #seperator{
-    -fx-border-color: #d71920; /* Set the color (Emirates red in this example) */
-    -fx-border-width: 0 0 3px 0; /* Adjust thickness */
-    -fx-border-style: solid; /* Ensure solid border */
+    -fx-border-color: #d71920; 
+    -fx-border-width: 0 0 3px 0; 
+    -fx-border-style: solid; 
 
 }
 .instruction-label {
@@ -84,13 +84,13 @@
 }
 
 .warning-label {
-    -fx-text-fill: #d71920; /* Emirates red */
+    -fx-text-fill: #d71920; 
     -fx-wrap-text: true;
     -fx-padding: 10 20;
 }
 
 .button-cancel {
-    -fx-background-color: #d71920; /* Emirates red */
+    -fx-background-color: #d71920; 
     -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-font-size: 14px;
@@ -100,9 +100,9 @@
 }
 
 .button-cancel:hover {
-    -fx-background-color: #b7181d; /* Darker red for hover */
+    -fx-background-color: #b7181d; 
 }
 
 .button-cancel:pressed {
-    -fx-background-color: #950f14; /* Even darker red for pressed */
+    -fx-background-color: #950f14; 
 }

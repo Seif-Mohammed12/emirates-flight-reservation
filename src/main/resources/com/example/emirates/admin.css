@@ -1,20 +1,20 @@
-/* Root styling */
+
 .root {
-    -fx-background-image: url("/adminpic.jpg"); /* Path to your background image */
+    -fx-background-image: url("/adminpic.jpg");
     -fx-background-size: cover;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
 }
 
-/* Admin dashboard container */
+
 .admin-dashboard {
-    -fx-padding: 50px; /* Spacious padding */
+    -fx-padding: 50px; 
     -fx-spacing: 30px;
     -fx-alignment: center;
-    -fx-background-color: rgba(255, 255, 255, 0.6); /* Semi-transparent white */
-    -fx-background-radius: 15px; /* Rounded corners for smoothness */
+    -fx-background-color: rgba(255, 255, 255, 0.6); 
+    -fx-background-radius: 15px; 
     -fx-border-radius: 15px;
-    -fx-border-color: rgba(255, 255, 255, 0.3); /* Subtle border to blend */
+    -fx-border-color: rgba(255, 255, 255, 0.3); 
     -fx-border-width: 1px;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 10, 0.3, 0, 3);
 }
@@ -25,30 +25,30 @@
     -fx-underline: true;
 }
 
-/* Buttons styling */
+
 .admin-button {
-    -fx-background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black for buttons */
-    -fx-text-fill: #ffffff; /* White text for contrast */
+    -fx-background-color: rgba(0, 0, 0, 0.6); 
+    -fx-text-fill: #ffffff; 
     -fx-font-size: 16px;
     -fx-font-weight: bold;
     -fx-padding: 12px 40px;
     -fx-border-radius: 8px;
     -fx-background-radius: 8px;
-    -fx-pref-width: 260px; /* Consistent width */
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0.5, 0, 2); /* Subtle shadow */
+    -fx-pref-width: 260px; 
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0.5, 0, 2); 
 }
 
 .admin-button:hover {
-    -fx-background-color: rgba(0, 0, 0, 0.8); /* Darker black on hover */
+    -fx-background-color: rgba(0, 0, 0, 0.8); 
     -fx-cursor: hand;
 }
 
 .admin-button:pressed {
-    -fx-background-color: rgba(0, 0, 0, 1); /* Solid black for press state */
+    -fx-background-color: rgba(0, 0, 0, 1); 
 
 }
 
-/* Footer Section */
+
 .dashboard-footer {
     -fx-padding: 10px;
     -fx-background-color: rgba(0, 0, 0, 0.6);
@@ -80,12 +80,12 @@
     -fx-background-color: rgba(255, 255, 255, 0.9);
 }
 
-/* Dashboard Container Hover */
+
 .admin-dashboard:hover {
     -fx-background-color: rgba(255, 255, 255, 0.7);
 }
 
-/* Dashboard Footer Hover */
+
 .dashboard-footer:hover {
     -fx-background-color: rgba(0, 0, 0, 0.7);
 }
@@ -133,25 +133,25 @@
     -fx-min-height: 60px;
     -fx-pref-height: 60px;
     -fx-background-color: rgba(30, 30, 30, 0.85);
-    -fx-text-fill: white; /* White text */
+    -fx-text-fill: white; 
     -fx-font-size: 18px;
-    -fx-border-radius: 10; /* Rounded corners */
+    -fx-border-radius: 10; 
     -fx-background-radius: 10;
 }
 
-/* Hover Effect for Default State */
+
 #loginBtnAdmin:hover {
-    -fx-background-color: #555; /* Slightly lighter on hover */
-    -fx-text-fill: #FFD700; /* Highlight text with Emirates gold */
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 8, 0.0, 0, 3); /* Subtle shadow */
-    -fx-scale-x: 1.05; /* Slight zoom on hover */
+    -fx-background-color: #555; 
+    -fx-text-fill: #FFD700; 
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 8, 0.0, 0, 3); 
+    -fx-scale-x: 1.05; 
     -fx-scale-y: 1.05;
     -fx-cursor: hand;
 }
 
-/* Pressed Effect */
+
 #loginBtnAdmin:pressed {
-    -fx-background-color: #444; /* Darker background on press */
-    -fx-scale-x: 1.0; /* Restore scale on press */
+    -fx-background-color: #444; 
+    -fx-scale-x: 1.0; 
     -fx-scale-y: 1.0;
 }

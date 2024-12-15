@@ -70,7 +70,7 @@ public class FlightsearchController {
 
     private final Random random = new Random();
     private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-    private List<selectFlights.Flights> filteredFlights; // Store the filtered flights
+    private List<selectFlights.Flights> filteredFlights; 
     private int currentFlightIndex = -1;
 
     public void initialize() {
@@ -145,16 +145,16 @@ public class FlightsearchController {
 
         Stage currentStage = (Stage) departureCityField.getScene().getWindow();
 
-        // Validate input fields
+        
         if (departureCity.isEmpty() || arrivalCity.isEmpty()) {
             showStyledAlert("Please fill in both departure city and arrival city.", currentStage);
             return;
         }
 
-        // Fetch matching flights
+        
         filteredFlights = flightSearch.searchByRoute(departureCity, arrivalCity);
 
-        // Handle no results
+        
         if (filteredFlights.isEmpty()) {
             showStyledAlert("No flights found from " + departureCity + " to " + arrivalCity + ".", currentStage);
             flightDetailsBox.setVisible(false);
@@ -190,7 +190,7 @@ public class FlightsearchController {
             currentFlightIndex--;
             displayFlightDetails(filteredFlights.get(currentFlightIndex));
 
-            // Update button states
+            
             previousFlightButton.setDisable(currentFlightIndex == 0);
             nextFlightButton.setDisable(currentFlightIndex == filteredFlights.size() - 1);
         }
@@ -202,7 +202,7 @@ public class FlightsearchController {
             currentFlightIndex++;
             displayFlightDetails(filteredFlights.get(currentFlightIndex));
 
-            // Update button states
+            
             previousFlightButton.setDisable(currentFlightIndex == 0);
             nextFlightButton.setDisable(currentFlightIndex == filteredFlights.size() - 1);
         }

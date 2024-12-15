@@ -108,18 +108,18 @@ public class UpdateFlightController {
     private void addTimeFormatter(TextField timeField) {
         timeField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (isUpdatingTime) {
-                return; // Prevent recursive updates
+                return;
             }
             try {
-                isUpdatingTime = true; // Set the flag to prevent recursion
+                isUpdatingTime = true;
 
                 if (newValue.length() > oldValue.length()) {
                     if (newValue.matches("\\d{1,2}") && newValue.length() == 2 && !newValue.contains(":")) {
                         timeField.setText(newValue + ":");
-                        timeField.positionCaret(3); // Move caret after the colon
+                        timeField.positionCaret(3); 
                     } else if (newValue.matches("\\d{1,2}:\\d{2}") && newValue.length() == 5) {
                         timeField.setText(newValue + " ");
-                        timeField.positionCaret(6); // Move caret after the space
+                        timeField.positionCaret(6); 
                     } else if (newValue.matches("\\d{1,2}:\\d{2} (A|P|a|p)")) {
                         timeField.setText(newValue.toUpperCase() + "M");
                         timeField.positionCaret(newValue.length() + 1);
@@ -243,7 +243,7 @@ public class UpdateFlightController {
                 }
             }
 
-            // If no flight is found
+            
             statusLabel.setText("Flight not found.");
             showStyledAlert("Error: No flight found with the provided flight number.", (Stage) flightNoField.getScene().getWindow());
 
@@ -279,8 +279,7 @@ public class UpdateFlightController {
         String duration = durationField.getText().trim();
         String arrivalAdjustment = arrivalAdjustmentComboBox.getValue() != null ? arrivalAdjustmentComboBox.getValue() : "Same Day";
         String updatedPrice = Admin.formatPrice(priceField.getText().trim());
-
-        // Validate required fields
+        
         if (flightNo.isEmpty() || departureCity.isEmpty() || departureCode.isEmpty() ||
                 arrivalCity.isEmpty() || arrivalCode.isEmpty() || departureTime.isEmpty() ||
                 arrivalTime.isEmpty() || duration.isEmpty() || updatedPrice.isEmpty() || selectedAircraft == null) {

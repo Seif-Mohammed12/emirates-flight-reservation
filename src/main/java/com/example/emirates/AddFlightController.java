@@ -61,7 +61,6 @@
 
         @FXML
         public void initialize() {
-            // Initialize MenuButton and track selected aircraft
             for (MenuItem item : aircraftMenuButton.getItems()) {
                 item.setOnAction(event -> {
                     selectedAircraft = item.getText();
@@ -101,18 +100,18 @@
         private void addTimeFormatter(TextField timeField) {
             timeField.textProperty().addListener((observable, oldValue, newValue) -> {
                 if (isUpdatingTime) {
-                    return; // Prevent recursive updates
+                    return; 
                 }
                 try {
-                    isUpdatingTime = true; // Set the flag to prevent recursion
+                    isUpdatingTime = true; 
 
                     if (newValue.length() > oldValue.length()) {
                         if (newValue.matches("\\d{1,2}") && newValue.length() == 2 && !newValue.contains(":")) {
                             timeField.setText(newValue + ":");
-                            timeField.positionCaret(3); // Move caret after the colon
+                            timeField.positionCaret(3); 
                         } else if (newValue.matches("\\d{1,2}:\\d{2}") && newValue.length() == 5) {
                             timeField.setText(newValue + " ");
-                            timeField.positionCaret(6); // Move caret after the space
+                            timeField.positionCaret(6); 
                         } else if (newValue.matches("\\d{1,2}:\\d{2} (A|P|a|p)")) {
                             timeField.setText(newValue.toUpperCase() + "M");
                             timeField.positionCaret(newValue.length() + 1);
@@ -221,7 +220,6 @@
             System.out.println("Add Flight button clicked");
 
             try {
-                // Validate fields
                 if (flightNumberField.getText().isEmpty() || departureCityField.getText().isEmpty()
                         || departureAirportCodeField.getText().isEmpty() || arrivalCityField.getText().isEmpty()
                         || arrivalAirportCodeField.getText().isEmpty() || departureTimeField.getText().isEmpty()
@@ -233,7 +231,6 @@
                     return;
                 }
 
-                // Retrieve values
                 String flightNo = flightNumberField.getText();
                 String departureCity = departureCityField.getText();
                 String departureAirportCode = departureAirportCodeField.getText();
@@ -273,16 +270,13 @@
                 Stage stage = (Stage) flightNumberField.getScene().getWindow();
                 Scene currentScene = stage.getScene();
 
-                // Create a fade-out transition for the current scene
                 FadeTransition fadeOut = new FadeTransition(Duration.millis(500), currentScene.getRoot());
                 fadeOut.setFromValue(1.0);
                 fadeOut.setToValue(0.0);
 
                 fadeOut.setOnFinished(e -> {
-                    // Set the new root to adminPage
                     currentScene.setRoot(adminPage);
 
-                    // Create a fade-in transition for the new scene
                     FadeTransition fadeIn = new FadeTransition(Duration.millis(500), adminPage);
                     fadeIn.setFromValue(0.0);
                     fadeIn.setToValue(1.0);

@@ -38,7 +38,7 @@ public class AppContext {
     }
 
     public static List<BookingConfirmation.Booking> getBookings() {
-        return new ArrayList<>(bookings); // Return a copy to prevent modification
+        return new ArrayList<>(bookings); 
     }
 
     public static boolean hasBookings() {
@@ -64,7 +64,7 @@ public class AppContext {
         loggedInUsername = username;
     }
 
-    // Getter and setter for loggedInFirstName
+    
     public static String getLoggedInFirstName() {
         return loggedInFirstName;
     }

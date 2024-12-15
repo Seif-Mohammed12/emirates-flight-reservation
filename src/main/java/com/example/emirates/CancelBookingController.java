@@ -104,7 +104,7 @@ public class CancelBookingController {
 
         AppContext.clearBookings();
 
-        // Display refund information
+        
         showSuccessAlert("Your booking has been successfully cancelled.\n" +
                         "Refund Amount: EGP " + String.format("%.2f", refundAmount),
                 (Stage) cancelBookingButton.getScene().getWindow());
@@ -193,7 +193,7 @@ public class CancelBookingController {
         dialogPane.setStyle("-fx-background-color: #f8f9fa; -fx-background-radius: 20; -fx-border-radius: 20;" +
                 "-fx-border-color: rgba(220, 220, 220, 0.8); -fx-padding: 20;");
 
-        alert.initOwner(parentStage); // Set the parent stage explicitly
+        alert.initOwner(parentStage); 
         Stage alertStage = (Stage) dialogPane.getScene().getWindow();
         alertStage.initModality(Modality.WINDOW_MODAL);
         alertStage.initStyle(StageStyle.UNDECORATED);
