@@ -1,81 +1,96 @@
-EK506,Houston (IAH),Dubai (DXB),08:00 PM,11:30 PM,14 hrs 30 mins,Non-stop,B777,EGP 48500.00
-EK514,Dallas (DFW),Dubai (DXB),06:45 PM,09:30 PM,15 hrs 45 mins,Non-stop,A380,EGP 53000.00
-EK233,Doha (DOH),Dubai (DXB),06:00 AM,07:15 AM,1 hr 15 mins,Non-stop,B777,EGP 22500.00
-EK302,Los Angeles (LAX),Dubai (DXB),11:00 PM,07:00 PM,16 hrs 0 mins,Non-stop,A380,EGP 54500.00
-EK501,Kuwait (KWI),Dubai (DXB),12:15 PM,01:30 PM,1 hr 15 mins,Non-stop,B777,EGP 17500.00
-EK330,Bangkok (BKK),Dubai (DXB),10:00 PM,04:10 AM,6 hrs 10 mins,Non-stop,A380,EGP 38000.00
-EK121,Shanghai (PVG),Dubai (DXB),10:30 AM,04:30 PM,8 hrs 0 mins,Non-stop,B777,EGP 43500.00
-EK720,Ahmedabad (AMD),Dubai (DXB),03:30 AM,05:30 AM,3 hrs 0 mins,Non-stop,B777,EGP 22800.00
-EK417,Chicago (ORD),Dubai (DXB),07:00 PM,12:30 PM,12 hrs 30 mins,Non-stop,A380,EGP 44500.00
-EK658,Delhi (DEL),Dubai (DXB),06:00 AM,09:15 AM,3 hrs 15 mins,Non-stop,B777,EGP 24500.00
-EK520,San Francisco (SFO),Dubai (DXB),05:40 PM,09:50 PM,16 hrs 10 mins,Non-stop,B777,EGP 53000.00
-EK925,Cairo (CAI),Dubai (DXB),08:30 AM,01:45 PM,3 hrs 15 mins,Non-stop,B777,EGP 30500.00
-EK809,Abu Dhabi (AUH),Dubai (DXB),01:30 PM,02:00 PM,0 hrs 30 mins,Non-stop,B777,EGP 17000.00
-EK138,New York (JFK),Dubai (DXB),12:00 PM,10:00 PM,12 hrs 0 mins,Non-stop,A380,EGP 48000.00
-EK181,Sydney (SYD),Dubai (DXB),03:30 PM,10:30 PM,14 hrs 0 mins,Non-stop,A380,EGP 49500.00
-EK528,Miami (MIA),Dubai (DXB),09:30 AM,07:00 PM,16 hrs 30 mins,Non-stop,B777,EGP 55000.00
-EK672,Chennai (MAA),Dubai (DXB),08:30 AM,11:30 AM,3 hrs 0 mins,Non-stop,B777,EGP 26500.00
-EK251,Bangalore (BLR),Dubai (DXB),10:00 PM,01:00 AM,3 hrs 0 mins,Non-stop,A380,EGP 28500.00
-EK336,Delhi (DEL),Dubai (DXB),11:00 PM,02:00 AM,3 hrs 0 mins,Non-stop,B777,EGP 23000.00
-EK508,Los Angeles (LAX),Dubai (DXB),10:00 AM,07:30 PM,15 hrs 30 mins,Non-stop,A380,EGP 51800.00
-EK231,Bahrain (BAH),Dubai (DXB),07:30 AM,08:00 AM,0 hrs 30 mins,Non-stop,B777,EGP 18500.00
-EK155,Frankfurt (FRA),Dubai (DXB),09:00 AM,05:00 PM,6 hrs 0 mins,Non-stop,A380,EGP 39000.00
-EK716,Lahore (LHE),Dubai (DXB),05:30 AM,08:00 AM,3 hrs 30 mins,Non-stop,B777,EGP 25500.00
-EK826,Amman (AMM),Dubai (DXB),07:00 PM,11:30 PM,3 hrs 30 mins,Non-stop,B777,EGP 30000.00
-EK337,Sydney (SYD),Dubai (DXB),10:00 PM,06:20 AM,13 hrs 20 mins,Non-stop,A380,EGP 49500.00
-EK522,Doha (DOH),Dubai (DXB),09:00 PM,10:00 PM,1 hr 0 mins,Non-stop,B777,EGP 21500.00
-EK319,Johannesburg (JNB),Dubai (DXB),10:30 PM,08:00 AM,8 hrs 30 mins,Non-stop,A380,EGP 43000.00
-EK672,Muscat (MCT),Dubai (DXB),12:00 PM,12:40 PM,0 hrs 40 mins,Non-stop,B777,EGP 23500.00
-EK182,Seoul (ICN),Dubai (DXB),11:30 AM,08:00 PM,8 hrs 30 mins,Non-stop,A380,EGP 39500.00
-EK203,Dubai (DXB),Los Angeles (LAX),03:30 PM,02:30 PM,16 hrs 0 mins,Non-stop,A380,EGP 55500.00
-EK518,Houston (IAH),Dubai (DXB),06:00 PM,10:00 PM,16 hrs 0 mins,Non-stop,B777,EGP 51500.00
-EK725,Abu Dhabi (AUH),Dubai (DXB),11:30 AM,12:00 PM,0 hrs 30 mins,Non-stop,B777,EGP 18000.00
-EK233,Johannesburg (JNB),Dubai (DXB),08:30 PM,05:30 AM,9 hrs 0 mins,Non-stop,A380,EGP 42800.00
-EK300,Dubai (DXB),Paris (CDG),09:30 AM,02:10 PM,7 hrs 40 mins,Non-stop,A380,EGP 35000.00
-EK104,Dubai (DXB),London (LHR),03:20 PM,08:00 PM,7 hrs 40 mins,Non-stop,A380,EGP 37000.00
-EK200,Dubai (DXB),Istanbul (IST),11:15 PM,03:30 AM,4 hrs 15 mins,Non-stop,B777,EGP 24000.00
-EK412,Dubai (DXB),Melbourne (MEL),10:40 AM,07:00 AM,13 hrs 20 mins,Non-stop,A380,EGP 47000.00
-EK711,Dubai (DXB),Singapore (SIN),08:45 AM,08:15 PM,7 hrs 30 mins,Non-stop,A380,EGP 33000.00
-EK601,Dubai (DXB),Karachi (KHI),01:00 PM,03:15 PM,2 hrs 15 mins,Non-stop,B777,EGP 18000.00
-EK817,Dubai (DXB),Riyadh (RUH),10:00 PM,11:50 PM,1 hr 50 mins,Non-stop,B777,EGP 20000.00
-EK902,Dubai (DXB),Cairo (CAI),01:30 AM,03:50 AM,3 hrs 20 mins,Non-stop,B777,EGP 29000.00
-EK440,Dubai (DXB),Auckland (AKL),10:05 PM,02:55 PM,17 hrs 50 mins,Non-stop,A380,EGP 60000.00
-EK412,Dubai (DXB),Brisbane (BNE),08:50 AM,05:30 AM,14 hrs 40 mins,Non-stop,A380,EGP 50000.00
-EK521,Dubai (DXB),Mumbai (BOM),12:30 PM,05:40 PM,3 hrs 40 mins,Non-stop,B777,EGP 24000.00
-EK434,Dubai (DXB),Christchurch (CHC),08:45 PM,12:15 PM,16 hrs 30 mins,Non-stop,A380,EGP 59000.00
-EK818,Riyadh (RUH),Dubai (DXB),02:30 AM,04:40 AM,2 hrs 10 mins,Non-stop,B777,EGP 18500.00
-EK931,Dubai (DXB),Jeddah (JED),05:30 AM,07:10 AM,1 hr 40 mins,Non-stop,B777,EGP 21000.00
-EK990,Dubai (DXB),Muscat (MCT),10:00 AM,10:55 AM,0 hrs 55 mins,Non-stop,B777,EGP 16000.00
-EK148,Dubai (DXB),Amsterdam (AMS),02:30 PM,08:30 PM,7 hrs 0 mins,Non-stop,A380,EGP 39000.00
-EK245,Dubai (DXB),Buenos Aires (EZE),08:10 AM,09:00 PM,16 hrs 50 mins,Non-stop,A380,EGP 61000.00
-EK703,Dubai (DXB),Mauritius (MRU),02:10 AM,10:45 AM,6 hrs 35 mins,Non-stop,A380,EGP 35000.00
-EK608,Dubai (DXB),Karachi (KHI),03:30 PM,05:45 PM,2 hrs 15 mins,Non-stop,B777,EGP 18500.00
-EK335,Dubai (DXB),Osaka (KIX),09:15 AM,10:40 PM,7 hrs 25 mins,Non-stop,B777,EGP 36000.00
-EK509,Dubai (DXB),Hyderabad (HYD),01:00 PM,04:15 PM,3 hrs 45 mins,Non-stop,B777,EGP 22000.00
-EK229,Dubai (DXB),Seattle (SEA),09:30 AM,12:55 PM,15 hrs 25 mins,Non-stop,A380,EGP 57000.00
-EK221,Dubai (DXB),Dallas (DFW),02:30 AM,08:40 AM,16 hrs 10 mins,Non-stop,A380,EGP 52500.00
-EK231,Dubai (DXB),Washington (IAD),12:20 PM,06:10 PM,14 hrs 50 mins,Non-stop,A380,EGP 49000.00
-EK225,Dubai (DXB),San Francisco (SFO),08:30 AM,12:50 PM,16 hrs 20 mins,Non-stop,A380,EGP 54000.00
-EK241,Dubai (DXB),Toronto (YYZ),03:30 PM,09:00 PM,14 hrs 30 mins,Non-stop,A380,EGP 51000.00
-EK221,Dubai (DXB),Chicago (ORD),12:05 AM,08:45 AM,14 hrs 40 mins,Non-stop,A380,EGP 48500.00
-EK232,Dubai (DXB),Johannesburg (JNB),02:00 PM,08:30 PM,8 hrs 30 mins,Non-stop,A380,EGP 43000.00
-EK705,Dubai (DXB),Dar es Salaam (DAR),10:40 AM,02:50 PM,4 hrs 10 mins,Non-stop,B777,EGP 27500.00
-EK721,Dubai (DXB),Entebbe (EBB),08:45 AM,12:45 PM,4 hrs 0 mins,Non-stop,B777,EGP 26500.00
-EK943,Dubai (DXB),Doha (DOH),11:20 AM,12:30 PM,1 hr 10 mins,Non-stop,B777,EGP 21500.00
-EK723,Dubai (DXB),Abu Dhabi (AUH),09:00 AM,09:30 AM,0 hrs 30 mins,Non-stop,B777,EGP 17000.00
-EK310,Dubai (DXB),Beijing (PEK),10:15 AM,10:20 PM,7 hrs 5 mins,Non-stop,A380,EGP 46000.00
-EK314,Dubai (DXB),Tokyo (NRT),11:05 PM,01:10 PM,9 hrs 5 mins,Non-stop,A380,EGP 49500.00
-EK524,Dubai (DXB),Delhi (DEL),04:10 AM,09:30 AM,3 hrs 50 mins,Non-stop,B777,EGP 30000.00
-EK516,Dubai (DXB),Mumbai (BOM),03:45 PM,08:25 PM,3 hrs 40 mins,Non-stop,B777,EGP 24500.00
-EK502,Dubai (DXB),Bangkok (BKK),08:00 PM,07:10 AM,7 hrs 10 mins,Non-stop,A380,EGP 37500.00
-EK801,Dubai (DXB),Kuwait City (KWI),09:45 AM,10:40 AM,1 hr 55 mins,Non-stop,B777,EGP 18000.00
-EK920,Dubai (DXB),Cairo (CAI),08:15 PM,10:45 PM,3 hrs 30 mins,Non-stop,B777,EGP 29000.00
-EK731,Dubai (DXB),Lagos (LOS),03:30 PM,09:10 PM,7 hrs 40 mins,Non-stop,B777,EGP 42000.00
-EK714,Dubai (DXB),Cape Town (CPT),02:10 AM,11:30 AM,9 hrs 20 mins,Non-stop,A380,EGP 45000.00
-EK353,Dubai (DXB),Kuala Lumpur (KUL),11:15 AM,09:35 PM,6 hrs 20 mins,Non-stop,A380,EGP 32500.00
-EK729,Dubai (DXB),Casablanca (CMN),07:05 AM,12:45 PM,8 hrs 40 mins,Non-stop,B777,EGP 39500.00
-EK502,Dubai (DXB),Mumbai (BOM),08:50 PM,01:20 AM,2 hrs 50 mins,Non-stop,B777,EGP 25000.00
-EK612,Dubai (DXB),Islamabad (ISB),02:45 AM,07:15 AM,2 hrs 30 mins,Non-stop,B777,EGP 24000.00
-EK202,Dubai (DXB),New York (JFK),02:15 AM,08:20 AM,14 hrs 5 mins,Non-stop,A380,EGP 56000.00
-EK652,Dubai (DXB),Colombo (CMB),05:10 AM,11:10 AM,4 hrs 0 mins,Non-stop,B777,EGP 28000.00
-EK530,Dubai (DXB),Delhi (DEL),12:30 AM,06:30 AM,6 hrs 0 mins,Non-stop,B777,EGP 23500.00
+Flight No,Departure City (Code),Arrival City (Code),Departure Time,Arrival Time,Duration,Stops,Aircraft,Price (EGP)
+EK201,Dubai (DXB),New York (JFK),08:30 AM,02:00 PM,14 hrs 30 mins,Non-stop,A380,EGP 39500.00
+EK305,Dubai (DXB),Singapore (SIN),09:55 PM,09:15 AM,7 hrs 20 mins,Non-stop,B777,EGP 17950.00
+EK510,Dubai (DXB),Mumbai (BOM),10:25 PM,03:45 AM,3 hrs 50 mins,Non-stop,B777,EGP 9250.00
+EK901,Dubai (DXB),Cairo (CAI),03:30 PM,05:45 PM,4 hrs 15 mins,Non-stop,A380,EGP 12350.00
+EK157,Dubai (DXB),Amsterdam (AMS),08:05 AM,12:30 PM,7 hrs 25 mins,Non-stop,A380,EGP 24800.00
+EK803,Dubai (DXB),Riyadh (RUH),07:45 AM,08:30 AM,1 hr 45 mins,Non-stop,B777,EGP 6500.00
+EK417,Dubai (DXB),Sydney (SYD),10:15 PM,08:15 AM,13 hrs 0 mins,Non-stop,A380,EGP 42800.00
+EK211,Dubai (DXB),Houston (IAH),02:30 AM,09:45 AM,16 hrs 15 mins,Non-stop,A380,EGP 47200.00
+EK404,Dubai (DXB),Kuala Lumpur (KUL),03:00 PM,02:15 AM,7 hrs 15 mins,Non-stop,B777,EGP 19200.00
+EK373,Dubai (DXB),Bangkok (BKK),04:25 PM,01:15 AM,6 hrs 50 mins,Non-stop,A380,EGP 16800.00
+EK931,Dubai (DXB),Beirut (BEY),07:00 PM,09:15 PM,4 hrs 15 mins,Non-stop,B777,EGP 10250.00
+EK724,Dubai (DXB),Johannesburg (JNB),02:40 AM,10:50 AM,8 hrs 10 mins,Non-stop,A380,EGP 25650.00
+EK183,Dubai (DXB),Zurich (ZRH),03:40 AM,07:50 AM,6 hrs 10 mins,Non-stop,B777,EGP 23100.00
+EK519,Dubai (DXB),Hyderabad (HYD),11:00 PM,03:40 AM,3 hrs 10 mins,Non-stop,B777,EGP 9150.00
+EK975,Dubai (DXB),Tehran (IKA),05:30 PM,08:00 PM,2 hrs 30 mins,Non-stop,B777,EGP 7850.00
+EK35,Dubai (DXB),Manchester (MAN),02:20 AM,07:45 AM,7 hrs 25 mins,Non-stop,A380,EGP 23750.00
+EK209,Dubai (DXB),Boston (BOS),08:30 AM,01:55 PM,15 hrs 25 mins,Non-stop,A380,EGP 42000.00
+EK775,Dubai (DXB),Cape Town (CPT),09:10 AM,04:25 PM,8 hrs 15 mins,Non-stop,A380,EGP 26950.00
+EK223,Dubai (DXB),Los Angeles (LAX),08:00 AM,01:30 PM,16 hrs 30 mins,Non-stop,A380,EGP 48500.00
+EK241,Dubai (DXB),Toronto (YYZ),03:00 AM,08:15 AM,14 hrs 15 mins,Non-stop,A380,EGP 39950.00
+EK202,New York (JFK),Dubai (DXB),11:20 PM,07:50 PM,12 hrs 30 mins,Non-stop,A380,EGP 38000.00
+EK654,Dubai (DXB),Male (MLE),10:25 AM,03:50 PM,4 hrs 25 mins,Non-stop,B777,EGP 12750.00
+EK809,Dubai (DXB),Jeddah (JED),06:55 PM,08:30 PM,2 hrs 35 mins,Non-stop,B777,EGP 8100.00
+EK419,Dubai (DXB),Auckland (AKL),10:30 PM,01:50 PM,16 hrs 20 mins,Non-stop,A380,EGP 49800.00
+EK374,Bangkok (BKK),Dubai (DXB),03:30 PM,07:10 PM,6 hrs 40 mins,Non-stop,A380,EGP 17800.00
+EK503,Dubai (DXB),Kolkata (CCU),02:10 PM,07:40 PM,4 hrs 0 mins,Non-stop,B777,EGP 9800.00
+EK903,Dubai (DXB),Amman (AMM),08:00 AM,09:30 AM,3 hrs 30 mins,Non-stop,B777,EGP 7850.00
+EK657,Dubai (DXB),Colombo (CMB),02:30 PM,07:40 PM,4 hrs 10 mins,Non-stop,B777,EGP 10350.00
+EK763,Dubai (DXB),Johannesburg (JNB),10:20 AM,05:30 PM,8 hrs 10 mins,Non-stop,A380,EGP 25100.00
+EK211,Dubai (DXB),Houston (IAH),09:05 AM,03:30 PM,16 hrs 25 mins,Non-stop,A380,EGP 47000.00
+EK349,Dubai (DXB),Ho Chi Minh City (SGN),09:30 PM,06:15 AM,6 hrs 45 mins,Non-stop,B777,EGP 17100.00
+EK775,Dubai (DXB),Cape Town (CPT),03:30 PM,11:30 PM,8 hrs 0 mins,Non-stop,A380,EGP 26500.00
+EK957,Dubai (DXB),Damascus (DAM),01:00 PM,03:00 PM,2 hrs 0 mins,Non-stop,B777,EGP 7100.00
+EK503,Dubai (DXB),Ahmedabad (AMD),03:30 PM,07:50 PM,3 hrs 50 mins,Non-stop,B777,EGP 9100.00
+EK307,Dubai (DXB),Beijing (PEK),03:20 PM,02:40 AM,8 hrs 20 mins,Non-stop,A380,EGP 27750.00
+EK141,Dubai (DXB),Madrid (MAD),07:40 AM,01:10 PM,7 hrs 30 mins,Non-stop,A380,EGP 24700.00
+EK953,Dubai (DXB),Kuwait (KWI),07:15 AM,08:30 AM,1 hr 15 mins,Non-stop,B777,EGP 6650.00
+EK235,Dubai (DXB),Chicago (ORD),09:20 AM,02:50 PM,15 hrs 30 mins,Non-stop,A380,EGP 43600.00
+EK95,Dubai (DXB),Rome (FCO),09:30 AM,01:45 PM,6 hrs 15 mins,Non-stop,A380,EGP 23950.00
+EK701,Dubai (DXB),Mauritius (MRU),02:30 AM,09:10 AM,6 hrs 40 mins,Non-stop,A380,EGP 19900.00
+EK931,Dubai (DXB),Beirut (BEY),09:50 AM,12:05 PM,4 hrs 15 mins,Non-stop,B777,EGP 10200.00
+EK801,Dubai (DXB),Riyadh (RUH),10:25 PM,11:30 PM,2 hrs 5 mins,Non-stop,B777,EGP 7450.00
+EK412,Dubai (DXB),Sydney (SYD),09:30 PM,07:30 AM,13 hrs 0 mins,Non-stop,A380,EGP 42350.00
+EK609,Dubai (DXB),Karachi (KHI),08:45 AM,11:10 AM,1 hr 25 mins,Non-stop,B777,EGP 6950.00
+EK245,Dubai (DXB),Rio de Janeiro (GIG),02:50 AM,12:10 PM,14 hrs 20 mins,Non-stop,A380,EGP 49900.00
+EK306,Beijing (PEK),Dubai (DXB),10:40 AM,03:20 PM,8 hrs 40 mins,Non-stop,A380,EGP 27000.00
+EK904,Amman (AMM),Dubai (DXB),10:30 PM,02:15 AM,2 hrs 45 mins,Non-stop,B777,EGP 7900.00
+EK653,Dubai (DXB),Malé (MLE),11:00 PM,04:15 AM,4 hrs 15 mins,Non-stop,B777,EGP 12500.00
+EK231,Dubai (DXB),Washington D.C. (IAD),02:20 AM,08:15 AM,13 hrs 55 mins,Non-stop,A380,EGP 42650.00
+EK903,Dubai (DXB),Cairo (CAI),12:15 PM,03:10 PM,4 hrs 55 mins,Non-stop,A380,EGP 11950.00
+EK354,Dubai (DXB),Jakarta (CGK),04:25 PM,11:00 PM,7 hrs 35 mins,Non-stop,B777,EGP 18800.00
+EK419,Dubai (DXB),Auckland (AKL),10:05 AM,02:45 PM,16 hrs 40 mins,Non-stop,A380,EGP 49500.00
+EK512,Dubai (DXB),Delhi (DEL),11:20 AM,04:10 PM,3 hrs 20 mins,Non-stop,B777,EGP 9600.00
+EK605,Dubai (DXB),Karachi (KHI),03:30 PM,06:10 PM,1 hr 40 mins,Non-stop,B777,EGP 7250.00
+EK142,Madrid (MAD),Dubai (DXB),02:35 PM,11:10 PM,6 hrs 35 mins,Non-stop,A380,EGP 23900.00
+EK223,Dubai (DXB),Los Angeles (LAX),08:20 AM,01:00 PM,16 hrs 40 mins,Non-stop,A380,EGP 48200.00
+EK911,Dubai (DXB),Doha (DOH),10:00 AM,11:10 AM,1 hr 10 mins,Non-stop,B777,EGP 6600.00
+EK651,Dubai (DXB),Dhaka (DAC),06:30 PM,12:30 AM,6 hrs 0 mins,Non-stop,B777,EGP 14500.00
+EK902,Cairo (CAI),Dubai (DXB),07:30 PM,11:30 PM,4 hrs 0 mins,Non-stop,A380,EGP 12500.00
+EK430,Dubai (DXB),Brisbane (BNE),10:00 PM,06:10 AM,13 hrs 10 mins,Non-stop,A380,EGP 45250.00
+EK702,Mauritius (MRU),Dubai (DXB),04:30 PM,11:10 PM,6 hrs 40 mins,Non-stop,A380,EGP 19500.00
+EK413,Sydney (SYD),Dubai (DXB),06:00 PM,02:00 AM,13 hrs 0 mins,Non-stop,A380,EGP 42500.00
+EK348,Dubai (DXB),Kuala Lumpur (KUL),03:20 AM,01:30 PM,7 hrs 10 mins,Non-stop,A380,EGP 17650.00
+EK215,Dubai (DXB),Los Angeles (LAX),08:30 AM,01:15 PM,16 hrs 45 mins,Non-stop,A380,EGP 48400.00
+EK203,Dubai (DXB),New York (JFK),02:50 AM,08:50 AM,14 hrs 0 mins,Non-stop,A380,EGP 42900.00
+EK656,Dubai (DXB),Male (MLE),10:10 AM,03:25 PM,4 hrs 15 mins,Non-stop,B777,EGP 12550.00
+EK531,Dubai (DXB),Hyderabad (HYD),02:50 PM,08:00 PM,3 hrs 40 mins,Non-stop,B777,EGP 9500.00
+EK244,Rio de Janeiro (GIG),Dubai (DXB),06:15 PM,04:15 PM,14 hrs 0 mins,Non-stop,A380,EGP 49800.00
+EK84,Zurich (ZRH),Dubai (DXB),02:30 PM,11:25 PM,6 hrs 55 mins,Non-stop,A380,EGP 21500.00
+EK208,Miami (MIA),Dubai (DXB),09:10 PM,06:30 PM,14 hrs 20 mins,Non-stop,A380,EGP 44500.00
+EK533,Dubai (DXB),Kochi (COK),10:00 AM,03:30 PM,3 hrs 30 mins,Non-stop,B777,EGP 9600.00
+EK161,Dubai (DXB),Dublin (DUB),08:00 AM,01:40 PM,7 hrs 40 mins,Non-stop,A380,EGP 24600.00
+EK201,Dubai (DXB),Newark (EWR),02:30 AM,08:30 AM,14 hrs 0 mins,Non-stop,A380,EGP 42100.00
+EK905,Dubai (DXB),Amman (AMM),12:25 PM,02:25 PM,3 hrs 0 mins,Non-stop,B777,EGP 8100.00
+EK508,Dubai (DXB),Mumbai (BOM),03:30 AM,08:15 AM,3 hrs 15 mins,Non-stop,B777,EGP 9350.00
+EK64,Oslo (OSL),Dubai (DXB),02:10 PM,11:00 PM,6 hrs 50 mins,Non-stop,B777,EGP 23500.00
+EK411,Auckland (AKL),Dubai (DXB),10:10 PM,05:25 AM,17 hrs 15 mins,Non-stop,A380,EGP 49600.00
+EK985,Dubai (DXB),Tehran (IKA),04:30 PM,07:30 PM,3 hrs 0 mins,Non-stop,B777,EGP 7700.00
+EK242,Toronto (YYZ),Dubai (DXB),02:25 PM,11:25 AM,13 hrs 0 mins,Non-stop,A380,EGP 45200.00
+EK511,Delhi (DEL),Dubai (DXB),11:10 PM,01:00 AM,3 hrs 20 mins,Non-stop,B777,EGP 9700.00
+EK501,Mumbai (BOM),Dubai (DXB),11:00 PM,12:40 AM,3 hrs 10 mins,Non-stop,B777,EGP 9400.00
+EK323,Dubai (DXB),Manila (MNL),09:35 AM,10:10 PM,8 hrs 35 mins,Non-stop,B777,EGP 19450.00
+EK502,Dubai (DXB),Mumbai (BOM),10:10 PM,03:00 AM,3 hrs 20 mins,Non-stop,B777,EGP 9300.00
+EK349,Ho Chi Minh City (SGN),Dubai (DXB),11:30 PM,05:30 AM,7 hrs 0 mins,Non-stop,B777,EGP 18200.00
+EK404,Dubai (DXB),Singapore (SIN),02:25 AM,11:35 AM,7 hrs 10 mins,Non-stop,A380,EGP 18500.00
+EK27,Dubai (DXB),Glasgow (GLA),07:50 AM,01:20 PM,7 hrs 30 mins,Non-stop,A380,EGP 24200.00
+EK607,Karachi (KHI),Dubai (DXB),09:45 PM,11:50 PM,2 hrs 5 mins,Non-stop,B777,EGP 7300.00
+EK523,Dubai (DXB),Chennai (MAA),02:25 PM,08:15 PM,3 hrs 20 mins,Non-stop,B777,EGP 9400.00
+EK145,Dubai (DXB),Amsterdam (AMS),08:30 AM,01:30 PM,7 hrs 0 mins,Non-stop,A380,EGP 24100.00
+EK354,Jakarta (CGK),Dubai (DXB),06:15 AM,01:30 PM,7 hrs 15 mins,Non-stop,B777,EGP 18750.00
+EK73,Dubai (DXB),Paris (CDG),04:20 PM,08:10 PM,7 hrs 50 mins,Non-stop,A380,EGP 24500.00
+EK903,Dubai (DXB),Cairo (CAI),09:50 AM,12:30 PM,4 hrs 40 mins,Non-stop,A380,EGP 11500.00
+EK931,Dubai (DXB),Beirut (BEY),01:20 PM,03:35 PM,4 hrs 15 mins,Non-stop,B777,EGP 10500.00
+EK950,Doha (DOH),Dubai (DXB),09:10 AM,10:20 AM,1 hr 10 mins,Non-stop,B777,EGP 6500.00
+EK521,Dubai (DXB),Kolkata (CCU),01:20 AM,06:50 AM,4 hrs 0 mins,Non-stop,B777,EGP 9800.00

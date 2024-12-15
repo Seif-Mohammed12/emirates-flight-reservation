@@ -93,6 +93,8 @@ public class MainController {
             depBox.hide();
             titleLabel.requestFocus();
         });
+        depboxNodepfound();
+        arrboxNoarrfound();
     }
 
     private void loadCustomFonts() {
@@ -291,6 +293,48 @@ public class MainController {
     // Dropdown Refresh and Handlers
     // ----------------------------------------
 
+    private void depboxNodepfound(){
+        depBox.setCellFactory(lv -> new ListCell<String>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (item == null || empty) {
+                    setText(null);
+                } else {
+                    setText(item);
+                    if ("No departure airport found".equals(item)) {
+                        setDisable(true);
+                        setStyle("-fx-text-fill: grey;");
+                    } else {
+                        setDisable(false);
+                        setStyle("");
+                    }
+                }
+            }
+        });
+    }
+
+    private void arrboxNoarrfound(){
+        arrBox.setCellFactory(lv -> new ListCell<String>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (item == null || empty) {
+                    setText(null);
+                } else {
+                    setText(item);
+                    if ("No arrival airport found".equals(item)) {
+                        setDisable(true);
+                        setStyle("-fx-text-fill: grey;");
+                    } else {
+                        setDisable(false);
+                        setStyle("");
+                    }
+                }
+            }
+        });
+    }
+
     private void setupComboBoxFocusListeners() {
         depBox.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
@@ -318,30 +362,27 @@ public class MainController {
     public void refreshDep(boolean filter) throws IOException {
         String filePath = "flights.csv";
         List<String> lines = Files.readAllLines(Paths.get(filePath));
-        depBox.getItems().clear();
+        depBox.getItems().clear(); // Clear current items
 
         Set<String> uniqueDepartures = new HashSet<>();
+        String inputText = depBox.getEditor().getText();
 
         for (int i = 1; i < lines.size(); i++) {
             String line = lines.get(i);
             String[] fields = line.split(",");
             if (fields.length == 9) {
                 String departureAirport = fields[1];
-                if (!filter || departureAirport.toLowerCase().startsWith(depBox.getEditor().getText().toLowerCase())) {
-                    if (!departureAirport.equalsIgnoreCase(selectedDestination)) {
-                        uniqueDepartures.add(departureAirport);
-                    }
+                if (!filter || departureAirport.toLowerCase().startsWith(inputText.toLowerCase())) {
+                    uniqueDepartures.add(departureAirport);
                 }
             }
         }
 
-        depBox.getItems().addAll(uniqueDepartures);
-
-        if (depBox.getItems().isEmpty()) {
-            depBox.getSelectionModel().clearSelection();
-            depBox.hide();
-        } else if (!depBox.getEditor().getText().isEmpty()) {
-            depBox.show();
+        if (uniqueDepartures.isEmpty()) {
+            // Add placeholder when no valid departures are found
+            depBox.getItems().add("No departure airport found");
+        } else {
+            depBox.getItems().addAll(uniqueDepartures); // Add valid options
         }
     }
 
@@ -354,9 +395,10 @@ public class MainController {
 
         String filePath = "flights.csv";
         List<String> lines = Files.readAllLines(Paths.get(filePath));
-        arrBox.getItems().clear();
+        arrBox.getItems().clear(); // Clear previous items
 
         Set<String> uniqueDestinations = new HashSet<>();
+        String inputText = arrBox.getEditor().getText();
 
         for (int i = 1; i < lines.size(); i++) {
             String line = lines.get(i);
@@ -366,53 +408,75 @@ public class MainController {
                 String departureAirport = fields[1];
 
                 if (departureAirport.equalsIgnoreCase(selectedDeparture) &&
-                        (!filter || arrivalAirport.toLowerCase().startsWith(arrBox.getEditor().getText().toLowerCase()))) {
+                        (!filter || arrivalAirport.toLowerCase().startsWith(inputText.toLowerCase()))) {
                     uniqueDestinations.add(arrivalAirport);
                 }
             }
         }
 
-        arrBox.getItems().addAll(uniqueDestinations);
-
         if (uniqueDestinations.isEmpty()) {
-            arrBox.getSelectionModel().clearSelection();
-            arrBox.hide();
+            arrBox.getItems().add("No arrival airport found");
         } else {
+            arrBox.getItems().addAll(uniqueDestinations);
+        }
+
+        if (!arrBox.getItems().isEmpty()) {
             arrBox.show();
+        } else {
+            arrBox.hide();
         }
     }
 
+
     @FXML
     public void handleDepMouseClick(MouseEvent event) throws IOException {
-        if (dropdownRefreshing) {
-            return;
+        String searchText = depBox.getEditor().getText();
+        if (searchText.isEmpty()) {
+            refreshDep(false);
         }
-
-        refreshDep(false);
         depBox.getEditor().requestFocus();
     }
 
     @FXML
     public void handleDepKeyRelease(KeyEvent event) throws IOException {
-        refreshDep(true);
-        depBox.show();
+        String inputText = depBox.getEditor().getText();
+
+        if (inputText == null || inputText.isEmpty()) {
+            refreshDep(false);
+            depBox.show();
+        } else {
+            refreshDep(true);
+            if (!depBox.getItems().isEmpty() && !depBox.getItems().contains("No departure airport found")) {
+                depBox.show();
+            } else if (depBox.getItems().isEmpty()) {
+                depBox.getItems().add("No departure airport found");
+                depBox.show();
+            }
+        }
     }
 
     @FXML
     public void handleArrMouseClick(MouseEvent event) throws IOException {
-        refresh(false);
+        String searchText = arrBox.getEditor().getText();
+        if (searchText.isEmpty()) {
+            refresh(false); // Show all destinations if no search text
+        }
+        arrBox.getEditor().requestFocus();
         arrBox.show();
     }
 
     @FXML
     public void handleArrKeyRelease(KeyEvent event) throws IOException {
-        if (dropdownRefreshing || arrBox.isShowing()) {
-            return;
-        }
-        refresh(true);
+        String inputText = arrBox.getEditor().getText();
 
-        if (!arrBox.isShowing()) {
+        if (inputText == null || inputText.isEmpty()) {
+            refresh(false); // Show all destinations if search text is cleared
             arrBox.show();
+        } else {
+            refresh(true); // Filter destinations based on input
+            if (!arrBox.getItems().isEmpty()) {
+                arrBox.show();
+            }
         }
     }
 
@@ -431,10 +495,23 @@ public class MainController {
 
     @FXML
     public void onDepartureSelected(ActionEvent event) throws IOException {
-        selectedDeparture = depBox.getValue();
+        String selectedValue = depBox.getValue();
+
+        // Prevent selecting the invalid option
+        if ("No departure airport found".equals(selectedValue)) {
+            Platform.runLater(() -> {
+                depBox.getSelectionModel().clearSelection();
+                depBox.setValue(null);
+            });
+            showStyledAlert("No valid departure airport found. Please clear the input and try again.",
+                    (Stage) depBox.getScene().getWindow());
+            return;
+        }
+
+        selectedDeparture = selectedValue;
 
         if (selectedDeparture == null || selectedDeparture.isEmpty()) {
-            arrBox.getItems().clear();
+            arrBox.getItems().clear(); // Clear arrival options if departure is empty
             arrBox.getSelectionModel().clearSelection();
             arrBox.hide();
             return;
@@ -443,7 +520,7 @@ public class MainController {
         System.out.println("Departure selected: " + selectedDeparture);
         AppContext.setSelectedDeparture(selectedDeparture);
 
-        refresh(false);
+        refresh(false); // Refresh destinations based on departure
 
         if (arrBox.getItems().isEmpty()) {
             arrBox.getSelectionModel().clearSelection();
@@ -454,6 +531,9 @@ public class MainController {
             arrBox.show();
         }
     }
+
+
+
 
 
     // ----------------------------------------
