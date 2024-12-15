@@ -83,7 +83,10 @@ public class RegistrationController {
                 usersData.add(newUser.toString());
                 FileManager.writeFile("login.txt", usersData, true);
 
-                showSuccessAlert("Registration successful", (Stage) usernameField.getScene().getWindow());
+                showSuccessAlert("Congratulations! ✈ \n" + "\n" +
+                        "Welcome aboard the Emirates experience! Your registration was successful. You can now log in to explore our world-class flights, manage your bookings, and embark on unforgettable journeys.\n" +
+                        "\n" +
+                        "We’re excited to have you as part of the Emirates family. \uD83C\uDF0D", (Stage) usernameField.getScene().getWindow());
             } catch (IOException e) {
                 showErrorAlert("There was an error writing to the file: " + e.getMessage(), (Stage) usernameField.getScene().getWindow());
             }
@@ -169,32 +172,47 @@ public class RegistrationController {
     private void showSuccessAlert(String message, Stage owner) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Success");
-        alert.setContentText(message);
+        alert.setContentText(null); // Prevent the default text content
         alert.initOwner(owner);
         alert.initModality(Modality.APPLICATION_MODAL);
 
+        // Customize DialogPane
         DialogPane dialogPane = alert.getDialogPane();
         dialogPane.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         dialogPane.getStyleClass().add("success-dialog");
         dialogPane.setHeaderText(null);
 
+        // Create a TextFlow for text wrapping
         TextFlow textFlow = new TextFlow();
+        textFlow.setMaxWidth(400); // Restrict the width of the text flow
+        textFlow.setPrefWidth(400); // Set preferred width
+
         Text text = new Text(message);
-        text.setWrappingWidth(300);
+        text.setWrappingWidth(380); // Slightly smaller than TextFlow width for padding
         textFlow.getChildren().add(text);
+
+        // Set the TextFlow as the dialog content
         dialogPane.setContent(textFlow);
 
+        // Style dialog pane
         dialogPane.setStyle("-fx-background-color: #d4edda; -fx-background-radius: 20; -fx-border-radius: 20; " +
                 "-fx-border-color: #388e3c; -fx-border-width: 2px;");
 
         alert.setHeaderText(null);
         alert.setGraphic(null);
 
+        // Ensure the dialog has a nice compact size
+        dialogPane.setPrefWidth(420);
+        dialogPane.setMaxWidth(420);
+
+        // Make the dialog background transparent
         Stage alertStage = (Stage) alert.getDialogPane().getScene().getWindow();
         alertStage.initStyle(StageStyle.TRANSPARENT);
         alertStage.getScene().setFill(null);
+
         alert.showAndWait();
     }
+
 
     private void showErrorAlert(String message, Stage owner) {
         Alert alert = new Alert(Alert.AlertType.WARNING, message);

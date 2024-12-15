@@ -760,7 +760,8 @@ body {
     -fx-border-radius: 20;
     -fx-background-color: rgba(255, 99, 71, 0.1);
     -fx-border-color: rgba(255, 99, 71, 0.8);
-    -fx-font-size: 16px;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
 }
 
 .error-dialog .label {
@@ -772,7 +773,8 @@ body {
     -fx-border-radius: 20;
     -fx-background-color: rgba(0, 128, 0, 0.1);
     -fx-border-color: rgba(0, 128, 0, 0.8);
-    -fx-font-size: 16px;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
 }
 
 .success-dialog .label {
