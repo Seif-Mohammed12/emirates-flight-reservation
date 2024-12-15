@@ -103,24 +103,47 @@ public class ChangeSeatsController {
     }
 
     private void loadSeatingPlanFromAppContext(GridPane grid, int rows, int cols, String classType) {
-        // Get the booked seats for this class type from AppContext
         Set<String> bookedSeats = AppContext.getBookedSeats(classType);
-
-        // Create the seating plan using the booked seats
         seatSelection.createSeatingPlan(grid, rows, cols, classType);
 
-        // Style already booked seats
         for (javafx.scene.Node node : grid.getChildren()) {
             if (node instanceof ToggleButton) {
                 ToggleButton seatButton = (ToggleButton) node;
+
+                // Mark booked seats as disabled
                 if (bookedSeats.contains(seatButton.getText())) {
                     seatButton.setDisable(true);
                     seatButton.setStyle("-fx-background-color: red; -fx-min-width: 50px; -fx-min-height: 50px; " +
                             "-fx-border-radius: 10; -fx-background-radius: 10;");
                 }
+
+                seatButton.setOnAction(event -> {
+                    int totalPassengers = currentBooking.getPassenger().getAdults() + currentBooking.getPassenger().getChildren();
+
+                    if (seatButton.isSelected()) {
+                        if (seatSelection.getSelectedSeats().size() < totalPassengers) {
+                            seatSelection.selectSeat(seatButton);
+
+
+                            seatButton.setStyle("-fx-min-width: 50px; -fx-min-height: 50px; " +
+                                    "-fx-background-color: blue; -fx-border-radius: 10; -fx-background-radius: 10;");
+                        } else {
+                            seatButton.setSelected(false); // Deselect if limit exceeded
+                            showStyledAlert("You cannot select more than " + totalPassengers + " seats.",
+                                    (Stage) confirmChangeButton.getScene().getWindow());
+                        }
+                    } else {
+                        seatSelection.deselectSeat(seatButton);
+
+                        seatButton.setStyle("-fx-min-width: 60px; -fx-min-height: 60px; " +
+                                "-fx-background-color: green; -fx-border-radius: 10; -fx-background-radius: 10;");
+                    }
+                });
             }
         }
     }
+
+
 
 
 
@@ -133,12 +156,13 @@ public class ChangeSeatsController {
         GridPane grid = getGridForCurrentClass();
 
         for (javafx.scene.Node node : grid.getChildren()) {
-            if (node instanceof javafx.scene.control.ToggleButton) {
-                javafx.scene.control.ToggleButton seatButton = (javafx.scene.control.ToggleButton) node;
+            if (node instanceof ToggleButton) {
+                ToggleButton seatButton = (ToggleButton) node;
                 for (String seat : currentSeats) {
                     if (seatButton.getText().equals(seat)) {
                         seatButton.setSelected(true);
-                        seatButton.setDisable(true); // Disable already booked seats to prevent changes
+                        seatSelection.selectSeat(seatButton);
+                        seatButton.setDisable(false);
                         seatButton.setStyle("-fx-min-width: 50px; -fx-min-height: 50px; " +
                                 "-fx-background-color: gray; -fx-border-radius: 10; -fx-background-radius: 10;");
                         break;
@@ -147,6 +171,7 @@ public class ChangeSeatsController {
             }
         }
     }
+
 
     private GridPane getGridForCurrentClass() {
         switch (currentBooking.getPassenger().getFlightClass()) {
@@ -163,16 +188,17 @@ public class ChangeSeatsController {
 
     @FXML
     private void handleConfirmChangeSeat() {
-        List<javafx.scene.control.ToggleButton> selectedSeats = seatSelection.getSelectedSeats();
+        List<ToggleButton> selectedSeats = seatSelection.getSelectedSeats();
         Stage stage = (Stage) confirmChangeButton.getScene().getWindow();
         int totalPassengers = currentBooking.getPassenger().getAdults() + currentBooking.getPassenger().getChildren();
-        if (selectedSeats.size() != totalPassengers) {
-            showStyledAlert("Please select exactly " + totalPassengers + " seats.", stage);
+
+        if (selectedSeats.size() > totalPassengers) {
+            showStyledAlert("You cannot select more than " + totalPassengers + " seats.", stage);
             return;
         }
 
         StringBuilder newSeats = new StringBuilder();
-        for (javafx.scene.control.ToggleButton seatButton : selectedSeats) {
+        for (ToggleButton seatButton : selectedSeats) {
             newSeats.append(seatButton.getText()).append(", ");
         }
 
@@ -181,10 +207,12 @@ public class ChangeSeatsController {
             newSeats.setLength(newSeats.length() - 2);
         }
 
+        // Update the current booking with the new seat selection
         currentBooking.getPassenger().setSeat(newSeats.toString());
         showSuccessAlert("Seats successfully changed to: " + newSeats, stage);
         handleCancelChange();
     }
+
 
     @FXML
     private void handleCancelChange() {

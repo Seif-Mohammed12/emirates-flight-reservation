@@ -166,17 +166,16 @@ public class SeatSelectionController {
     private void handleBackButton(ActionEvent event) {
         // Create a loading overlay using a Pane
         Pane overlay = new Pane();
-        overlay.setStyle("-fx-background-color: rgba(0, 0, 0, 0.5);"); // Semi-transparent background
-        overlay.setPrefSize(backButton.getScene().getWidth(), backButton.getScene().getHeight()); // Cover the entire scene
+        overlay.setStyle("-fx-background-color: rgba(0, 0, 0, 0.5);");
+        overlay.setPrefSize(backButton.getScene().getWidth(), backButton.getScene().getHeight());
 
         ProgressIndicator loadingIndicator = new ProgressIndicator();
         loadingIndicator.setStyle("-fx-progress-color: #D71920;" + "-fx-background-color: transparent;");
-        loadingIndicator.setLayoutX(backButton.getScene().getWidth() / 2 - 20); // Center horizontally
-        loadingIndicator.setLayoutY(backButton.getScene().getHeight() / 2 - 20); // Center vertically
+        loadingIndicator.setLayoutX(backButton.getScene().getWidth() / 2 - 20);
+        loadingIndicator.setLayoutY(backButton.getScene().getHeight() / 2 - 20);
         overlay.getChildren().add(loadingIndicator);
-        overlay.setVisible(false); // Initially hidden
+        overlay.setVisible(false);
 
-        // Get the root pane of the current scene
         Parent currentRoot = backButton.getScene().getRoot();
         if (currentRoot instanceof Pane) {
             ((Pane) currentRoot).getChildren().add(overlay);

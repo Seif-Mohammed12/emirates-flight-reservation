@@ -107,7 +107,7 @@ public class SeatSelection {
                     seatButton.setSelected(false);
                     showStyledAlert("You cannot select more seats than the total number of passengers.", (Stage) seatButton.getScene().getWindow());
                 } else {
-                    // Set smaller size for selected state
+
                     seatButton.setStyle("-fx-min-width: 50px; -fx-min-height: 50px; " +
                             "-fx-background-color: blue; -fx-border-radius: 10; -fx-background-radius: 10;");
                     selectedSeats.add(seatButton);
@@ -134,6 +134,13 @@ public class SeatSelection {
 
     public List<ToggleButton> getSelectedSeats() {
         return selectedSeats;
+    }
+    public void selectSeat(ToggleButton seat) {
+        selectedSeats.add(seat);
+    }
+
+    public void deselectSeat(ToggleButton seat) {
+        selectedSeats.remove(seat);
     }
     public void setTotalPassengers(int totalPassengers) {
         this.totalPassengers = totalPassengers;
