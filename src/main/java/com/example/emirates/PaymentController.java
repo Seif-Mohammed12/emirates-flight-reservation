@@ -44,6 +44,18 @@
             private Button payButton;
             @FXML
             private Button goBackButton;
+            @FXML
+            private ToggleGroup paymentMethodGroup;
+            @FXML
+            private RadioButton visaRadioButton;
+            @FXML
+            private RadioButton digitalWalletRadioButton;
+            @FXML
+            private TextField walletIdField;
+            @FXML
+            private VBox visaPaymentSection;
+            @FXML
+            private VBox digitalWalletPaymentSection;
 
             private selectFlights.Flights selectedFlight;
             private BookingConfirmation.Passenger passenger;
@@ -66,6 +78,24 @@
                 setupCardNumberFormatter();
                 setupExpirationDateFormatter();
                 setupCardIconUpdater();
+
+                paymentMethodGroup = new ToggleGroup();
+                visaRadioButton.setToggleGroup(paymentMethodGroup);
+                digitalWalletRadioButton.setToggleGroup(paymentMethodGroup);
+
+                paymentMethodGroup.selectedToggleProperty().addListener((observable, oldToggle, newToggle) -> {
+                    if (visaRadioButton.isSelected()) {
+                        visaPaymentSection.setVisible(true);
+                        visaPaymentSection.setManaged(true);
+                        digitalWalletPaymentSection.setVisible(false);
+                        digitalWalletPaymentSection.setManaged(false);
+                    } else if (digitalWalletRadioButton.isSelected()) {
+                        visaPaymentSection.setVisible(false);
+                        visaPaymentSection.setManaged(false);
+                        digitalWalletPaymentSection.setVisible(true);
+                        digitalWalletPaymentSection.setManaged(true);
+                    }
+                });
             }
             private void setupCardIconUpdater() {
                 cardNumberField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -421,10 +451,10 @@
                 String cardNumber = cardNumberField.getText().trim();
                 String expiryDate = expirationDateField.getText().trim();
                 String cvv = cvvField.getText().trim();
-
+                String walletId = walletIdField.getText().trim();
                 Stage currentStage = (Stage) payButton.getScene().getWindow();
 
-                if (!validateInputs(cardNumber, expiryDate, cvv)) {
+                if (!validateInputs(cardNumber, expiryDate, cvv, walletId)) {
                     showStyledAlert("Please fill in all fields correctly.", currentStage);
                     return;
                 }
@@ -434,10 +464,18 @@
                 double tax = basePrice * taxRate;
                 double totalAmount = basePrice + serviceFee + tax;
 
-                VisaPayment payment = new VisaPayment(cardNumber.replaceAll("\\s", ""), expiryDate, cvv);
-                if (!payment.processPayment(totalAmount)) {
-                    showStyledAlert("Invalid card number. Please check your details.", currentStage);
-                    return;
+                if (visaRadioButton.isSelected()) {
+                    VisaPayment payment = new VisaPayment(cardNumber.replaceAll("\\s", ""), expiryDate, cvv);
+                    if (!payment.processPayment(totalAmount)) {
+                        showStyledAlert("Invalid card number. Please check your details.", currentStage);
+                        return;
+                    }
+                } else if (digitalWalletRadioButton.isSelected()) {
+                    DigitalWalletPayment payment = new DigitalWalletPayment(walletId);
+                    if (!payment.processPayment(totalAmount)) {
+                        showStyledAlert("Invalid wallet ID. Please check your details.", currentStage);
+                        return;
+                    }
                 }
 
                 String paymentId = generatePaymentId();
@@ -540,33 +578,40 @@
             }
 
 
-            private boolean validateInputs(String cardNumber, String expiryDate, String cvv) {
+            private boolean validateInputs(String cardNumber, String expiryDate, String cvv, String walletId) {
                 String rawCardNumber = cardNumber.replaceAll("\\D", "");
                 Stage currentStage = (Stage) payButton.getScene().getWindow();
 
-                if (rawCardNumber.isEmpty() || expiryDate.isEmpty() || cvv.isEmpty()) {
-                    showStyledAlert("All fields are required.", currentStage);
-                    return false;
-                }
+                if (visaRadioButton.isSelected()) {
+                    if (rawCardNumber.isEmpty() || expiryDate.isEmpty() || cvv.isEmpty()) {
+                        showStyledAlert("All fields are required.", currentStage);
+                        return false;
+                    }
 
-                if (!isValidCardNumber(rawCardNumber)) {
-                    showStyledAlert("Invalid card number. Ensure it's 16 digits and valid.", currentStage);
-                    return false;
-                }
+                    if (!isValidCardNumber(rawCardNumber)) {
+                        showStyledAlert("Invalid card number. Ensure it's 16 digits and valid.", currentStage);
+                        return false;
+                    }
 
-                if (rawCardNumber.length() != 16) {
-                    showStyledAlert("Card number must be 16 digits.", currentStage);
-                    return false;
-                }
+                    if (rawCardNumber.length() != 16) {
+                        showStyledAlert("Card number must be 16 digits.", currentStage);
+                        return false;
+                    }
 
-                if (!isValidExpiryDate(expiryDate)) {
-                    showStyledAlert("Invalid expiry date. Ensure it's in MM/YY format and not expired.", currentStage);
-                    return false;
-                }
+                    if (!isValidExpiryDate(expiryDate)) {
+                        showStyledAlert("Invalid expiry date. Ensure it's in MM/YY format and not expired.", currentStage);
+                        return false;
+                    }
 
-                if (!cvv.matches("\\d{3}")) {
-                    showStyledAlert("CVV must be a 3-digit number.", currentStage);
-                    return false;
+                    if (!cvv.matches("\\d{3}")) {
+                        showStyledAlert("CVV must be a 3-digit number.", currentStage);
+                        return false;
+                    }
+                } else if (digitalWalletRadioButton.isSelected()) {
+                    if (walletId.isEmpty()) {
+                        showStyledAlert("Wallet ID is required.", currentStage);
+                        return false;
+                    }
                 }
 
                 return true;

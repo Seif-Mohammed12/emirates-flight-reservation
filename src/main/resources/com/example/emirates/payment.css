@@ -264,3 +264,13 @@
 .progress-indicator .spinner-pane * {
     -fx-background-color: transparent;
 }
+
+.tooltip {
+    -fx-background-color: #d4edda;
+    -fx-font-size: 12px;
+    -fx-text-fill: #388e3c;
+    -fx-padding: 5px;
+    -fx-border-color: #388e3c;
+    -fx-border-radius: 5px;
+    -fx-font-weight: normal;
+}
