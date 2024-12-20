@@ -104,8 +104,8 @@
                <Label styleClass="label-small-bold" text="Gate:" />
                <Label fx:id="gateLabel" styleClass="label-small" />
             </HBox>
-            <HBox spacing="10">
-               <Label styleClass="label-small-bold" text="Departure Date:" />
+            <HBox spacing="10" fx:id="departureDateBox">
+               <Label fx:id="depdate" styleClass="label-small-bold" text="Departure Date:" />
                <Label fx:id="departureDateLabel" styleClass="label-small" />
             </HBox>
             <HBox spacing="10">

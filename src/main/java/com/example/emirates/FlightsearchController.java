@@ -7,12 +7,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
+import javafx.util.StringConverter;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -67,6 +69,10 @@ public class FlightsearchController {
     private Button nextFlightButton;
     @FXML
     private VBox searchByRouteBox;
+    @FXML
+    private Label depdate;
+    @FXML
+    private HBox departureDateBox;
 
     private final Random random = new Random();
     private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
@@ -80,7 +86,42 @@ public class FlightsearchController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        configureDatePickers(departureDatePicker, LocalDate.now());
     }
+
+    private void configureDatePickers(DatePicker departureDatePicker,LocalDate today) {
+        configureDatePicker(departureDatePicker, today);
+    }
+
+    private void configureDatePicker(DatePicker datePicker, LocalDate today) {
+        if (datePicker.getValue() != null && datePicker.getValue().isBefore(today)) {
+            datePicker.setValue(today);
+        }
+
+        datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null && newValue.isBefore(today)) {
+                datePicker.setValue(today);
+            }
+        });
+        datePicker.setConverter(new StringConverter<LocalDate>() {
+            private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+            @Override
+            public String toString(LocalDate date) {
+                return (date == null) ? "" : date.format(formatter);
+            }
+
+            @Override
+            public LocalDate fromString(String string) {
+                if (string == null || string.isEmpty()) {
+                    return null;
+                }
+                return LocalDate.parse(string, formatter);
+            }
+        });
+    }
+
     public void showSearchByNumber() {
         searchByNumberBox.setVisible(true);
         searchByRouteBox.setVisible(false);
@@ -93,6 +134,8 @@ public class FlightsearchController {
         searchByRouteBox.setVisible(true);
 
         clearSearch();
+        departureDateBox.setVisible(false);
+        departureDateBox.setManaged(false);
     }
 
     private void clearSearch() {
@@ -164,6 +207,8 @@ public class FlightsearchController {
         currentFlightIndex = 0;
         displayFlightDetails(filteredFlights.get(currentFlightIndex));
 
+        departureDateBox.setVisible(false);
+
         nextFlightButton.setDisable(filteredFlights.size() <= 1);
         previousFlightButton.setDisable(true);
         nextFlightButton.setVisible(true);
@@ -180,6 +225,7 @@ public class FlightsearchController {
         estimatedDepartureLabel.setText(flight.getDepartureTime());
         gateLabel.setText(generateRandomGate());
         estimatedArrivalLabel.setText(flight.getArrivalTime());
+
 
         flightDetailsBox.setVisible(true);
     }
