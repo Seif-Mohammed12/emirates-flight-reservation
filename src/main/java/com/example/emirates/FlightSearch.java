@@ -5,16 +5,28 @@ import java.util.List;
 import java.util.Scanner;
 
 public class FlightSearch {
+    // =================================================================================
+    // Instance Variables
+    // =================================================================================
     private List<selectFlights.Flights> flights;
 
+    // =================================================================================
+    // Constructor
+    // =================================================================================
     public FlightSearch(List<selectFlights.Flights> flights) {
         this.flights = flights;
     }
 
+    // =================================================================================
+    // Getters
+    // =================================================================================
     public List<selectFlights.Flights> getFlights() {
         return flights;
     }
 
+    // =================================================================================
+    // Search Methods
+    // =================================================================================
     public selectFlights.Flights getFlightByFlightNumber(String flightNumber) {
         for (selectFlights.Flights flight : flights) {
             if (flight.getFlightNo().equalsIgnoreCase(flightNumber)) {
@@ -41,6 +53,9 @@ public class FlightSearch {
         return matchingFlights;
     }
 
+    // =================================================================================
+    // Interactive Search Methods
+    // =================================================================================
     public void searchByFlightNumberInput() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter the flight number: ");
@@ -79,5 +94,4 @@ public class FlightSearch {
             }
         }
     }
-
 }

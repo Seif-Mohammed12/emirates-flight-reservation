@@ -20,6 +20,7 @@ import java.time.format.DateTimeFormatter;
 
 public class BookingConfirmationController {
 
+    // Instance Variables
     private selectFlights.Flights selectedFlight;
     private BookingConfirmation.Passenger passenger;
     private String selectedSeats;
@@ -34,6 +35,7 @@ public class BookingConfirmationController {
     private int children;
     private String loggedInUsername;
 
+    // FXML Injected Fields
     @FXML
     private Label flightNumberLabel, departureCityLabel, arrivalCityLabel;
     @FXML
@@ -45,21 +47,25 @@ public class BookingConfirmationController {
     @FXML
     private Button proceedButton;
 
+    // Setter Methods
     public void setLoggedInUsername(String username) {
         this.loggedInUsername = username;
         System.out.println("Logged-in username in FlightsController: " + loggedInUsername);
     }
 
-    public void setBookingDetails(selectFlights.Flights flight, BookingConfirmation.Passenger passenger, String seatDetails,
-                                  String selectedClass, String updatedPrice, LocalDate departureDate, LocalDate returnDate,
-                                  int adults, int children, String selectedDestination, String selectedDeparture) {
-
-
-        if (flight == null || passenger == null || seatDetails == null || selectedClass == null || updatedPrice == null || departureDate == null || returnDate == null) {
+    public void setBookingDetails(selectFlights.Flights flight, BookingConfirmation.Passenger passenger,
+            String seatDetails, String selectedClass, String updatedPrice,
+            LocalDate departureDate, LocalDate returnDate, int adults, int children,
+            String selectedDestination, String selectedDeparture) {
+        // Input validation
+        if (flight == null || passenger == null || seatDetails == null ||
+                selectedClass == null || updatedPrice == null ||
+                departureDate == null || returnDate == null) {
             System.err.println("Error: One or more booking details are null.");
             return;
         }
 
+        // Set instance variables
         this.selectedFlight = flight;
         this.passenger = passenger;
         this.selectedSeats = seatDetails;
@@ -71,32 +77,41 @@ public class BookingConfirmationController {
         this.children = children;
         this.selectedDestination = selectedDestination;
         this.selectedDeparture = selectedDeparture;
-        totalPassengers = adults + children;
+        this.totalPassengers = adults + children;
 
-        flightNumberLabel.setText(flight.getFlightNo());
-        departureCityLabel.setText(flight.getDepartureCity());
-        arrivalCityLabel.setText(flight.getArrivalCity());
-        departureTimeLabel.setText(flight.getDepartureTime());
-        arrivalTimeLabel.setText(flight.getArrivalTime());
-        durationLabel.setText(flight.getDuration());
-        stopsLabel.setText(flight.getStops());
-        priceLabel.setText(updatedPrice);
-
-        userNameLabel.setText(passenger.getName());
-        userContactLabel.setText(passenger.getContactMethod());
-
-        selectedSeatLabel.setText(seatDetails);
-
-        selectedClassLabel.setText(selectedClass);
-        passengerCountLabel.setText(String.valueOf(totalPassengers));
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
-        departureDateLabel.setText(departureDate.format(formatter));
-        returnDateLabel.setText(returnDate.format(formatter));
-
+        // Update UI labels
+        updateFlightLabels();
+        updateUserLabels();
+        updateDateLabels();
     }
 
+    // UI Update Methods
+    private void updateFlightLabels() {
+        flightNumberLabel.setText(selectedFlight.getFlightNo());
+        departureCityLabel.setText(selectedFlight.getDepartureCity());
+        arrivalCityLabel.setText(selectedFlight.getArrivalCity());
+        departureTimeLabel.setText(selectedFlight.getDepartureTime());
+        arrivalTimeLabel.setText(selectedFlight.getArrivalTime());
+        durationLabel.setText(selectedFlight.getDuration());
+        stopsLabel.setText(selectedFlight.getStops());
+        priceLabel.setText(updatedPrice);
+    }
+
+    private void updateUserLabels() {
+        userNameLabel.setText(passenger.getName());
+        userContactLabel.setText(passenger.getContactMethod());
+        selectedSeatLabel.setText(selectedSeats);
+        selectedClassLabel.setText(selectedClass);
+        passengerCountLabel.setText(String.valueOf(totalPassengers));
+    }
+
+    private void updateDateLabels() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        departureDateLabel.setText(departureDate.format(formatter));
+        returnDateLabel.setText(returnDate.format(formatter));
+    }
+
+    // Navigation Methods
     @FXML
     private void proceedToPayment() {
         try {
@@ -104,26 +119,13 @@ public class BookingConfirmationController {
             Parent paymentPage = loader.load();
 
             PaymentController paymentController = loader.getController();
-            paymentController.setFlightDetails(selectedFlight, selectedClass, adults, children, departureDate, returnDate, selectedSeats, updatedPrice, selectedDestination, selectedDeparture);
+            paymentController.setFlightDetails(selectedFlight, selectedClass, adults, children,
+                    departureDate, returnDate, selectedSeats, updatedPrice,
+                    selectedDestination, selectedDeparture);
             paymentController.setPassengerInfo(passenger);
             paymentController.setLoggedInUsername(AppContext.getLoggedInUsername());
-            Stage stage = (Stage) proceedButton.getScene().getWindow();
-            Scene currentScene = stage.getScene();
 
-            FadeTransition fadeOut = new FadeTransition(Duration.millis(500), currentScene.getRoot());
-            fadeOut.setFromValue(1.0);
-            fadeOut.setToValue(0.0);
-
-            fadeOut.setOnFinished(event -> {
-                currentScene.setRoot(paymentPage);
-
-                FadeTransition fadeIn = new FadeTransition(Duration.millis(500), paymentPage);
-                fadeIn.setFromValue(0.0);
-                fadeIn.setToValue(1.0);
-                fadeIn.play();
-            });
-
-            fadeOut.play();
+            performSceneTransition(paymentPage);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -132,59 +134,83 @@ public class BookingConfirmationController {
     @FXML
     private void goBackToSeatSelection(ActionEvent event) {
         try {
-
-            Pane overlay = new Pane();
-            overlay.setStyle("-fx-background-color: rgba(0, 0, 0, 0.5);");
-            overlay.setPrefSize(((Node) event.getSource()).getScene().getWidth(),
-                    ((Node) event.getSource()).getScene().getHeight());
-            ProgressIndicator loadingIndicator = new ProgressIndicator();
-            loadingIndicator.setStyle("-fx-progress-color: #D71920;");
-            loadingIndicator.setLayoutX(overlay.getPrefWidth() / 2 - 20);
-            loadingIndicator.setLayoutY(overlay.getPrefHeight() / 2 - 20);
-            overlay.getChildren().add(loadingIndicator);
-
-            Parent currentRoot = ((Node) event.getSource()).getScene().getRoot();
-            ((Pane) currentRoot).getChildren().add(overlay);
-            overlay.setVisible(true);
-
-            
+            showLoadingOverlay(event);
             FXMLLoader loader = new FXMLLoader(getClass().getResource("SeatSelection.fxml"));
             Parent seatSelectionPage = loader.load();
 
-            SeatSelectionController seatSelectionController = loader.getController();
-            seatSelectionController.setSelectedClass(selectedClass);
-            seatSelectionController.setSelectedDestination(selectedDestination);
-            seatSelectionController.setSelectedDeparture(selectedDeparture);
-            seatSelectionController.setAdults(adults);
-            seatSelectionController.setChildren(children);
-            seatSelectionController.setSelectedFlight(selectedFlight);
-            seatSelectionController.setUpdatedPrice(updatedPrice);
-            seatSelectionController.setDepartureDate(departureDate);
-            seatSelectionController.setReturnDate(returnDate);
-            seatSelectionController.setLoggedInUsername(AppContext.getLoggedInUsername());
-
-
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Scene currentScene = stage.getScene();
-
-            FadeTransition fadeOut = new FadeTransition(Duration.millis(500), currentScene.getRoot());
-            fadeOut.setFromValue(1.0);
-            fadeOut.setToValue(0.0);
-
-            fadeOut.setOnFinished(e -> {
-                currentScene.setRoot(seatSelectionPage);
-                FadeTransition fadeIn = new FadeTransition(Duration.millis(500), seatSelectionPage);
-                fadeIn.setFromValue(0.0);
-                fadeIn.setToValue(1.0);
-                fadeIn.play();
-            });
-
-            fadeOut.play();
-            overlay.setVisible(false);
-            ((Pane) currentRoot).getChildren().remove(overlay); 
+            setupSeatSelectionController(loader.getController());
+            performSceneTransition((Node) event.getSource(), seatSelectionPage);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    // Helper Methods
+    private void showLoadingOverlay(ActionEvent event) {
+        Pane overlay = createLoadingOverlay(event);
+        Parent currentRoot = ((Node) event.getSource()).getScene().getRoot();
+        ((Pane) currentRoot).getChildren().add(overlay);
+        overlay.setVisible(true);
+    }
+
+    private Pane createLoadingOverlay(ActionEvent event) {
+        Pane overlay = new Pane();
+        overlay.setStyle("-fx-background-color: rgba(0, 0, 0, 0.5);");
+        overlay.setPrefSize(((Node) event.getSource()).getScene().getWidth(),
+                ((Node) event.getSource()).getScene().getHeight());
+
+        ProgressIndicator loadingIndicator = new ProgressIndicator();
+        loadingIndicator.setStyle("-fx-progress-color: #D71920;");
+        loadingIndicator.setLayoutX(overlay.getPrefWidth() / 2 - 20);
+        loadingIndicator.setLayoutY(overlay.getPrefHeight() / 2 - 20);
+
+        overlay.getChildren().add(loadingIndicator);
+        return overlay;
+    }
+
+    private void setupSeatSelectionController(SeatSelectionController controller) {
+        controller.setSelectedClass(selectedClass);
+        controller.setSelectedDestination(selectedDestination);
+        controller.setSelectedDeparture(selectedDeparture);
+        controller.setAdults(adults);
+        controller.setChildren(children);
+        controller.setSelectedFlight(selectedFlight);
+        controller.setUpdatedPrice(updatedPrice);
+        controller.setDepartureDate(departureDate);
+        controller.setReturnDate(returnDate);
+        controller.setLoggedInUsername(AppContext.getLoggedInUsername());
+    }
+
+    private void performSceneTransition(Parent newPage) {
+        Stage stage = (Stage) proceedButton.getScene().getWindow();
+        Scene currentScene = stage.getScene();
+
+        FadeTransition fadeOut = createFadeTransition(currentScene.getRoot(), 1.0, 0.0);
+        fadeOut.setOnFinished(e -> {
+            currentScene.setRoot(newPage);
+            createFadeTransition(newPage, 0.0, 1.0).play();
+        });
+
+        fadeOut.play();
+    }
+
+    private void performSceneTransition(Node sourceNode, Parent newPage) {
+        Stage stage = (Stage) sourceNode.getScene().getWindow();
+        Scene currentScene = stage.getScene();
+
+        FadeTransition fadeOut = createFadeTransition(currentScene.getRoot(), 1.0, 0.0);
+        fadeOut.setOnFinished(e -> {
+            currentScene.setRoot(newPage);
+            createFadeTransition(newPage, 0.0, 1.0).play();
+        });
+
+        fadeOut.play();
+    }
+
+    private FadeTransition createFadeTransition(Node node, double fromValue, double toValue) {
+        FadeTransition fade = new FadeTransition(Duration.millis(500), node);
+        fade.setFromValue(fromValue);
+        fade.setToValue(toValue);
+        return fade;
+    }
 }

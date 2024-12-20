@@ -24,23 +24,19 @@ import java.util.Random;
 
 public class FlightsearchController {
 
-    private FlightSearch flightSearch;
-
+    // =================================================================================
+    // FXML Fields
+    // =================================================================================
     @FXML
     private TextField flightNumberField;
-
     @FXML
     private DatePicker departureDatePicker;
-
     @FXML
     private TextField departureCityField;
-
     @FXML
     private TextField arrivalCityField;
-
     @FXML
     private VBox flightDetailsBox;
-
     @FXML
     private Label departureCityLabel;
     @FXML
@@ -74,11 +70,18 @@ public class FlightsearchController {
     @FXML
     private HBox departureDateBox;
 
+    // =================================================================================
+    // Instance Variables
+    // =================================================================================
+    private FlightSearch flightSearch;
     private final Random random = new Random();
     private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-    private List<selectFlights.Flights> filteredFlights; 
+    private List<selectFlights.Flights> filteredFlights;
     private int currentFlightIndex = -1;
 
+    // =================================================================================
+    // Initialization Methods
+    // =================================================================================
     public void initialize() {
         try {
             List<selectFlights.Flights> flights = FileManager.loadFlightsFromCSV("flights.csv", false, null);
@@ -90,7 +93,7 @@ public class FlightsearchController {
         configureDatePickers(departureDatePicker, LocalDate.now());
     }
 
-    private void configureDatePickers(DatePicker departureDatePicker,LocalDate today) {
+    private void configureDatePickers(DatePicker departureDatePicker, LocalDate today) {
         configureDatePicker(departureDatePicker, today);
     }
 
@@ -122,6 +125,9 @@ public class FlightsearchController {
         });
     }
 
+    // =================================================================================
+    // Search View Management
+    // =================================================================================
     public void showSearchByNumber() {
         searchByNumberBox.setVisible(true);
         searchByRouteBox.setVisible(false);
@@ -147,6 +153,10 @@ public class FlightsearchController {
 
         flightDetailsBox.setVisible(false);
     }
+
+    // =================================================================================
+    // Search Handlers
+    // =================================================================================
     @FXML
     private void handleSearchFlight() {
         String flightNumber = flightNumberField.getText();
@@ -188,16 +198,13 @@ public class FlightsearchController {
 
         Stage currentStage = (Stage) departureCityField.getScene().getWindow();
 
-        
         if (departureCity.isEmpty() || arrivalCity.isEmpty()) {
             showStyledAlert("Please fill in both departure city and arrival city.", currentStage);
             return;
         }
 
-        
         filteredFlights = flightSearch.searchByRoute(departureCity, arrivalCity);
 
-        
         if (filteredFlights.isEmpty()) {
             showStyledAlert("No flights found from " + departureCity + " to " + arrivalCity + ".", currentStage);
             flightDetailsBox.setVisible(false);
@@ -226,17 +233,18 @@ public class FlightsearchController {
         gateLabel.setText(generateRandomGate());
         estimatedArrivalLabel.setText(flight.getArrivalTime());
 
-
         flightDetailsBox.setVisible(true);
     }
 
+    // =================================================================================
+    // Navigation Methods
+    // =================================================================================
     @FXML
     private void showPreviousFlight() {
         if (filteredFlights != null && currentFlightIndex > 0) {
             currentFlightIndex--;
             displayFlightDetails(filteredFlights.get(currentFlightIndex));
 
-            
             previousFlightButton.setDisable(currentFlightIndex == 0);
             nextFlightButton.setDisable(currentFlightIndex == filteredFlights.size() - 1);
         }
@@ -248,7 +256,6 @@ public class FlightsearchController {
             currentFlightIndex++;
             displayFlightDetails(filteredFlights.get(currentFlightIndex));
 
-            
             previousFlightButton.setDisable(currentFlightIndex == 0);
             nextFlightButton.setDisable(currentFlightIndex == filteredFlights.size() - 1);
         }
@@ -291,8 +298,11 @@ public class FlightsearchController {
         }
     }
 
+    // =================================================================================
+    // Utility Methods
+    // =================================================================================
     private String generateRandomGate() {
-        String[] gatePrefixes = {"A", "B", "C", "D", "E", "L"};
+        String[] gatePrefixes = { "A", "B", "C", "D", "E", "L" };
         int gateNumber = random.nextInt(20) + 1;
         String gatePrefix = gatePrefixes[random.nextInt(gatePrefixes.length)];
         return gatePrefix + gateNumber;

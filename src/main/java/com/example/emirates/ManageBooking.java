@@ -4,7 +4,9 @@ import java.util.Scanner;
 import java.util.Set;
 
 public class ManageBooking {
-
+    // =================================================================================
+    // Booking View Methods
+    // =================================================================================
     public void viewBookingDetails() {
         if (!AppContext.hasBookings()) {
             System.out.println("No bookings found.");
@@ -18,6 +20,9 @@ public class ManageBooking {
         }
     }
 
+    // =================================================================================
+    // Seat Management Methods
+    // =================================================================================
     public void changeSeat() {
         if (!AppContext.hasBookings()) {
             System.out.println("No bookings found. Cannot change seat.");
@@ -59,6 +64,9 @@ public class ManageBooking {
         System.out.println("Seat changed successfully to: " + newSeat);
     }
 
+    // =================================================================================
+    // Booking Cancellation Methods
+    // =================================================================================
     public void cancelBooking() {
         if (!AppContext.hasBookings()) {
             System.out.println("No bookings found. Cannot cancel.");
@@ -81,7 +89,8 @@ public class ManageBooking {
 
         BookingConfirmation.Booking selectedBooking = AppContext.getBookings().get(bookingIndex - 1);
 
-        System.out.print("Are you sure you want to cancel the booking with seat " + selectedBooking.passenger.getSeat() + "? (yes/no): ");
+        System.out.print("Are you sure you want to cancel the booking with seat " + selectedBooking.passenger.getSeat()
+                + "? (yes/no): ");
         String confirmation = scanner.nextLine().trim().toLowerCase();
 
         if (!confirmation.equals("yes")) {
@@ -93,15 +102,18 @@ public class ManageBooking {
         String canceledSeat = selectedBooking.getPassenger().getSeat();
         AppContext.getBookedSeats(classType).remove(canceledSeat);
 
-
         AppContext.getBookings().remove(selectedBooking);
         System.out.println("Booking with seat " + canceledSeat + " has been successfully canceled.");
     }
 
+    // =================================================================================
+    // Display Helper Methods
+    // =================================================================================
     private void displayBookingList() {
         int index = 1;
         for (BookingConfirmation.Booking booking : AppContext.getBookings()) {
-            System.out.println(index + ". " + booking.passenger.getSeat() + " (" + booking.getFlight().getFlightNo() + ")");
+            System.out.println(
+                    index + ". " + booking.passenger.getSeat() + " (" + booking.getFlight().getFlightNo() + ")");
             index++;
         }
     }
@@ -115,6 +127,9 @@ public class ManageBooking {
         }
     }
 
+    // =================================================================================
+    // Utility Methods
+    // =================================================================================
     private String formatBookingDetails(BookingConfirmation.Booking booking) {
         String passengerName = AppContext.getLoggedInFirstName() + " " + AppContext.getLoggedInLastName();
         return "Booking ID: " + BookingConfirmation.Booking.generateBookingId() + "\n" +
@@ -134,13 +149,10 @@ public class ManageBooking {
         return !bookedSeats.contains(newSeat);
     }
 
-    //el booked seats mahtoota fy map 3lshan y3ml save lel amaken (ex: a1 kan booked fa hayfdal booked mahma hasal)
     private void updateAppContextBookedSeats(String flightClass, String oldSeat, String newSeat) {
         Set<String> bookedSeats = AppContext.getBookedSeats(flightClass);
-
         bookedSeats.remove(oldSeat);
         bookedSeats.add(newSeat);
-
         AppContext.setBookedSeats(flightClass, bookedSeats);
     }
 }

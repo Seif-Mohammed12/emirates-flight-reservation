@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FileManager {
-
+    // =================================================================================
+    // File Writing Operations
+    // =================================================================================
     public static void writeFile(String filePath, List<String> lines, boolean append) throws IOException {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath, append))) {
             for (String line : lines) {
@@ -17,7 +19,11 @@ public class FileManager {
         }
     }
 
-    public static List<selectFlights.Flights> loadFlightsFromCSV(String filePath, boolean rawData, List<String> rawLines) throws IOException {
+    // =================================================================================
+    // Flight Data Operations
+    // =================================================================================
+    public static List<selectFlights.Flights> loadFlightsFromCSV(String filePath, boolean rawData,
+            List<String> rawLines) throws IOException {
         List<selectFlights.Flights> flights = new ArrayList<>();
         List<String> lines = Files.readAllLines(Paths.get(filePath));
         boolean isFirstLine = true;
@@ -50,7 +56,8 @@ public class FileManager {
                     String aircraftDetails = fields[7].trim();
                     String price = fields[8].trim();
 
-                    flights.add(new selectFlights.Flights(flightNo, departureTime, arrivalTime, departureCity, arrivalCity, duration, stops, aircraftDetails, price));
+                    flights.add(new selectFlights.Flights(flightNo, departureTime, arrivalTime,
+                            departureCity, arrivalCity, duration, stops, aircraftDetails, price));
                 } catch (NumberFormatException e) {
                     System.err.println("Invalid price format in line: " + line);
                 }
@@ -58,11 +65,12 @@ public class FileManager {
                 System.err.println("Invalid line format: " + line);
             }
         }
-
         return flights;
     }
 
-
+    // =================================================================================
+    // User Data Operations
+    // =================================================================================
     public static List<User> loadUsersFromFile(String filename) {
         List<User> usersList = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
@@ -85,5 +93,4 @@ public class FileManager {
         }
         return usersList;
     }
-
 }

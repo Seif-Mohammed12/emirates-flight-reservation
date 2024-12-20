@@ -29,30 +29,31 @@ import java.util.stream.Collectors;
 
 public class FlightsController {
 
+    // =================================================================================
+    // FXML Fields
+    // =================================================================================
     @FXML
     private VBox flightsContainer;
-
     @FXML
     private ToggleButton economyButton;
-
     @FXML
     private ToggleButton businessButton;
-
     @FXML
     private ToggleButton firstClassButton;
     @FXML
     private Button iconBtnFlights;
     @FXML
     private Button loginBtnFlights;
-
     @FXML
     private Label titleLabel;
     @FXML
     private Label sortLabel;
-
     @FXML
     private ChoiceBox<String> sortChoiceBox;
 
+    // =================================================================================
+    // Instance Variables
+    // =================================================================================
     private String selectedClass;
     private String selectedDestination;
     private String selectedDeparture;
@@ -61,9 +62,11 @@ public class FlightsController {
     private int children;
     private LocalDate departureDate;
     private LocalDate returnDate;
-
     private List<selectFlights.Flights> flights = new ArrayList<>();
 
+    // =================================================================================
+    // Initialization and Setup
+    // =================================================================================
     @FXML
     public void initialize() {
         sortChoiceBox.setOnAction(event -> updateFlightCards());
@@ -134,6 +137,9 @@ public class FlightsController {
         loginBtnFlights.setMaxWidth(Double.MAX_VALUE);
     }
 
+    // =================================================================================
+    // Property Setters
+    // =================================================================================
     public void setAdults(int adults) {
         this.adults = adults;
     }
@@ -141,6 +147,7 @@ public class FlightsController {
     public void setChildren(int children) {
         this.children = children;
     }
+
     public void setSelectedDestination(String destination) {
         this.selectedDestination = destination;
         System.out.println("Selected Destination: " + selectedDestination);
@@ -163,6 +170,7 @@ public class FlightsController {
         System.out.println("Selected Class: " + selectedClass);
         updateFlightCards();
     }
+
     public void setDepartureDate(LocalDate departureDate) {
         this.departureDate = departureDate;
     }
@@ -171,7 +179,9 @@ public class FlightsController {
         this.returnDate = returnDate;
     }
 
-
+    // =================================================================================
+    // Navigation Methods
+    // =================================================================================
     @FXML
     private void goToMain() {
         try {
@@ -322,6 +332,9 @@ public class FlightsController {
         loadThread.start();
     }
 
+    // =================================================================================
+    // Flight Card Management
+    // =================================================================================
     public void updateFlightCards() {
         flightsContainer.getChildren().clear();
 
@@ -333,12 +346,11 @@ public class FlightsController {
         filteredFlights.forEach(flight -> addFlightCard(flight));
     }
 
-
-
     private boolean filterByDestination(selectFlights.Flights flight) {
         return selectedDestination == null || selectedDestination.isEmpty()
                 || flight.arrivalCity.equalsIgnoreCase(selectedDestination);
     }
+
     private boolean filterByDeparture(selectFlights.Flights flight) {
         return selectedDeparture == null || selectedDeparture.isEmpty()
                 || flight.departureCity.equalsIgnoreCase(selectedDeparture);
@@ -379,9 +391,13 @@ public class FlightsController {
         return hours * 60 + minutes;
     }
 
+    // =================================================================================
+    // UI Component Creation
+    // =================================================================================
     private void addFlightCard(selectFlights.Flights flight) {
         VBox flightCard = createStyledVBox("flight-card", 10, 15);
-        flightCard.setOnMouseEntered(event -> flightCard.setStyle("-fx-effect: dropshadow(gaussian, #888, 10, 0, 0, 0);"));
+        flightCard.setOnMouseEntered(
+                event -> flightCard.setStyle("-fx-effect: dropshadow(gaussian, #888, 10, 0, 0, 0);"));
         flightCard.setOnMouseExited(event -> flightCard.setStyle("-fx-effect: none;"));
         flightCard.setOnMouseClicked(event -> showSeatSelection(flight));
 
@@ -393,8 +409,7 @@ public class FlightsController {
                 createSpacer(),
                 createDurationSection(flight),
                 createSpacer(),
-                createArrivalSection(flight)
-        );
+                createArrivalSection(flight));
 
         HBox pricingSection = createPricingSection(flight);
 
@@ -404,8 +419,7 @@ public class FlightsController {
                 flightDetails,
                 createSeparator(),
                 pricingSection,
-                planeInfoSection
-        );
+                planeInfoSection);
 
         flightsContainer.getChildren().add(flightCard);
     }
@@ -425,13 +439,13 @@ public class FlightsController {
         departureTimeLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
 
         Label departureCityLabel = new Label(flight.departureCity);
-        departureCityLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: rgba(215, 25, 32, 0.8);");
+        departureCityLabel
+                .setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: rgba(215, 25, 32, 0.8);");
 
         departure.getChildren().addAll(departureTimeLabel, departureCityLabel);
 
         return new HBox(departure);
     }
-
 
     private VBox createDurationSection(selectFlights.Flights flight) {
         VBox duration = new VBox(5);
@@ -440,8 +454,7 @@ public class FlightsController {
         duration.getChildren().addAll(
                 new Label(flight.duration),
                 createArrowLine(),
-                new Label(flight.stops)
-        );
+                new Label(flight.stops));
 
         return duration;
     }
@@ -460,7 +473,6 @@ public class FlightsController {
 
         return arrival;
     }
-
 
     private VBox createLabeledSection(String label1Text, String label2Text, Pos alignment) {
         VBox box = new VBox(5);
@@ -527,9 +539,6 @@ public class FlightsController {
         return pricingSection;
     }
 
-
-
-
     private HBox createPlaneInfoSection(selectFlights.Flights flight) {
         HBox planeInfo = new HBox(10);
         planeInfo.setStyle("-fx-alignment: center-left;");
@@ -543,8 +552,7 @@ public class FlightsController {
         planeInfo.getChildren().addAll(
                 planeView,
                 new Label(flight.aircraftDetails),
-                new Label(flight.getFlightNo())
-        );
+                new Label(flight.getFlightNo()));
 
         return planeInfo;
     }
@@ -555,6 +563,9 @@ public class FlightsController {
         return separator;
     }
 
+    // =================================================================================
+    // Utility Methods
+    // =================================================================================
     private String getUpdatedPrice(selectFlights.Flights flight) {
         try {
             double basePrice = parsePrice(flight.price);
@@ -571,17 +582,13 @@ public class FlightsController {
 
             int totalPassengers = adults + children;
 
-
             double totalPrice = (adults * adjustedPricePerAdult) + (children * adjustedPricePerChild);
 
-            
             return "EGP " + String.format("%.2f", totalPrice);
         } catch (Exception e) {
             return "Price not available";
         }
     }
-
-
 
     private Region createSpacer() {
         Region spacer = new Region();
@@ -601,4 +608,3 @@ public class FlightsController {
     }
 
 }
-

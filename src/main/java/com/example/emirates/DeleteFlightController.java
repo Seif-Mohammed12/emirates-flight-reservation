@@ -20,6 +20,9 @@ import java.util.List;
 
 public class DeleteFlightController {
 
+    // =================================================================================
+    // FXML Injected Fields
+    // =================================================================================
     @FXML
     private TextField flightNoField;
     @FXML
@@ -51,6 +54,9 @@ public class DeleteFlightController {
 
     private String selectedAircraft;
 
+    // =================================================================================
+    // Initialization Methods
+    // =================================================================================
     @FXML
     public void initialize() {
         flightNoField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -59,7 +65,7 @@ public class DeleteFlightController {
 
         loadCustomFonts();
 
-        setFieldsEditable(false); 
+        setFieldsEditable(false);
 
         searchButton.setOnAction(e -> searchFlight());
         deleteButton.setOnAction(e -> handleDelete());
@@ -83,12 +89,16 @@ public class DeleteFlightController {
         priceField.setEditable(editable);
     }
 
+    // =================================================================================
+    // Flight Search and Population Methods
+    // =================================================================================
     @FXML
     private void searchFlight() {
         String flightNo = flightNoField.getText().trim();
 
         if (flightNo.isEmpty()) {
-            showStyledAlert("Error: Please enter a flight number to search.", (Stage) flightNoField.getScene().getWindow());
+            showStyledAlert("Error: Please enter a flight number to search.",
+                    (Stage) flightNoField.getScene().getWindow());
             return;
         }
 
@@ -103,9 +113,9 @@ public class DeleteFlightController {
                 }
             }
 
-            
             statusLabel.setText("Flight not found.");
-            showStyledAlert("Error: No flight found with the provided flight number.", (Stage) flightNoField.getScene().getWindow());
+            showStyledAlert("Error: No flight found with the provided flight number.",
+                    (Stage) flightNoField.getScene().getWindow());
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -126,12 +136,16 @@ public class DeleteFlightController {
         priceField.setText(Admin.stripCurrencySymbol(flight.getPrice()));
     }
 
+    // =================================================================================
+    // Action Handler Methods
+    // =================================================================================
     @FXML
     private void handleDelete() {
         String flightNo = flightNoField.getText().trim();
 
         if (flightNo.isEmpty()) {
-            showStyledAlert("Error: Please search for a flight before attempting to delete.", (Stage) flightNoField.getScene().getWindow());
+            showStyledAlert("Error: Please search for a flight before attempting to delete.",
+                    (Stage) flightNoField.getScene().getWindow());
             return;
         }
 
@@ -140,8 +154,7 @@ public class DeleteFlightController {
                 "Confirm Deletion",
                 "Are you sure you want to delete this flight?",
                 "This action cannot be undone. Proceed with caution.",
-                parentStage
-        );
+                parentStage);
 
         if (confirmDeletion) {
             try {
@@ -158,7 +171,6 @@ public class DeleteFlightController {
         handleCancel();
     }
 
-
     @FXML
     private void handleCancel() {
         try {
@@ -172,16 +184,14 @@ public class DeleteFlightController {
             Stage stage = (Stage) cancelButton.getScene().getWindow();
             Scene currentScene = stage.getScene();
 
-            
             FadeTransition fadeOut = new FadeTransition(Duration.millis(500), currentScene.getRoot());
             fadeOut.setFromValue(1.0);
             fadeOut.setToValue(0.0);
 
             fadeOut.setOnFinished(e -> {
-                
+
                 currentScene.setRoot(adminPage);
 
-                
                 FadeTransition fadeIn = new FadeTransition(Duration.millis(500), adminPage);
                 fadeIn.setFromValue(0.0);
                 fadeIn.setToValue(1.0);
@@ -209,12 +219,16 @@ public class DeleteFlightController {
         statusLabel.setText("");
     }
 
+    // =================================================================================
+    // Alert and Dialog Methods
+    // =================================================================================
     private void showAlert(String title, String message, Alert.AlertType type) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
         alert.setContentText(message);
         alert.showAndWait();
     }
+
     private void showStyledAlert(String message, Stage owner) {
         Alert alert = new Alert(Alert.AlertType.WARNING, message);
         alert.initOwner(owner);
@@ -288,7 +302,7 @@ public class DeleteFlightController {
         dialogPane.setStyle("-fx-background-color: #f8f9fa; -fx-background-radius: 20; -fx-border-radius: 20;" +
                 "-fx-border-color: rgba(220, 220, 220, 0.8); -fx-padding: 20;");
 
-        alert.initOwner(parentStage); 
+        alert.initOwner(parentStage);
         Stage alertStage = (Stage) dialogPane.getScene().getWindow();
         alertStage.initModality(Modality.WINDOW_MODAL);
         alertStage.initStyle(StageStyle.UNDECORATED);

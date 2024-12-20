@@ -64,7 +64,6 @@ public class MainController {
     @FXML
     private MenuBar menuBarMain;
 
-
     // ----------------------------------------
     // Class-Level Variables
     // ----------------------------------------
@@ -156,11 +155,14 @@ public class MainController {
         });
     }
 
-
     @FXML
     public void refreshDates() {
-        String fromDate = dateFrom.getValue() != null ? dateFrom.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) : "-";
-        String backDate = dateBack.getValue() != null ? dateBack.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) : "-";
+        String fromDate = dateFrom.getValue() != null
+                ? dateFrom.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+                : "-";
+        String backDate = dateBack.getValue() != null
+                ? dateBack.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+                : "-";
         dateMenu.setText(fromDate + " to " + backDate);
     }
 
@@ -269,10 +271,9 @@ public class MainController {
 
     public void setLoggedInUsername(String username) {
         this.loggedInUsername = username;
-        if(username == null) {
+        if (username == null) {
             loginBtnMain.setText("\uD83D\uDC64 LOG IN");
-        }
-        else {
+        } else {
             loginBtnMain.setText("Hello " + username);
         }
         updateLoginButton();
@@ -286,14 +287,15 @@ public class MainController {
         classMenu.getItems().addAll("Economy", "Business", "First");
         classMenu.setValue("Economy");
         selectedClass = "Economy";
-        classMenu.getSelectionModel().selectedItemProperty().addListener((obs, oldValue, newValue) -> selectedClass = newValue);
+        classMenu.getSelectionModel().selectedItemProperty()
+                .addListener((obs, oldValue, newValue) -> selectedClass = newValue);
     }
 
     // ----------------------------------------
     // Dropdown Refresh and Handlers
     // ----------------------------------------
 
-    private void depboxNodepfound(){
+    private void depboxNodepfound() {
         depBox.setCellFactory(lv -> new ListCell<String>() {
             @Override
             protected void updateItem(String item, boolean empty) {
@@ -314,7 +316,7 @@ public class MainController {
         });
     }
 
-    private void arrboxNoarrfound(){
+    private void arrboxNoarrfound() {
         arrBox.setCellFactory(lv -> new ListCell<String>() {
             @Override
             protected void updateItem(String item, boolean empty) {
@@ -427,7 +429,6 @@ public class MainController {
         }
     }
 
-
     @FXML
     public void handleDepMouseClick(MouseEvent event) throws IOException {
         String searchText = depBox.getEditor().getText();
@@ -492,7 +493,6 @@ public class MainController {
         }
     }
 
-
     @FXML
     public void onDepartureSelected(ActionEvent event) throws IOException {
         String selectedValue = depBox.getValue();
@@ -531,10 +531,6 @@ public class MainController {
             arrBox.show();
         }
     }
-
-
-
-
 
     // ----------------------------------------
     // Scene Transitions
@@ -579,10 +575,10 @@ public class MainController {
         overlayPane.setStyle("-fx-background-color: rgba(0, 0, 0, 0.3);");
         overlayPane.setPrefSize(currentRoot.getBoundsInLocal().getWidth(), currentRoot.getBoundsInLocal().getHeight());
 
-
         ProgressIndicator loadingIndicator = new ProgressIndicator();
         loadingIndicator.setMaxSize(100, 100);
-        loadingIndicator.setStyle("-fx-progress-color: #D71920;" + "-fx-background-color: transparent; " + "-fx-border-color: transparent; " + "-fx-padding: 0;");
+        loadingIndicator.setStyle("-fx-progress-color: #D71920;" + "-fx-background-color: transparent; "
+                + "-fx-border-color: transparent; " + "-fx-padding: 0;");
         loadingIndicator.layoutXProperty().bind(overlayPane.widthProperty().divide(2).subtract(600));
         loadingIndicator.layoutYProperty().bind(overlayPane.heightProperty().divide(2).subtract(50));
 
@@ -612,7 +608,6 @@ public class MainController {
                 return root;
             }
         };
-
 
         loadFXMLTask.setOnSucceeded(workerStateEvent -> {
             Parent newRoot = loadFXMLTask.getValue();
@@ -772,7 +767,6 @@ public class MainController {
         }
     }
 
-
     @FXML
     private void handleChangeMenuAction(ActionEvent event) throws IOException {
         Stage currentStage = (Stage) menuBarMain.getScene().getWindow();
@@ -835,8 +829,6 @@ public class MainController {
         fadeOut.play();
     }
 
-
-
     // ----------------------------------------
     // Alert Dialogs
     // ----------------------------------------
@@ -863,15 +855,4 @@ public class MainController {
 
         alert.showAndWait();
     }
-
-
-
-
-
-
-
-
-
-
-
 }

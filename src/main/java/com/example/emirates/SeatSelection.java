@@ -17,10 +17,16 @@ import javafx.stage.StageStyle;
 import java.util.*;
 
 public class SeatSelection {
+    // =================================================================================
+    // Fields
+    // =================================================================================
     private final Random random = new Random();
     private final List<ToggleButton> selectedSeats = new ArrayList<>();
     private int totalPassengers = 1;
 
+    // =================================================================================
+    // Seating Plan Creation
+    // =================================================================================
     public void createSeatingPlan(GridPane grid, int rows, int cols, String classType) {
         char[] seatLabels = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
         grid.getChildren().clear();
@@ -48,13 +54,15 @@ public class SeatSelection {
             for (int row = 0; row < rows; row++) {
                 for (int col = 0; col < (leftSeats + rightSeats + 1); col++) {
                     if (col == leftSeats) {
-                        continue; 
+                        continue;
                     }
 
-                    String seatLabel = (col < seatLabels.length) ? String.valueOf(seatLabels[col < leftSeats ? col : col - 1]) : "X";
+                    String seatLabel = (col < seatLabels.length)
+                            ? String.valueOf(seatLabels[col < leftSeats ? col : col - 1])
+                            : "X";
                     String seatId = seatLabel + (row + 1);
 
-                    if (random.nextDouble() < 0.2) { 
+                    if (random.nextDouble() < 0.2) {
                         bookedSeats.add(seatId);
                     }
                 }
@@ -65,10 +73,12 @@ public class SeatSelection {
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col < (leftSeats + rightSeats + 1); col++) {
                 if (col == leftSeats) {
-                    continue; 
+                    continue;
                 }
 
-                String seatLabel = (col < seatLabels.length) ? String.valueOf(seatLabels[col < leftSeats ? col : col - 1]) : "X";
+                String seatLabel = (col < seatLabels.length)
+                        ? String.valueOf(seatLabels[col < leftSeats ? col : col - 1])
+                        : "X";
                 String seatId = seatLabel + (row + 1);
                 ToggleButton seatButton = new ToggleButton(seatId);
                 styleAvailableSeat(seatButton);
@@ -90,6 +100,9 @@ public class SeatSelection {
         grid.setAlignment(Pos.CENTER);
     }
 
+    // =================================================================================
+    // Seat Styling Methods
+    // =================================================================================
     private void styleAvailableSeat(ToggleButton seatButton) {
         seatButton.setStyle("-fx-min-width: 60px; -fx-min-height: 60px; -fx-background-color: green; " +
                 "-fx-border-radius: 10; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 8, 0.4, 2, 2);");
@@ -100,14 +113,17 @@ public class SeatSelection {
         seatButton.setDisable(true);
     }
 
+    // =================================================================================
+    // Seat Selection Handling
+    // =================================================================================
     private void handleSeatSelection(ToggleButton seatButton) {
         if (!seatButton.isDisabled()) {
             if (seatButton.isSelected()) {
                 if (selectedSeats.size() >= totalPassengers) {
                     seatButton.setSelected(false);
-                    showStyledAlert("You cannot select more seats than the total number of passengers.", (Stage) seatButton.getScene().getWindow());
+                    showStyledAlert("You cannot select more seats than the total number of passengers.",
+                            (Stage) seatButton.getScene().getWindow());
                 } else {
-
                     seatButton.setStyle("-fx-min-width: 50px; -fx-min-height: 50px; " +
                             "-fx-background-color: blue; -fx-border-radius: 10; -fx-background-radius: 10;");
                     selectedSeats.add(seatButton);
@@ -120,7 +136,9 @@ public class SeatSelection {
         }
     }
 
-
+    // =================================================================================
+    // Seat Management Methods
+    // =================================================================================
     public void resetSelectedSeats() {
         for (ToggleButton seat : selectedSeats) {
             if (!seat.isDisabled()) {
@@ -134,6 +152,7 @@ public class SeatSelection {
     public List<ToggleButton> getSelectedSeats() {
         return selectedSeats;
     }
+
     public void selectSeat(ToggleButton seat) {
         selectedSeats.add(seat);
     }
@@ -141,10 +160,14 @@ public class SeatSelection {
     public void deselectSeat(ToggleButton seat) {
         selectedSeats.remove(seat);
     }
+
     public void setTotalPassengers(int totalPassengers) {
         this.totalPassengers = totalPassengers;
     }
 
+    // =================================================================================
+    // Alert Methods
+    // =================================================================================
     private void showStyledAlert(String message, Stage owner) {
         Alert alert = new Alert(Alert.AlertType.WARNING, message);
         alert.initOwner(owner);
@@ -161,7 +184,7 @@ public class SeatSelection {
         text.setStyle("-fx-font-size: 16px; -fx-fill: #721c24;");
         text.setWrappingWidth(300);
         textFlow.getChildren().add(text);
-        
+
         dialogPane.setContent(textFlow);
 
         Stage alertStage = (Stage) alert.getDialogPane().getScene().getWindow();
@@ -169,7 +192,7 @@ public class SeatSelection {
         alertStage.getScene().setFill(null);
         dialogPane.setStyle("-fx-background-color: #f8d7da; -fx-background-radius: 20; -fx-border-radius: 20;");
         dialogPane.setMinWidth(Region.USE_COMPUTED_SIZE);
-        dialogPane.setPrefWidth(350); 
+        dialogPane.setPrefWidth(350);
         dialogPane.setMaxWidth(400);
 
         alert.showAndWait();

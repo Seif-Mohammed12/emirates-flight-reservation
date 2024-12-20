@@ -66,7 +66,8 @@ public class ChangeSeatsController {
             currentBooking = AppContext.getBookings().get(0);
             loadSeatSelectionForClass(currentBooking.getPassenger().getFlightClass());
 
-            int totalPassengers = currentBooking.getPassenger().getAdults() + currentBooking.getPassenger().getChildren();
+            int totalPassengers = currentBooking.getPassenger().getAdults()
+                    + currentBooking.getPassenger().getChildren();
             seatSelection.setTotalPassengers(totalPassengers);
 
             preselectCurrentSeats(totalPassengers);
@@ -108,44 +109,40 @@ public class ChangeSeatsController {
 
         for (javafx.scene.Node node : grid.getChildren()) {
             if (node instanceof ToggleButton) {
-                ToggleButton seatButton = (ToggleButton) node;
-
-                
-                if (bookedSeats.contains(seatButton.getText())) {
-                    seatButton.setDisable(true);
-                    seatButton.setStyle("-fx-background-color: red; -fx-min-width: 50px; -fx-min-height: 50px; " +
-                            "-fx-border-radius: 10; -fx-background-radius: 10;");
-                }
-
-                seatButton.setOnAction(event -> {
-                    int totalPassengers = currentBooking.getPassenger().getAdults() + currentBooking.getPassenger().getChildren();
-
-                    if (seatButton.isSelected()) {
-                        if (seatSelection.getSelectedSeats().size() < totalPassengers) {
-                            seatSelection.selectSeat(seatButton);
-
-
-                            seatButton.setStyle("-fx-min-width: 50px; -fx-min-height: 50px; " +
-                                    "-fx-background-color: blue; -fx-border-radius: 10; -fx-background-radius: 10;");
-                        } else {
-                            seatButton.setSelected(false); 
-                            showStyledAlert("You cannot select more than " + totalPassengers + " seats.",
-                                    (Stage) confirmChangeButton.getScene().getWindow());
-                        }
-                    } else {
-                        seatSelection.deselectSeat(seatButton);
-
-                        seatButton.setStyle("-fx-min-width: 60px; -fx-min-height: 60px; " +
-                                "-fx-background-color: green; -fx-border-radius: 10; -fx-background-radius: 10;");
-                    }
-                });
+                configureToggleButton((ToggleButton) node, bookedSeats);
             }
         }
     }
 
+    private void configureToggleButton(ToggleButton seatButton, Set<String> bookedSeats) {
+        if (bookedSeats.contains(seatButton.getText())) {
+            seatButton.setDisable(true);
+            seatButton.setStyle("-fx-background-color: red; -fx-min-width: 50px; -fx-min-height: 50px; " +
+                    "-fx-border-radius: 10; -fx-background-radius: 10;");
+        }
 
+        seatButton.setOnAction(event -> handleSeatSelection(seatButton));
+    }
 
+    private void handleSeatSelection(ToggleButton seatButton) {
+        int totalPassengers = currentBooking.getPassenger().getAdults() + currentBooking.getPassenger().getChildren();
 
+        if (seatButton.isSelected()) {
+            if (seatSelection.getSelectedSeats().size() < totalPassengers) {
+                seatSelection.selectSeat(seatButton);
+                seatButton.setStyle("-fx-min-width: 50px; -fx-min-height: 50px; " +
+                        "-fx-background-color: blue; -fx-border-radius: 10; -fx-background-radius: 10;");
+            } else {
+                seatButton.setSelected(false);
+                showStyledAlert("You cannot select more than " + totalPassengers + " seats.",
+                        (Stage) confirmChangeButton.getScene().getWindow());
+            }
+        } else {
+            seatSelection.deselectSeat(seatButton);
+            seatButton.setStyle("-fx-min-width: 60px; -fx-min-height: 60px; " +
+                    "-fx-background-color: green; -fx-border-radius: 10; -fx-background-radius: 10;");
+        }
+    }
 
     private void preselectCurrentSeats(int totalPassengers) {
         if (currentBooking == null || currentBooking.getPassenger().getSeat() == null) {
@@ -171,7 +168,6 @@ public class ChangeSeatsController {
             }
         }
     }
-
 
     private GridPane getGridForCurrentClass() {
         switch (currentBooking.getPassenger().getFlightClass()) {
@@ -202,20 +198,21 @@ public class ChangeSeatsController {
             newSeats.append(seatButton.getText()).append(", ");
         }
 
-        
         if (newSeats.length() > 0) {
             newSeats.setLength(newSeats.length() - 2);
         }
 
-        
         currentBooking.getPassenger().setSeat(newSeats.toString());
         showSuccessAlert("Seats successfully changed to: " + newSeats, stage);
         handleCancelChange();
     }
 
-
     @FXML
     private void handleCancelChange() {
+        navigateToMain();
+    }
+
+    private void navigateToMain() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Main.fxml"));
             AnchorPane mainPage = loader.load();
@@ -224,30 +221,33 @@ public class ChangeSeatsController {
             String loggedInUsername = AppContext.getLoggedInUsername();
             mainController.setLoggedInUsername(loggedInUsername);
 
-            Stage stage = (Stage) cancelButton.getScene().getWindow();
-            Scene currentScene = stage.getScene();
-
-            FadeTransition fadeOut = new FadeTransition(Duration.millis(500), currentScene.getRoot());
-            fadeOut.setFromValue(1.0);
-            fadeOut.setToValue(0.0);
-
-            fadeOut.setOnFinished(e -> {
-                currentScene.setRoot(mainPage);
-                Platform.runLater(() -> {
-                    mainController.titleLabel.requestFocus();
-                });
-
-                FadeTransition fadeIn = new FadeTransition(Duration.millis(500), mainPage);
-                fadeIn.setFromValue(0.0);
-                fadeIn.setToValue(1.0);
-                fadeIn.play();
-            });
-
-            fadeOut.play();
-
+            performSceneTransition(mainPage, mainController);
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void performSceneTransition(AnchorPane mainPage, MainController mainController) {
+        Stage stage = (Stage) cancelButton.getScene().getWindow();
+        Scene currentScene = stage.getScene();
+
+        FadeTransition fadeOut = new FadeTransition(Duration.millis(500), currentScene.getRoot());
+        fadeOut.setFromValue(1.0);
+        fadeOut.setToValue(0.0);
+
+        fadeOut.setOnFinished(e -> {
+            currentScene.setRoot(mainPage);
+            Platform.runLater(() -> {
+                mainController.titleLabel.requestFocus();
+            });
+
+            FadeTransition fadeIn = new FadeTransition(Duration.millis(500), mainPage);
+            fadeIn.setFromValue(0.0);
+            fadeIn.setToValue(1.0);
+            fadeIn.play();
+        });
+
+        fadeOut.play();
     }
 
     private void showSuccessAlert(String message, Stage owner) {
@@ -264,7 +264,7 @@ public class ChangeSeatsController {
 
         TextFlow textFlow = new TextFlow();
         Text text = new Text(message);
-        text.setWrappingWidth(300); 
+        text.setWrappingWidth(300);
         textFlow.getChildren().add(text);
         dialogPane.setContent(textFlow);
 

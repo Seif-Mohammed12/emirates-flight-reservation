@@ -20,6 +20,9 @@ import java.util.List;
 
 public class UpdateFlightController {
 
+    // =================================================================================
+    // FXML Injected Fields
+    // =================================================================================
     @FXML
     private TextField flightNoField;
     @FXML
@@ -51,8 +54,15 @@ public class UpdateFlightController {
     @FXML
     private Label statusLabel, titlelabel;
 
+    // =================================================================================
+    // Instance Variables
+    // =================================================================================
     private String selectedAircraft;
+    private boolean isUpdatingTime = false;
 
+    // =================================================================================
+    // Initialization Methods
+    // =================================================================================
     @FXML
     public void initialize() {
         for (MenuItem item : aircraftMenuButton.getItems()) {
@@ -102,9 +112,9 @@ public class UpdateFlightController {
         titlelabel.setStyle("-fx-font-weight: bold;");
     }
 
-
-    private boolean isUpdatingTime = false;
-
+    // =================================================================================
+    // Time Handling Methods
+    // =================================================================================
     private void addTimeFormatter(TextField timeField) {
         timeField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (isUpdatingTime) {
@@ -116,10 +126,10 @@ public class UpdateFlightController {
                 if (newValue.length() > oldValue.length()) {
                     if (newValue.matches("\\d{1,2}") && newValue.length() == 2 && !newValue.contains(":")) {
                         timeField.setText(newValue + ":");
-                        timeField.positionCaret(3); 
+                        timeField.positionCaret(3);
                     } else if (newValue.matches("\\d{1,2}:\\d{2}") && newValue.length() == 5) {
                         timeField.setText(newValue + " ");
-                        timeField.positionCaret(6); 
+                        timeField.positionCaret(6);
                     } else if (newValue.matches("\\d{1,2}:\\d{2} (A|P|a|p)")) {
                         timeField.setText(newValue.toUpperCase() + "M");
                         timeField.positionCaret(newValue.length() + 1);
@@ -156,8 +166,10 @@ public class UpdateFlightController {
             int hour = Integer.parseInt(timeParts[0]);
             int minute = Integer.parseInt(timeParts[1]);
 
-            if (hour > 12) hour = 12;
-            if (minute > 59) minute = 59;
+            if (hour > 12)
+                hour = 12;
+            if (minute > 59)
+                minute = 59;
 
             return String.format("%02d:%02d %s", hour, minute, meridiem);
         } else {
@@ -221,14 +233,16 @@ public class UpdateFlightController {
         }
     }
 
-
-
+    // =================================================================================
+    // Flight Management Methods
+    // =================================================================================
     @FXML
     private void searchFlight() {
         String flightNo = flightNoField.getText().trim();
 
         if (flightNo.isEmpty()) {
-            showStyledAlert("Error: Please enter a flight number to search.", (Stage) flightNoField.getScene().getWindow());
+            showStyledAlert("Error: Please enter a flight number to search.",
+                    (Stage) flightNoField.getScene().getWindow());
             return;
         }
 
@@ -243,16 +257,15 @@ public class UpdateFlightController {
                 }
             }
 
-            
             statusLabel.setText("Flight not found.");
-            showStyledAlert("Error: No flight found with the provided flight number.", (Stage) flightNoField.getScene().getWindow());
+            showStyledAlert("Error: No flight found with the provided flight number.",
+                    (Stage) flightNoField.getScene().getWindow());
 
         } catch (IOException e) {
             e.printStackTrace();
             showAlert("Error", "An error occurred while searching for the flight.", Alert.AlertType.ERROR);
         }
     }
-
 
     private void populateFields(selectFlights.Flights flight) {
         departureCityField.setText(Admin.parseCity(flight.getDepartureCity()));
@@ -277,13 +290,15 @@ public class UpdateFlightController {
         String departureTime = departureTimeField.getText().trim();
         String arrivalTime = arrivalTimeField.getText().trim();
         String duration = durationField.getText().trim();
-        String arrivalAdjustment = arrivalAdjustmentComboBox.getValue() != null ? arrivalAdjustmentComboBox.getValue() : "Same Day";
+        String arrivalAdjustment = arrivalAdjustmentComboBox.getValue() != null ? arrivalAdjustmentComboBox.getValue()
+                : "Same Day";
         String updatedPrice = Admin.formatPrice(priceField.getText().trim());
-        
+
         if (flightNo.isEmpty() || departureCity.isEmpty() || departureCode.isEmpty() ||
                 arrivalCity.isEmpty() || arrivalCode.isEmpty() || departureTime.isEmpty() ||
                 arrivalTime.isEmpty() || duration.isEmpty() || updatedPrice.isEmpty() || selectedAircraft == null) {
-            showStyledAlert("Error: All fields must be filled out to save changes.", (Stage) flightNoField.getScene().getWindow());
+            showStyledAlert("Error: All fields must be filled out to save changes.",
+                    (Stage) flightNoField.getScene().getWindow());
             return;
         }
 
@@ -298,10 +313,10 @@ public class UpdateFlightController {
                     arrivalAdjustment.equals("Next Day") ? Admin.formatTime(arrivalTime) + " +1" : arrivalTime,
                     duration,
                     selectedAircraft,
-                    updatedPrice
-            );
+                    updatedPrice);
 
-            showSuccessAlert("Success: Flight details updated successfully!", (Stage) flightNoField.getScene().getWindow());
+            showSuccessAlert("Success: Flight details updated successfully!",
+                    (Stage) flightNoField.getScene().getWindow());
             statusLabel.setText("Flight updated successfully.");
         } catch (IOException e) {
             showAlert("Error", "An error occurred while saving the flight details.", Alert.AlertType.ERROR);
@@ -342,12 +357,16 @@ public class UpdateFlightController {
         }
     }
 
+    // =================================================================================
+    // Alert Methods
+    // =================================================================================
     private void showAlert(String title, String message, Alert.AlertType type) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
         alert.setContentText(message);
         alert.showAndWait();
     }
+
     private void showStyledAlert(String message, Stage owner) {
         Alert alert = new Alert(Alert.AlertType.WARNING, message);
         alert.initOwner(owner);

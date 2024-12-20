@@ -18,23 +18,29 @@ import java.io.IOException;
 
 public class LoginController {
 
+    // =================================================================================
+    // FXML Fields
+    // =================================================================================
     @FXML
     private TextField usernameTextField;
-
     @FXML
     private PasswordField passwordField;
-
     @FXML
     private AnchorPane loginPane;
-
     @FXML
     private Button loginBtn2;
 
+    // =================================================================================
+    // Initialization
+    // =================================================================================
     @FXML
     private void initialize() {
         LoginSystem.initialize("login.txt");
     }
 
+    // =================================================================================
+    // Login Handling
+    // =================================================================================
     @FXML
     private void handleLogin(ActionEvent event) {
         String username = usernameTextField.getText();
@@ -43,7 +49,8 @@ public class LoginController {
         if (validateLogin(username, password)) {
             navigateToMainPage();
         } else {
-            showStyledAlert("Invalid credentials. Please try again.", (Stage) usernameTextField.getScene().getWindow());
+            showStyledAlert("Invalid credentials. Please try again.",
+                    (Stage) usernameTextField.getScene().getWindow());
         }
     }
 
@@ -69,6 +76,9 @@ public class LoginController {
         return false;
     }
 
+    // =================================================================================
+    // Navigation
+    // =================================================================================
     private void navigateToMainPage() {
         try {
             FXMLLoader loader;
@@ -81,7 +91,6 @@ public class LoginController {
             }
 
             Parent mainPage = loader.load();
-
             Object controller = loader.getController();
 
             if (isAdmin) {
@@ -128,30 +137,6 @@ public class LoginController {
         }
     }
 
-
-
-
-
-
-    private void showStyledAlert(String message, Stage owner) {
-        Alert alert = new Alert(Alert.AlertType.WARNING, message);
-        alert.initOwner(owner);
-        alert.initModality(Modality.APPLICATION_MODAL);
-
-        DialogPane dialogPane = alert.getDialogPane();
-        dialogPane.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-        dialogPane.getStyleClass().add("error-dialog");
-        dialogPane.setHeaderText(null);
-        dialogPane.setGraphic(null);
-
-        Stage alertStage = (Stage) alert.getDialogPane().getScene().getWindow();
-        alertStage.initStyle(StageStyle.TRANSPARENT);
-        alertStage.getScene().setFill(null);
-        dialogPane.setStyle("-fx-background-color: #f8d7da; -fx-background-radius: 20; -fx-border-radius: 20;");
-
-        alert.showAndWait();
-    }
-
     @FXML
     private void goToRegistrationPage(ActionEvent event) {
         try {
@@ -178,5 +163,27 @@ public class LoginController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    // =================================================================================
+    // Alert Handling
+    // =================================================================================
+    private void showStyledAlert(String message, Stage owner) {
+        Alert alert = new Alert(Alert.AlertType.WARNING, message);
+        alert.initOwner(owner);
+        alert.initModality(Modality.APPLICATION_MODAL);
+
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+        dialogPane.getStyleClass().add("error-dialog");
+        dialogPane.setHeaderText(null);
+        dialogPane.setGraphic(null);
+
+        Stage alertStage = (Stage) alert.getDialogPane().getScene().getWindow();
+        alertStage.initStyle(StageStyle.TRANSPARENT);
+        alertStage.getScene().setFill(null);
+        dialogPane.setStyle("-fx-background-color: #f8d7da; -fx-background-radius: 20; -fx-border-radius: 20;");
+
+        alert.showAndWait();
     }
 }

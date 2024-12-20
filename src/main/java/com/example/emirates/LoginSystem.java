@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 class User {
+    // =================================================================================
+    // Fields
+    // =================================================================================
     private String firstName;
     private String lastName;
     private String email;
@@ -14,7 +17,11 @@ class User {
     private String password;
     private String role;
 
-    public User(String firstName, String lastName, String email, String phoneNumber, String zipCode, String address, String username, String password, String role) {
+    // =================================================================================
+    // Constructors
+    // =================================================================================
+    public User(String firstName, String lastName, String email, String phoneNumber, String zipCode, String address,
+            String username, String password, String role) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -34,10 +41,16 @@ class User {
         this.lastName = lastName;
     }
 
+    // =================================================================================
+    // Static Methods
+    // =================================================================================
     public static List<User> loadUsers() {
         return FileManager.loadUsersFromFile("login.txt");
     }
 
+    // =================================================================================
+    // Getters
+    // =================================================================================
     public String getFirstName() {
         return firstName;
     }
@@ -47,17 +60,14 @@ class User {
     }
 
     public String getEmail() {
-
         return email;
     }
 
     public String getPhoneNumber() {
-
         return phoneNumber;
     }
 
     public String getZipCode() {
-
         return zipCode;
     }
 
@@ -77,6 +87,9 @@ class User {
         return role;
     }
 
+    // =================================================================================
+    // Object Methods
+    // =================================================================================
     @Override
     public String toString() {
         return String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s",
@@ -92,15 +105,22 @@ class User {
     }
 }
 
-
 public class LoginSystem {
-
+    // =================================================================================
+    // Static Fields
+    // =================================================================================
     static List<User> users = new ArrayList<>();
 
+    // =================================================================================
+    // Initialization
+    // =================================================================================
     public static void initialize(String filePath) {
         users = FileManager.loadUsersFromFile(filePath);
     }
 
+    // =================================================================================
+    // User Management
+    // =================================================================================
     public static List<User> getUsers() {
         return users;
     }
@@ -109,6 +129,9 @@ public class LoginSystem {
         users = new ArrayList<>(updatedUsers);
     }
 
+    // =================================================================================
+    // Authentication
+    // =================================================================================
     public static boolean isAdmin(String username, String password) {
         return "admin".equals(username) && "aabbcc".equals(password);
     }
@@ -126,4 +149,3 @@ public class LoginSystem {
         return false;
     }
 }
-

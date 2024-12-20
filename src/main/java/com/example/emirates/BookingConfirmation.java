@@ -6,7 +6,9 @@ import java.util.List;
 
 public class BookingConfirmation {
 
+    // Passenger Inner Class
     public static class Passenger {
+        // Instance Variables
         private String name;
         private String seat;
         private String contactMethod;
@@ -14,7 +16,9 @@ public class BookingConfirmation {
         private int adults;
         private int children;
 
-        public Passenger(String name, String seat, String contactMethod, String selectedClass, int adults, int children) {
+        // Constructor
+        public Passenger(String name, String seat, String contactMethod, String selectedClass, int adults,
+                int children) {
             this.name = name;
             this.seat = seat;
             this.contactMethod = contactMethod;
@@ -23,17 +27,39 @@ public class BookingConfirmation {
             this.children = children;
         }
 
-        public String getName() { return name; }
-        public void setName(String name) { this.name = name; }
+        // Getters and Setters
+        public String getName() {
+            return name;
+        }
 
-        public String getSeat() { return seat; }
-        public void setSeat(String seat) { this.seat = seat; }
+        public void setName(String name) {
+            this.name = name;
+        }
 
-        public String getContactMethod() { return contactMethod; }
-        public void setContactMethod(String contactMethod) { this.contactMethod = contactMethod; }
+        public String getSeat() {
+            return seat;
+        }
 
-        public String getFlightClass() { return selectedClass; }
-        public void setFlightClass(String selectedClass) { this.selectedClass = selectedClass; }
+        public void setSeat(String seat) {
+            this.seat = seat;
+        }
+
+        public String getContactMethod() {
+            return contactMethod;
+        }
+
+        public void setContactMethod(String contactMethod) {
+            this.contactMethod = contactMethod;
+        }
+
+        public String getFlightClass() {
+            return selectedClass;
+        }
+
+        public void setFlightClass(String selectedClass) {
+            this.selectedClass = selectedClass;
+        }
+
         public int getAdults() {
             return adults;
         }
@@ -42,6 +68,7 @@ public class BookingConfirmation {
             return children;
         }
 
+        // Display Methods
         public void displayPassengerData() {
             System.out.println("Passenger Data:");
             System.out.println("Name: " + name);
@@ -51,7 +78,9 @@ public class BookingConfirmation {
         }
     }
 
+    // Booking Inner Class
     public static class Booking {
+        // Instance Variables
         final selectFlights.Flights flight;
         final Passenger passenger;
         private final String bookingId;
@@ -60,7 +89,9 @@ public class BookingConfirmation {
         private double updatedPrice;
         private LocalDate departureDate, returnDate;
 
-        public Booking(selectFlights.Flights flight, Passenger passenger, LocalDate departureDate, LocalDate returnDate, double updatedPrice) {
+        // Constructor
+        public Booking(selectFlights.Flights flight, Passenger passenger, LocalDate departureDate, LocalDate returnDate,
+                double updatedPrice) {
             this.flight = flight;
             this.passenger = passenger;
             this.bookingId = generateBookingId();
@@ -71,6 +102,7 @@ public class BookingConfirmation {
             this.updatedPrice = updatedPrice;
         }
 
+        // Getters and Setters
         public selectFlights.Flights getFlight() {
             return flight;
         }
@@ -86,6 +118,7 @@ public class BookingConfirmation {
         public LocalDate getReturnDate() {
             return returnDate;
         }
+
         public double getUpdatedPrice() {
             return updatedPrice;
         }
@@ -94,6 +127,7 @@ public class BookingConfirmation {
             this.updatedPrice = updatedPrice;
         }
 
+        // Utility Methods
         private double parsePrice(String price) {
             try {
                 return Double.parseDouble(price.replace("EGP", "").replace(",", "").trim());
@@ -103,13 +137,13 @@ public class BookingConfirmation {
         }
 
         public static String generateBookingId() {
-            String airlineCode = "EK"; 
+            String airlineCode = "EK";
             String datePart = LocalDate.now().format(DateTimeFormatter.ofPattern("ddMMyyyy"));
             String uniquePart = String.valueOf(System.currentTimeMillis()).substring(5);
-
             return airlineCode + "-" + datePart + "-" + uniquePart;
         }
 
+        // Display Methods
         public void displayBookingData() {
             System.out.println("Booking ID: " + bookingId);
             System.out.println("Status: " + status);
@@ -132,13 +166,15 @@ public class BookingConfirmation {
         }
     }
 
+    // Booking Management Methods
     public Passenger createPassenger(String seat, String selectedClass, int adults, int children) {
         String name = AppContext.getLoggedInFirstName();
         String contactMethod = AppContext.getLoggedInUsername();
         return new Passenger(name, seat, contactMethod, selectedClass, adults, children);
     }
 
-    public Booking createBooking(selectFlights.Flights selectedFlight, Passenger passenger, LocalDate departureDate, LocalDate returnDate, double updatedPrice) {
+    public Booking createBooking(selectFlights.Flights selectedFlight, Passenger passenger,
+            LocalDate departureDate, LocalDate returnDate, double updatedPrice) {
         return new Booking(selectedFlight, passenger, departureDate, returnDate, updatedPrice);
     }
 
@@ -146,17 +182,17 @@ public class BookingConfirmation {
         booking.displayBookingData();
     }
 
-    public void executeConsoleBooking(selectFlights.Flights selectedFlight, List<String> selectedSeats, String selectedClass, LocalDate departureDate, LocalDate returnDate, double updatedPrice, int adults, int children) {
+    public void executeConsoleBooking(selectFlights.Flights selectedFlight, List<String> selectedSeats,
+            String selectedClass, LocalDate departureDate, LocalDate returnDate,
+            double updatedPrice, int adults, int children) {
         if (selectedFlight == null || selectedSeats.isEmpty() || selectedClass == null) {
             System.out.println("Error: Missing booking details.");
             return;
         }
 
         String seatDetails = String.join(", ", selectedSeats);
-
         Passenger passenger = createPassenger(seatDetails, selectedClass, adults, children);
         Booking booking = createBooking(selectedFlight, passenger, departureDate, returnDate, updatedPrice);
-
         displayBookingDetails(booking);
     }
 }

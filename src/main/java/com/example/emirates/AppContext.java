@@ -4,19 +4,22 @@ import java.util.*;
 
 public class AppContext {
 
+    // User Session Data
     private static String loggedInUsername;
     private static String loggedInPassword;
     private static String loggedInFirstName;
     private static String loggedInLastName;
     private static String loggedInEmail;
 
+    // Flight Selection Data
     private static String selectedDestination;
     private static String selectedDeparture;
 
+    // Booking Data
     private static final List<BookingConfirmation.Booking> bookings = new ArrayList<>();
-
     private static Map<String, Set<String>> bookedSeatsMap = new HashMap<>();
 
+    // Seat Management Methods
     public static Map<String, Set<String>> getBookedSeatsMap() {
         return bookedSeatsMap;
     }
@@ -33,12 +36,13 @@ public class AppContext {
         bookedSeatsMap.put(classType, seats);
     }
 
+    // Booking Management Methods
     public static void addBooking(BookingConfirmation.Booking booking) {
         bookings.add(booking);
     }
 
     public static List<BookingConfirmation.Booking> getBookings() {
-        return new ArrayList<>(bookings); 
+        return new ArrayList<>(bookings);
     }
 
     public static boolean hasBookings() {
@@ -49,9 +53,11 @@ public class AppContext {
         bookings.clear();
     }
 
+    // User Session Getters and Setters
     public static String getLoggedInUsername() {
         return loggedInUsername;
     }
+
     public static String getLoggedInEmail() {
         return loggedInEmail;
     }
@@ -64,7 +70,6 @@ public class AppContext {
         loggedInUsername = username;
     }
 
-    
     public static String getLoggedInFirstName() {
         return loggedInFirstName;
     }
@@ -73,28 +78,12 @@ public class AppContext {
         loggedInFirstName = firstName;
     }
 
-    public static String getSelectedDestination() {
-        return selectedDestination;
-    }
-    public static String getSelectedDeparture() {
-        return selectedDeparture;
-    }
-
-    public static void setSelectedDestination(String destination) {
-        selectedDestination = destination;
-    }
-    public static void setSelectedDeparture(String departure) {
-        selectedDeparture = departure;
-    }
-
     public static String getLoggedInPassword() {
         return loggedInPassword;
     }
 
     public static void setLoggedInPassword(String loggedInPassword) {
         AppContext.loggedInPassword = loggedInPassword;
-
-
     }
 
     public static String getLoggedInLastName() {
@@ -103,5 +92,22 @@ public class AppContext {
 
     public static void setLoggedInLastName(String loggedInLastName) {
         AppContext.loggedInLastName = loggedInLastName;
+    }
+
+    // Flight Selection Getters and Setters
+    public static String getSelectedDestination() {
+        return selectedDestination;
+    }
+
+    public static String getSelectedDeparture() {
+        return selectedDeparture;
+    }
+
+    public static void setSelectedDestination(String destination) {
+        selectedDestination = destination;
+    }
+
+    public static void setSelectedDeparture(String departure) {
+        selectedDeparture = departure;
     }
 }

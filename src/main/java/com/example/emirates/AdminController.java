@@ -21,20 +21,23 @@ import java.io.IOException;
 
 public class AdminController {
 
+    // Instance Variables
     private final Admin admin;
     private String loggedInUsername;
+
+    // FXML Injected Fields
     @FXML
     private Button addflightbtn, loginBtnAdmin, iconBtnAdmin, updateBtn, deleteBtn;
     @FXML
     private Label headerlabel;
 
-
+    // Constructor
     public AdminController() {
-        
         this.admin = new Admin("Admin", "User", "admin@example.com", "1234567890", "12345",
                 "Admin Address", "admin", "aabbcc", "admin");
     }
 
+    // Initialization Methods
     @FXML
     public void initialize() {
         configureLoginButton();
@@ -45,35 +48,30 @@ public class AdminController {
         Font customFontLarge = Font.loadFont(getClass().getResourceAsStream("/fonts/Emirates_Medium.ttf"), 60);
         headerlabel.setFont(customFontLarge);
         headerlabel.setStyle("-fx-font-weight: bold;");
-
     }
 
-    public void setLoggedInUsername(String loggedInUsername) {
-        this.loggedInUsername = loggedInUsername;
-    }
-
+    // Navigation Methods
     @FXML
     private void handleAddFlightPage() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("AddFlight.fxml"));
             AnchorPane addFlightPage = loader.load();
             AddFlightController addFlightController = loader.getController();
-
             addFlightController.setLoggedInUsername(loggedInUsername);
 
             Stage stage = (Stage) addflightbtn.getScene().getWindow();
             Scene currentScene = stage.getScene();
 
-            
+            // Fade out transition
             FadeTransition fadeOut = new FadeTransition(Duration.millis(500), currentScene.getRoot());
             fadeOut.setFromValue(1.0);
             fadeOut.setToValue(0.0);
 
             fadeOut.setOnFinished(e -> {
-                
+                // Switch scene
                 currentScene.setRoot(addFlightPage);
 
-                
+                // Fade in transition
                 FadeTransition fadeIn = new FadeTransition(Duration.millis(500), addFlightPage);
                 fadeIn.setFromValue(0.0);
                 fadeIn.setToValue(1.0);
@@ -81,12 +79,10 @@ public class AdminController {
             });
 
             fadeOut.play();
-
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
 
     @FXML
     private void handleUpdateFlight() {
@@ -97,7 +93,7 @@ public class AdminController {
             Stage currentStage = (Stage) updateBtn.getScene().getWindow();
             Scene currentScene = currentStage.getScene();
 
-            
+            // Fade out transition
             FadeTransition fadeOut = new FadeTransition(Duration.millis(500), currentScene.getRoot());
             fadeOut.setFromValue(1.0);
             fadeOut.setToValue(0.0);
@@ -105,7 +101,7 @@ public class AdminController {
             fadeOut.setOnFinished(e -> {
                 currentScene.setRoot(updateFlightPage);
 
-                
+                // Fade in transition
                 FadeTransition fadeIn = new FadeTransition(Duration.millis(500), updateFlightPage);
                 fadeIn.setFromValue(0.0);
                 fadeIn.setToValue(1.0);
@@ -113,13 +109,11 @@ public class AdminController {
             });
 
             fadeOut.play();
-
         } catch (IOException e) {
             e.printStackTrace();
             showAlert("Error", "An error occurred while loading the Update Flight page.", Alert.AlertType.ERROR);
         }
     }
-
 
     @FXML
     private void handleDeleteFlight() {
@@ -130,7 +124,7 @@ public class AdminController {
             Stage currentStage = (Stage) deleteBtn.getScene().getWindow();
             Scene currentScene = currentStage.getScene();
 
-            
+            // Fade out transition
             FadeTransition fadeOut = new FadeTransition(Duration.millis(500), currentScene.getRoot());
             fadeOut.setFromValue(1.0);
             fadeOut.setToValue(0.0);
@@ -138,7 +132,7 @@ public class AdminController {
             fadeOut.setOnFinished(e -> {
                 currentScene.setRoot(deleteFlightPage);
 
-                
+                // Fade in transition
                 FadeTransition fadeIn = new FadeTransition(Duration.millis(500), deleteFlightPage);
                 fadeIn.setFromValue(0.0);
                 fadeIn.setToValue(1.0);
@@ -146,21 +140,48 @@ public class AdminController {
             });
 
             fadeOut.play();
-
         } catch (IOException e) {
             e.printStackTrace();
             showAlert("Error", "An error occurred while loading the Update Flight page.", Alert.AlertType.ERROR);
         }
     }
 
-    private void showAlert(String title, String message, Alert.AlertType type) {
-        Alert alert = new Alert(type);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
+    @FXML
+    private void gotomain() {
+        try {
+            AppContext.setLoggedInUsername(null);
+            AppContext.setLoggedInFirstName(null);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Main.fxml"));
+            AnchorPane mainPage = loader.load();
+            MainController mainController = loader.getController();
+            mainController.setLoggedInUsername(null);
+
+            Stage stage = (Stage) iconBtnAdmin.getScene().getWindow();
+            Scene currentScene = stage.getScene();
+
+            FadeTransition fadeOut = new FadeTransition(Duration.millis(500), currentScene.getRoot());
+            fadeOut.setFromValue(1.0);
+            fadeOut.setToValue(0.0);
+
+            fadeOut.setOnFinished(e -> {
+                currentScene.setRoot(mainPage);
+                Platform.runLater(() -> {
+                    mainController.titleLabel.requestFocus();
+                });
+
+                FadeTransition fadeIn = new FadeTransition(Duration.millis(500), mainPage);
+                fadeIn.setFromValue(0.0);
+                fadeIn.setToValue(1.0);
+                fadeIn.play();
+            });
+
+            fadeOut.play();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
+    // Login/Logout Management Methods
     private void configureLoginButton() {
         loginBtnAdmin.setOnMouseEntered(event -> {
             if (AppContext.getLoggedInUsername() != null) {
@@ -189,42 +210,17 @@ public class AdminController {
         loginBtnAdmin.setMaxWidth(Double.MAX_VALUE);
     }
 
-    @FXML
-    private void gotomain() {
-        try {
-            AppContext.setLoggedInUsername(null);
-            AppContext.setLoggedInFirstName(null);
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("Main.fxml"));
-            AnchorPane mainPage = loader.load();
-            MainController mainController = loader.getController();
+    // Utility Methods
+    private void showAlert(String title, String message, Alert.AlertType type) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
 
-            mainController.setLoggedInUsername(null);
-
-            Stage stage = (Stage) iconBtnAdmin.getScene().getWindow();
-            Scene currentScene = stage.getScene();
-
-            FadeTransition fadeOut = new FadeTransition(Duration.millis(500), currentScene.getRoot());
-            fadeOut.setFromValue(1.0);
-            fadeOut.setToValue(0.0);
-
-            fadeOut.setOnFinished(e -> {
-                currentScene.setRoot(mainPage);
-                Platform.runLater(() -> {
-                    mainController.titleLabel.requestFocus();
-                });
-
-                FadeTransition fadeIn = new FadeTransition(Duration.millis(500), mainPage);
-                fadeIn.setFromValue(0.0);
-                fadeIn.setToValue(1.0);
-                fadeIn.play();
-            });
-
-            fadeOut.play();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-
-        }
+    // Setter Methods
+    public void setLoggedInUsername(String loggedInUsername) {
+        this.loggedInUsername = loggedInUsername;
     }
 }
-

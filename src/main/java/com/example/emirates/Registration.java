@@ -1,13 +1,18 @@
 package com.example.emirates;
 
-
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
 public class Registration {
+    // =================================================================================
+    // Fields
+    // =================================================================================
     private static String phoneNumber;
 
+    // =================================================================================
+    // Main Method
+    // =================================================================================
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
@@ -32,6 +37,9 @@ public class Registration {
         }
     }
 
+    // =================================================================================
+    // Input Validation Methods
+    // =================================================================================
     private static String getValidatedInput(Scanner scanner, String prompt) {
         String input;
         do {
@@ -40,6 +48,7 @@ public class Registration {
         } while (input.isEmpty());
         return input;
     }
+
     private static String getValidatedName(Scanner scanner, String prompt) {
         String name;
         do {
@@ -47,11 +56,6 @@ public class Registration {
             name = scanner.nextLine();
         } while (!isvalidName(name));
         return name;
-    }
-
-    private static boolean isvalidName(String name) {
-        String nameRegex = "^[a-zA-Z]+(?: [a-zA-Z]+)*$";
-        return name.matches(nameRegex);
     }
 
     private static String getValidatedZipcode(Scanner scanner, String prompt) {
@@ -63,11 +67,6 @@ public class Registration {
         return Zipcode;
     }
 
-    private static boolean isvalidZipcode(String Zipcode) {
-        String ZipRegex = "^\\d{4,10}$\n";
-        return Zipcode.matches(ZipRegex);
-    }
-
     private static String getValidatedEmail(Scanner scanner) {
         String email;
         do {
@@ -76,7 +75,49 @@ public class Registration {
             email = scanner.nextLine();
         } while (!isValidEmail(email));
         return email;
+    }
 
+    private static String getValidatedPhoneNumber(Scanner scanner) {
+        String phoneNumber;
+        do {
+            System.out.print(
+                    "Enter phone number (10 digits, only numbers , The phone number should start with the number 1): ");
+            phoneNumber = scanner.nextLine();
+        } while (!isValidPhoneNumber(phoneNumber));
+        return phoneNumber;
+    }
+
+    private static String getValidatedUsername(Scanner scanner) {
+        String username;
+        do {
+            System.out
+                    .print("Enter username (minimum of 6 characters, you can only use alphanumeric and underscores): ");
+            username = scanner.nextLine();
+        } while (!isValidUsername(username));
+        return username;
+    }
+
+    private static String getValidatedPassword(Scanner scanner) {
+        String password;
+        do {
+            System.out.print(
+                    "Enter password (Preferably minimum 8 characters, containing at least one uppercase, one lowercase, one number, and one special character): ");
+            password = scanner.nextLine();
+        } while (!isValidPassword(password));
+        return password;
+    }
+
+    // =================================================================================
+    // Validation Helper Methods
+    // =================================================================================
+    private static boolean isvalidName(String name) {
+        String nameRegex = "^[a-zA-Z]+(?: [a-zA-Z]+)*$";
+        return name.matches(nameRegex);
+    }
+
+    private static boolean isvalidZipcode(String Zipcode) {
+        String ZipRegex = "^\\d{4,10}$\n";
+        return Zipcode.matches(ZipRegex);
     }
 
     private static boolean isValidEmail(String email) {
@@ -84,39 +125,12 @@ public class Registration {
         return email.matches(emailRegex);
     }
 
-    private static String getValidatedPhoneNumber(Scanner scanner) {
-        String phoneNumber;
-        do {
-            System.out.print("Enter phone number (10 digits, only numbers , The phone number should start with the number 1): ");
-            phoneNumber = scanner.nextLine();
-        } while (!isValidPhoneNumber(phoneNumber));
-        return phoneNumber;
-    }
-
     private static boolean isValidPhoneNumber(String phoneNumber) {
         return phoneNumber.matches("^\\+20\\d{10}$");
     }
 
-    private static String getValidatedUsername(Scanner scanner) {
-        String username;
-        do {
-            System.out.print("Enter username (minimum of 6 characters, you can only use alphanumeric and underscores): ");
-            username = scanner.nextLine();
-        } while (!isValidUsername(username));
-        return username;
-    }
-
     private static boolean isValidUsername(String username) {
         return username.length() >= 6 && username.matches("^[a-zA-Z0-9_]+$");
-    }
-
-    private static String getValidatedPassword(Scanner scanner) {
-        String password;
-        do {
-            System.out.print("Enter password (Preferably minimum 8 characters, containing at least one uppercase, one lowercase, one number, and one special character): ");
-            password = scanner.nextLine();
-        } while (!isValidPassword(password));
-        return password;
     }
 
     private static boolean isValidPassword(String password) {
@@ -124,9 +138,6 @@ public class Registration {
                 password.matches(".*[a-z].*") &&
                 password.matches(".*[A-Z].*") &&
                 password.matches(".*[0-9].*") &&
-        password.matches(".*[!@#$%^&*()_+].*");
-    }}
-
-
-
-
+                password.matches(".*[!@#$%^&*()_+].*");
+    }
+}

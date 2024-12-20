@@ -3,6 +3,9 @@ package com.example.emirates;
 public class selectFlights {
 
     public static class Flights {
+        // =================================================================================
+        // Instance Variables
+        // =================================================================================
         private String flightNo;
         String departureTime;
         String arrivalTime;
@@ -13,8 +16,12 @@ public class selectFlights {
         String aircraftDetails;
         String price;
 
+        // =================================================================================
+        // Constructor
+        // =================================================================================
         public Flights(String flightNo, String departureTime, String arrivalTime,
-                       String departureCity, String arrivalCity, String duration, String stops, String aircraftDetails, String price) {
+                String departureCity, String arrivalCity, String duration,
+                String stops, String aircraftDetails, String price) {
             this.flightNo = flightNo;
             this.departureTime = departureTime;
             this.departureCity = departureCity;
@@ -26,7 +33,9 @@ public class selectFlights {
             this.price = price;
         }
 
-        
+        // =================================================================================
+        // Getter Methods
+        // =================================================================================
         public String getFlightNo() {
             return flightNo;
         }
@@ -63,6 +72,9 @@ public class selectFlights {
             return price;
         }
 
+        // =================================================================================
+        // City Code Extraction Methods
+        // =================================================================================
         public String extractDepartureCode() {
             return extractCode(departureCity);
         }
@@ -81,6 +93,9 @@ public class selectFlights {
             return "";
         }
 
+        // =================================================================================
+        // Object Methods
+        // =================================================================================
         @Override
         public String toString() {
             return String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s",

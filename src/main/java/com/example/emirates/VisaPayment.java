@@ -1,10 +1,17 @@
 package com.example.emirates;
 
 public class VisaPayment extends Payment {
+
+    // =================================================================================
+    // Instance Variables
+    // =================================================================================
     private String cardNumber;
     private String expiryDate;
     private String cvv;
 
+    // =================================================================================
+    // Constructor
+    // =================================================================================
     public VisaPayment(String cardNumber, String expiryDate, String cvv) {
         super("Visa");
         this.cardNumber = cardNumber;
@@ -12,9 +19,11 @@ public class VisaPayment extends Payment {
         this.cvv = cvv;
     }
 
+    // =================================================================================
+    // Payment Processing Methods
+    // =================================================================================
     @Override
     public boolean processPayment(double amount) {
-
         if (!isValidCardNumber(cardNumber)) {
             System.out.println("Invalid card number.");
             return false;
@@ -36,13 +45,15 @@ public class VisaPayment extends Payment {
         return amount - cancellationFee;
     }
 
+    // =================================================================================
+    // Validation Methods
+    // =================================================================================
     private boolean isValidCardNumber(String cardNumber) {
-
         String cardRegex = "^(?:4[0-9]{12}(?:[0-9]{3})?" + // Visa
-                "|5[1-5][0-9]{14}" +                       // MasterCard
-                "|3[47][0-9]{13}" +                        // American Express
-                "|6(?:011|5[0-9]{2})[0-9]{12}" +           // Discover
-                "|(?:2131|1800|35\\d{3})\\d{11})$";        // JCB
+                "|5[1-5][0-9]{14}" + // MasterCard
+                "|3[47][0-9]{13}" + // American Express
+                "|6(?:011|5[0-9]{2})[0-9]{12}" + // Discover
+                "|(?:2131|1800|35\\d{3})\\d{11})$"; // JCB
         return cardNumber != null && cardNumber.matches(cardRegex);
     }
 }

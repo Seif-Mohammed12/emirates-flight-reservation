@@ -9,17 +9,20 @@ import java.util.List;
 
 public class Admin extends User {
 
-    public Admin(String firstName, String lastName, String email, String phoneNumber, String zipCode, String address, String username, String password, String role) {
-        super(firstName, lastName, email, phoneNumber, zipCode, address, username, password, role);
-    }
-
+    // Constants
     private static final String FLIGHTS_CSV_PATH = "flights.csv";
     private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("hh:mm a");
 
-    // Add flight
+    // Constructor
+    public Admin(String firstName, String lastName, String email, String phoneNumber, String zipCode, String address,
+            String username, String password, String role) {
+        super(firstName, lastName, email, phoneNumber, zipCode, address, username, password, role);
+    }
+
+    // Flight Management Methods
     public static void addFlight(String flightNo, String departureCity, String departureAirportCode,
-                                 String arrivalCity, String arrivalAirportCode, String departureTime,
-                                 String arrivalTime, String duration, String aircraftDetails, String price) throws IOException {
+            String arrivalCity, String arrivalAirportCode, String departureTime,
+            String arrivalTime, String duration, String aircraftDetails, String price) throws IOException {
         String formattedFlightNo = flightNo.toUpperCase(); // bey5aly el airport code dayman kolo capital
         String formattedDepartureCity = formatCityAndCode(departureCity, departureAirportCode);
         String formattedArrivalCity = formatCityAndCode(arrivalCity, arrivalAirportCode);
@@ -38,17 +41,15 @@ public class Admin extends User {
                 duration,
                 stops,
                 shortenedAircraft,
-                formattedPrice
-        );
+                formattedPrice);
 
         FileManager.writeFile(FLIGHTS_CSV_PATH, List.of(flightDetails), true);
         System.out.println("Flight added successfully: " + flightDetails);
     }
 
-    // Update flight
     public static void updateFlight(String flightNo, String departureCity, String departureAirportCode,
-                                    String arrivalCity, String arrivalAirportCode, String departureTime,
-                                    String arrivalTime, String duration, String aircraftDetails, String price) throws IOException {
+            String arrivalCity, String arrivalAirportCode, String departureTime,
+            String arrivalTime, String duration, String aircraftDetails, String price) throws IOException {
         List<selectFlights.Flights> flights = FileManager.loadFlightsFromCSV(FLIGHTS_CSV_PATH, false, null);
         boolean flightFound = false;
 
@@ -69,8 +70,7 @@ public class Admin extends User {
                         duration,
                         "Non-stop", // Assuming flights are always non-stop
                         shortenAircraftName(aircraftDetails),
-                        formatPrice(price)
-                ));
+                        formatPrice(price)));
                 break;
             }
         }
@@ -95,7 +95,6 @@ public class Admin extends User {
         }
     }
 
-    //method lawahdaha 3lshan cleaner
     private static void saveFlightsToCSV(List<selectFlights.Flights> flights) throws IOException {
         List<String> updatedLines = new ArrayList<>();
         for (selectFlights.Flights flight : flights) {
@@ -104,7 +103,7 @@ public class Admin extends User {
         FileManager.writeFile(FLIGHTS_CSV_PATH, updatedLines, false);
     }
 
-    // bey5aly el price double we beysheel el egp el fel awl 3lshan yet2ry s7
+    // Formatting Methods
     static String formatPrice(String price) {
         try {
             if (price.startsWith("EGP ")) {
@@ -119,7 +118,6 @@ public class Admin extends User {
         }
     }
 
-    // bey3ml format lel time eno yb2a 12hr we am/pm we kda
     static String formatTime(String time) {
         try {
             if (time.matches("(0[1-9]|1[0-2]):[0-5]\\d\\s?(AM|PM|am|pm)")) {
@@ -133,7 +131,6 @@ public class Admin extends User {
         }
     }
 
-    // beyfsl el city 3an el code bta3ha ex: dubai ... (dxb)
     private static String formatCityAndCode(String city, String code) {
         if (city.matches(".*\\(.*\\).*")) {
             return city;
@@ -141,7 +138,6 @@ public class Admin extends User {
         return capitalizeFirstLetter(city) + " (" + code.toUpperCase() + ")";
     }
 
-    // self explanatory
     private static String capitalizeFirstLetter(String input) {
         if (input == null || input.isEmpty()) {
             return input;
@@ -149,7 +145,6 @@ public class Admin extends User {
         return input.substring(0, 1).toUpperCase() + input.substring(1).toLowerCase();
     }
 
-    // brdo self explanatory
     private static String shortenAircraftName(String aircraftDetails) {
         return switch (aircraftDetails) {
             case "A380-800" -> "A380";
@@ -158,7 +153,7 @@ public class Admin extends User {
         };
     }
 
-    // by3ml combine lel city m3 el code bta3ha on save bel index (city heya 0 hence fel awl wel code 1 etc)
+    // Parsing Methods
     public static String parseCity(String combined) {
         int startIdx = combined.indexOf('(');
         if (startIdx != -1) {
@@ -176,7 +171,6 @@ public class Admin extends User {
         return "";
     }
 
-    // beyt2kd en el egp etshalet
     static String stripCurrencySymbol(String price) {
         if (price.startsWith("EGP ")) {
             return price.substring(4).trim();

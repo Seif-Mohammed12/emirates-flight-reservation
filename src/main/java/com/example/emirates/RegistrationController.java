@@ -76,7 +76,8 @@ public class RegistrationController {
 
         if (isValidUserData(firstName, lastName, email, phoneNumber, zipCode, address, username, password)) {
             String role = "user";
-            User newUser = new User(firstName, lastName, email, phoneNumber, zipCode, address, username, password, role);
+            User newUser = new User(firstName, lastName, email, phoneNumber, zipCode, address, username, password,
+                    role);
 
             try {
                 List<String> usersData = new ArrayList<>();
@@ -84,28 +85,33 @@ public class RegistrationController {
                 FileManager.writeFile("login.txt", usersData, true);
 
                 showSuccessAlert("Congratulations! ✈ \n" + "\n" +
-                        "Welcome aboard the Emirates experience! Your registration was successful. You can now log in to explore our world-class flights, manage your bookings, and embark on unforgettable journeys.\n" +
+                        "Welcome aboard the Emirates experience! Your registration was successful. You can now log in to explore our world-class flights, manage your bookings, and embark on unforgettable journeys.\n"
+                        +
                         "\n" +
-                        "We’re excited to have you as part of the Emirates family. \uD83C\uDF0D", (Stage) usernameField.getScene().getWindow());
+                        "We're excited to have you as part of the Emirates family. \uD83C\uDF0D",
+                        (Stage) usernameField.getScene().getWindow());
             } catch (IOException e) {
-                showErrorAlert("There was an error writing to the file: " + e.getMessage(), (Stage) usernameField.getScene().getWindow());
+                showErrorAlert("There was an error writing to the file: " + e.getMessage(),
+                        (Stage) usernameField.getScene().getWindow());
             }
 
             goBackToLogin(event);
         }
     }
 
-    private boolean isValidUserData(String firstName, String lastName, String email, String phoneNumber, String zipCode, String address, String username, String password) {
-        if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || phoneNumber.isEmpty() || zipCode.isEmpty() || address.isEmpty() || username.isEmpty() || password.isEmpty()) {
+    private boolean isValidUserData(String firstName, String lastName, String email, String phoneNumber, String zipCode,
+            String address, String username, String password) {
+        if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || phoneNumber.isEmpty() || zipCode.isEmpty()
+                || address.isEmpty() || username.isEmpty() || password.isEmpty()) {
             showErrorAlert("All fields must be filled.", (Stage) usernameField.getScene().getWindow());
             return false;
         }
 
-        if(!isvalidName(firstName)) {
+        if (!isvalidName(firstName)) {
             showErrorAlert(firstName + " is an invalid first name.", (Stage) usernameField.getScene().getWindow());
             return false;
         }
-        if(!isvalidName(lastName)) {
+        if (!isvalidName(lastName)) {
             showErrorAlert(lastName + " is an invalid last name.", (Stage) usernameField.getScene().getWindow());
             return false;
         }
@@ -116,22 +122,27 @@ public class RegistrationController {
         }
 
         if (!isValidPhoneNumber(phoneNumber)) {
-            showErrorAlert("Phone number should start with +20 and be 10 digits.", (Stage) usernameField.getScene().getWindow());
+            showErrorAlert("Phone number should start with +20 and be 10 digits.",
+                    (Stage) usernameField.getScene().getWindow());
             return false;
         }
 
-        if(!isvalidZipcode(zipCode)) {
+        if (!isvalidZipcode(zipCode)) {
             showErrorAlert("Please enter a valid zip code.", (Stage) usernameField.getScene().getWindow());
             return false;
         }
 
         if (!isValidUsername(username)) {
-            showErrorAlert("Username must be at least 6 characters and can only contain letters, numbers, and underscores.", (Stage) usernameField.getScene().getWindow());
+            showErrorAlert(
+                    "Username must be at least 6 characters and can only contain letters, numbers, and underscores.",
+                    (Stage) usernameField.getScene().getWindow());
             return false;
         }
 
         if (!isValidPassword(password)) {
-            showErrorAlert("Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character.", (Stage) usernameField.getScene().getWindow());
+            showErrorAlert(
+                    "Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character.",
+                    (Stage) usernameField.getScene().getWindow());
             return false;
         }
 
@@ -167,6 +178,34 @@ public class RegistrationController {
     private static boolean isvalidZipcode(String Zipcode) {
         String ZipRegex = "^\\d{4,10}$";
         return Zipcode.matches(ZipRegex);
+    }
+
+    @FXML
+    private void goBackToLogin(ActionEvent event) {
+        try {
+            Parent loginPage = FXMLLoader.load(getClass().getResource("LoginPage.fxml"));
+
+            Stage stage = (Stage) usernameField.getScene().getWindow();
+            Scene currentScene = stage.getScene();
+
+            FadeTransition fadeOut = new FadeTransition(Duration.millis(500), currentScene.getRoot());
+            fadeOut.setFromValue(1.0);
+            fadeOut.setToValue(0.0);
+
+            fadeOut.setOnFinished(e -> {
+                currentScene.setRoot(loginPage);
+
+                FadeTransition fadeIn = new FadeTransition(Duration.millis(500), loginPage);
+                fadeIn.setFromValue(0.0);
+                fadeIn.setToValue(1.0);
+                fadeIn.play();
+            });
+
+            fadeOut.play();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void showSuccessAlert(String message, Stage owner) {
@@ -206,7 +245,6 @@ public class RegistrationController {
         alert.showAndWait();
     }
 
-
     private void showErrorAlert(String message, Stage owner) {
         Alert alert = new Alert(Alert.AlertType.WARNING, message);
         alert.initOwner(owner);
@@ -231,33 +269,5 @@ public class RegistrationController {
         alertStage.getScene().setFill(null);
 
         alert.showAndWait();
-    }
-
-    @FXML
-    private void goBackToLogin(ActionEvent event) {
-        try {
-            Parent loginPage = FXMLLoader.load(getClass().getResource("LoginPage.fxml"));
-
-            Stage stage = (Stage) usernameField.getScene().getWindow();
-            Scene currentScene = stage.getScene();
-
-            FadeTransition fadeOut = new FadeTransition(Duration.millis(500), currentScene.getRoot());
-            fadeOut.setFromValue(1.0);
-            fadeOut.setToValue(0.0);
-
-            fadeOut.setOnFinished(e -> {
-                currentScene.setRoot(loginPage);
-
-                FadeTransition fadeIn = new FadeTransition(Duration.millis(500), loginPage);
-                fadeIn.setFromValue(0.0);
-                fadeIn.setToValue(1.0);
-                fadeIn.play();
-            });
-
-            fadeOut.play();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }

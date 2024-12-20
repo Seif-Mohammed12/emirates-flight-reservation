@@ -26,17 +26,9 @@ import java.util.stream.Collectors;
 
 public class SeatSelectionController {
 
-    private String selectedClass;
-    private String selectedDestination;
-    private String selectedDeparture;
-    private int adults;
-    private int children;
-    private String loggedInUsername;
-    private selectFlights.Flights selectedFlight;
-    private String updatedPrice;
-    private LocalDate departureDate;
-    private LocalDate returnDate;
-
+    // =================================================================================
+    // FXML Fields
+    // =================================================================================
     @FXML
     private GridPane economyGrid, businessGrid, firstGrid;
     @FXML
@@ -52,8 +44,24 @@ public class SeatSelectionController {
     @FXML
     private Button iconBtnSeat;
 
+    // =================================================================================
+    // Instance Variables
+    // =================================================================================
+    private String selectedClass;
+    private String selectedDestination;
+    private String selectedDeparture;
+    private int adults;
+    private int children;
+    private String loggedInUsername;
+    private selectFlights.Flights selectedFlight;
+    private String updatedPrice;
+    private LocalDate departureDate;
+    private LocalDate returnDate;
     private final SeatSelection seatSelection = new SeatSelection();
 
+    // =================================================================================
+    // Initialization Methods
+    // =================================================================================
     public void initialize() {
         Font customFontSmall = Font.loadFont(getClass().getResourceAsStream("/fonts/Emirates_Medium.ttf"), 36);
         titleLabel.setFont(customFontSmall);
@@ -75,11 +83,14 @@ public class SeatSelectionController {
 
         updateLoginButton();
         if (selectedClass == null) {
-            selectedClass = "Economy"; 
+            selectedClass = "Economy";
         }
         displaySelectedClassGrid();
     }
 
+    // =================================================================================
+    // Setters
+    // =================================================================================
     public void setSelectedClass(String classType) {
         this.selectedClass = classType;
         displaySelectedClassGrid();
@@ -103,13 +114,6 @@ public class SeatSelectionController {
         updateTotalPassengers();
     }
 
-    private void updateTotalPassengers() {
-        int totalPassengers = this.adults + this.children;
-        seatSelection.setTotalPassengers(totalPassengers);
-    }
-
-
-
     public void setLoggedInUsername(String username) {
         this.loggedInUsername = username;
     }
@@ -117,15 +121,25 @@ public class SeatSelectionController {
     public void setSelectedFlight(selectFlights.Flights flight) {
         this.selectedFlight = flight;
     }
+
     public void setUpdatedPrice(String price) {
         this.updatedPrice = price;
     }
+
     public void setDepartureDate(LocalDate departureDate) {
         this.departureDate = departureDate;
     }
 
     public void setReturnDate(LocalDate returnDate) {
         this.returnDate = returnDate;
+    }
+
+    // =================================================================================
+    // Seat Management Methods
+    // =================================================================================
+    private void updateTotalPassengers() {
+        int totalPassengers = this.adults + this.children;
+        seatSelection.setTotalPassengers(totalPassengers);
     }
 
     public List<ToggleButton> getSelectedSeats() {
@@ -152,6 +166,9 @@ public class SeatSelectionController {
         seatSelection.resetSelectedSeats();
     }
 
+    // =================================================================================
+    // UI Update Methods
+    // =================================================================================
     private void updateLoginButton() {
         String loggedInFirstName = AppContext.getLoggedInFirstName();
 
@@ -162,9 +179,12 @@ public class SeatSelectionController {
         }
     }
 
+    // =================================================================================
+    // Navigation Methods
+    // =================================================================================
     @FXML
     private void handleBackButton(ActionEvent event) {
-        
+
         Pane overlay = new Pane();
         overlay.setStyle("-fx-background-color: rgba(0, 0, 0, 0.5);");
         overlay.setPrefSize(backButton.getScene().getWidth(), backButton.getScene().getHeight());
@@ -183,17 +203,14 @@ public class SeatSelectionController {
             throw new IllegalStateException("Root is not a Pane. Cannot add overlay.");
         }
 
-        
         overlay.setVisible(true);
 
-        
         Task<Parent> loadTask = new Task<>() {
             @Override
             protected Parent call() throws IOException {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("Flights.fxml"));
                 Parent flightsLayout = loader.load();
 
-                
                 FlightsController flightsController = loader.getController();
                 flightsController.setLoggedInUsername(loggedInUsername);
                 flightsController.setSelectedClass(selectedClass);
@@ -207,7 +224,6 @@ public class SeatSelectionController {
             }
         };
 
-        
         loadTask.setOnSucceeded(workerStateEvent -> {
             Parent flightsLayout = loadTask.getValue();
             Stage stage = (Stage) backButton.getScene().getWindow();
@@ -228,32 +244,26 @@ public class SeatSelectionController {
 
             fadeOut.play();
 
-            
             overlay.setVisible(false);
-            ((Pane) currentRoot).getChildren().remove(overlay); 
+            ((Pane) currentRoot).getChildren().remove(overlay);
         });
 
-        
         loadTask.setOnFailed(workerStateEvent -> {
             Throwable error = loadTask.getException();
             error.printStackTrace();
 
-            
             overlay.setVisible(false);
-            ((Pane) currentRoot).getChildren().remove(overlay); 
+            ((Pane) currentRoot).getChildren().remove(overlay);
         });
 
-        
         Thread loadThread = new Thread(loadTask);
-        loadThread.setDaemon(true); 
+        loadThread.setDaemon(true);
         loadThread.start();
     }
 
-
-
     @FXML
     private void handlegotoBooking(ActionEvent event) {
-        
+
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene currentScene = currentStage.getScene();
 
@@ -291,9 +301,12 @@ public class SeatSelectionController {
 
                 String passengerName = AppContext.getLoggedInFirstName() + " " + AppContext.getLoggedInLastName();
                 String contactMethod = AppContext.getLoggedInEmail();
-                BookingConfirmation.Passenger passenger = new BookingConfirmation.Passenger(passengerName, seatDetails, contactMethod, selectedClass, adults, children);
+                BookingConfirmation.Passenger passenger = new BookingConfirmation.Passenger(passengerName, seatDetails,
+                        contactMethod, selectedClass, adults, children);
 
-                bookingConfirmationController.setBookingDetails(selectedFlight, passenger, seatDetails, selectedClass, updatedPrice, departureDate, returnDate, adults, children, selectedDestination, selectedDeparture);
+                bookingConfirmationController.setBookingDetails(selectedFlight, passenger, seatDetails, selectedClass,
+                        updatedPrice, departureDate, returnDate, adults, children, selectedDestination,
+                        selectedDeparture);
                 bookingConfirmationController.setLoggedInUsername(AppContext.getLoggedInUsername());
                 return bookingConfirmationLayout;
             }
@@ -302,7 +315,6 @@ public class SeatSelectionController {
         loadBookingConfirmationTask.setOnSucceeded(workerStateEvent -> {
             Parent bookingConfirmationLayout = loadBookingConfirmationTask.getValue();
 
-            
             FadeTransition fadeOut = new FadeTransition(Duration.millis(500), currentScene.getRoot());
             fadeOut.setFromValue(1.0);
             fadeOut.setToValue(0.0);
@@ -318,18 +330,15 @@ public class SeatSelectionController {
 
             fadeOut.play();
 
-            
             ((Pane) currentScene.getRoot()).getChildren().remove(overlayPane);
         });
 
         loadBookingConfirmationTask.setOnFailed(workerStateEvent -> {
             Throwable error = loadBookingConfirmationTask.getException();
-            error.printStackTrace(); 
+            error.printStackTrace();
 
-            
             showStyledAlert("Error", "Unable to proceed to booking confirmation. " + error.getMessage(), currentStage);
 
-            
             ((Pane) currentScene.getRoot()).getChildren().remove(overlayPane);
         });
 
@@ -337,24 +346,6 @@ public class SeatSelectionController {
         loadThread.setDaemon(true);
         loadThread.start();
     }
-
-
-    private void showStyledAlert(String title, String message, Stage owner) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-
-        DialogPane dialogPane = alert.getDialogPane();
-        dialogPane.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-        dialogPane.getStyleClass().add("error-dialog");
-
-        alert.initOwner(owner);
-        alert.showAndWait();
-    }
-
-
-
 
     @FXML
     private void goToMain() {
@@ -392,5 +383,21 @@ public class SeatSelectionController {
 
         }
     }
-}
 
+    // =================================================================================
+    // Alert Methods
+    // =================================================================================
+    private void showStyledAlert(String title, String message, Stage owner) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+        dialogPane.getStyleClass().add("error-dialog");
+
+        alert.initOwner(owner);
+        alert.showAndWait();
+    }
+}

@@ -21,6 +21,7 @@ import java.io.IOException;
 
 public class AboutController {
 
+    // FXML Injected Fields
     @FXML
     private AnchorPane aboutContainer;
     @FXML
@@ -28,6 +29,7 @@ public class AboutController {
     @FXML
     private Label label1, label2, label3, label4, label5, label6, label7;
 
+    // Initialization Methods
     @FXML
     public void initialize() {
         Font customFontLarge = Font.loadFont(getClass().getResourceAsStream("/fonts/Emirates_Medium.ttf"), 50);
@@ -40,6 +42,7 @@ public class AboutController {
         label7.setFont(customFontLarge);
     }
 
+    // Navigation Methods
     @FXML
     private void goToMain() {
         try {
@@ -76,6 +79,8 @@ public class AboutController {
             showErrorDialog("Error", "There was an issue loading the main view.");
         }
     }
+
+    // Utility Methods
     private void showErrorDialog(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
